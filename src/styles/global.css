@@ -535,11 +535,13 @@ a.btn-red:hover { color: #fff; text-decoration: none; }
 @media (max-width: 63.9375rem) { .entry-card.has-thumb .entry-thumb { max-width: 32rem; margin: 1rem auto 0; } }
 /* Personality (designer, 261009): (1) the logo spiral turns while pointed at, finishing its turn when the pointer leaves; (2) a small spiral closes every page; (4) lists in running text get red dots */
 /* The spiral turns while pointed at (or focused) and stops at once, holding its angle, when the pointer leaves; it picks up from there next time (designer, 261009). Pointer devices only, never for reduced motion. */
+/* DISABLED 261009 at the designer's word (to bring it back, remove the comment marks around the block below):
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .brand-logo { animation: logo-spin 3s linear infinite; animation-play-state: paused; }
   .brand:hover .brand-logo, .brand:focus-visible .brand-logo { animation-play-state: running; }
 }
 @keyframes logo-spin { to { transform: rotate(-360deg); } }
+*/
 .footer-spiral { display: block; width: 28px; height: auto; margin: 0 auto .75rem; }
 .prose ul:not(.entries):not(.post-list):not(.cats), .acc-body ul { list-style: none; padding-left: 0; }
 .prose ul:not(.entries):not(.post-list):not(.cats) > li, .acc-body ul > li { position: relative; padding-left: 1.25rem; }
