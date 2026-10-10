@@ -569,3 +569,5 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 @media (min-width: 64rem) {
   .entry-card.sched.has-thumb { grid-template-areas: "thumb title" "thumb dates" "thumb loc" "thumb meta" "thumb desc" "thumb more"; }
 }
+/* phones and tablets (below 1024px): 30px above and below each entry on the Workshops, Events and Lectures lists (designer, 261009) */
+@media (max-width: 63.9375rem) { .entries > .entry-card.sched, .entries.lectures > .entry-card { padding-block: 30px; } }
