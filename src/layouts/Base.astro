@@ -117,7 +117,7 @@ const menu = [
     <main id="content" class:list={[wide && 'wide', bare && 'bare']}>
       <slot />
     </main>
-    <footer class="site-footer"><img class="footer-spiral" src="/images/spiral-logo.png" width="28" height="29" alt="" /><p>©2026 Giovanni Fusetti</p></footer>
+    {!bare && <footer class="site-footer"><img class="footer-spiral" src="/images/spiral-logo.png" width="28" height="29" alt="" /><p>©2026 Giovanni Fusetti</p></footer>}
     <script is:inline>
       // Height of the header (nothing sits above it), so the home photo can fill the rest of the screen. Its own height, not its position: on the home page the header stays fixed while scrolling, and the browser can restore a scrolled position on reload.
       (function () {
