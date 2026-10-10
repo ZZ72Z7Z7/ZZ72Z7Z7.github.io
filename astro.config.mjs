@@ -25,6 +25,8 @@ export default defineConfig({
   site,
   trailingSlash: 'always',
   build: { format: 'directory' },
+  // docs/ (the copy GitHub Pages serves) and dist/ are build output: keep the dev server from watching them
+  vite: { server: { watch: { ignored: ['**/docs/**', '**/dist/**', '**/archive/**'] } } },
   integrations: [
     designPages,
     sitemap({

@@ -2,9 +2,11 @@
 title: "Lectures"
 ---
 
-<div class="narrow">
+<div class="narrow narrow-center">
 
-Giovanni Fusetti is available to perform a series of lectures-demonstrations on movement theatre and theatre pedagogy. They are available in English and in Italian. You can click on each picture to view more details.
+I offer a series of lectures/demonstrations on movement theatre and theatre pedagogy, performed in either English or Italian.
+
+For inquiries and bookings please use the [contact form](/contact/).
 
 </div>
 
@@ -20,8 +22,6 @@ Giovanni Fusetti is available to perform a series of lectures-demonstrations on 
 </ul>
 
 <div class="narrow">
-
-For inquiries and bookings please contact [**giovanni.fusetti@helikos.com**](mailto:giovanni.fusetti@helikos.com)
 
 <div class="p3">
 

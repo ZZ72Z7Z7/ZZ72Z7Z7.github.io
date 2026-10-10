@@ -3,9 +3,11 @@ title: "Conferenze"
 translation: "draft"
 ---
 
-<div class="narrow">
+<div class="narrow narrow-center">
 
-Giovanni Fusetti è disponibile a tenere una serie di conferenze-dimostrazioni sul teatro di movimento e sulla pedagogia teatrale, in inglese e in italiano. Potete cliccare su ogni immagine per vedere più dettagli.
+Offro una serie di conferenze-dimostrazioni sul teatro di movimento e sulla pedagogia teatrale, in inglese o in italiano.
+
+Per informazioni e prenotazioni usate il [modulo di contatto](/it/contact/).
 
 </div>
 
@@ -21,8 +23,6 @@ Giovanni Fusetti è disponibile a tenere una serie di conferenze-dimostrazioni s
 </ul>
 
 <div class="narrow">
-
-Per informazioni e prenotazioni scrivete a [**giovanni.fusetti@helikos.com**](mailto:giovanni.fusetti@helikos.com)
 
 <div class="p3">
 

@@ -489,6 +489,7 @@ input::placeholder, textarea::placeholder { color: #767676; opacity: 1; } /* fai
 .entries.compact > .entry-card { padding-block: 24px; }
 .entries.compact .entry-sub { margin-top: .25rem; }
 .narrow { max-width: var(--measure); margin-inline: 0; }
+.narrow-center { margin-inline: auto; text-align: center; }
 .narrow > h2:first-child { margin-top: 0; }
 .entry-thumb-link { display: block; grid-area: thumb; }
 .entry-card.has-thumb .entry-thumb-link { margin: 1rem 0 0; }
@@ -504,9 +505,13 @@ input::placeholder, textarea::placeholder { color: #767676; opacity: 1; } /* fai
 .prose h2 > img.flag { display: inline; height: .7em; width: auto; margin: 0 .5em 0 0; vertical-align: baseline; }
 /* Lectures: every picture the same height (the height of the Tao of Laughter picture, 18rem), in a fixed-width picture column so the text lines up */
 .entries.lectures .entry-thumb { height: 18rem; width: auto; max-width: 100%; margin-inline: auto; } /* narrow pictures are centred in their column */
+/* phones and tablets: title, tagline, Details, then the picture */
+@media (max-width: 63.9375rem) { .entries.lectures > .entry-card.has-thumb { grid-template-areas: "title" "desc" "more" "thumb"; } }
 @media (min-width: 64rem) {
   .entries.lectures > .entry-card.has-thumb { grid-template-columns: 24rem 1fr; }
   .entries.lectures .entry-thumb-link { width: 24rem; }
+  /* the text block (title, tagline, Details) is centred vertically beside the picture: an empty flexible row above and below */
+  .entries.lectures > .entry-card.has-thumb { grid-template-areas: "thumb ." "thumb dates" "thumb loc" "thumb title" "thumb meta" "thumb desc" "thumb more" "thumb ."; grid-template-rows: 1fr auto auto auto auto auto auto 1fr; }
 }
 /* Shows (261009): entries in the Workshops style; the whole text of a show sits in .entry-body */
 .entry-card .entry-body { grid-area: desc; margin-top: .75rem; }
