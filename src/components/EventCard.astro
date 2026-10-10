@@ -17,7 +17,7 @@ const when = d.end && d.end.getTime() !== d.start.getTime() ? formatRange(d.star
 const time = formatTime(d.time, lang);
 const place = [cityName(d.city, lang), d.country].filter(Boolean).join(', ');
 ---
-<li class:list={['entry-card', d.image && 'has-thumb']}>
+<li class:list={['entry-card sched', d.image && 'has-thumb']}>
   <div class="entry-left">
     <p class="entry-dates">{when}{time && ` · ${time}`}</p>
     {(place || d.venue) && <p class="entry-place">{[place, d.venue].filter(Boolean).join(' · ')}</p>}

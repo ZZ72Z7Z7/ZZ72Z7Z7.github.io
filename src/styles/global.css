@@ -579,3 +579,12 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 /* The mailing-list link in the empty states is a red button like the form buttons (designer, 261009) */
 .empty-list a { display: inline-block; margin-top: .5rem; padding: .6rem 1.2rem; background: var(--red-text); border: 1px solid var(--red-text); color: #fff; font-style: normal; font-weight: 600; text-decoration: none; }
 .empty-list a:hover, .empty-list a:focus-visible { background: #8a0000; border-color: #8a0000; color: #fff; }
+
+/* Workshops and Events lists (designer, 261009): the text reads Title, Dates, Location, (teacher line), Tagline, Details. On phones and tablets the picture comes last, as on Lectures. */
+.entry-card.sched { grid-template-areas: "title" "dates" "loc" "meta" "desc" "more"; }
+.entry-card.sched.has-thumb { grid-template-areas: "title" "dates" "loc" "meta" "desc" "more" "thumb"; }
+.entry-card.sched .entry-title { margin-top: 0; }
+.entry-card.sched .entry-dates { margin-top: .25rem; }
+@media (min-width: 64rem) {
+  .entry-card.sched.has-thumb { grid-template-areas: "thumb title" "thumb dates" "thumb loc" "thumb meta" "thumb desc" "thumb more"; }
+}

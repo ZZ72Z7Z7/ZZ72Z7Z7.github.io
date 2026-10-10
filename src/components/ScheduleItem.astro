@@ -22,7 +22,7 @@ const venue = d.venue;
 const note = pick(d, 'language_note', lang).value;
 const link = workshop ? href(`/workshops/${workshop.id}/`, lang) : d.external_link;
 ---
-<li class:list={[card && 'entry-card', card && image && 'has-thumb']}>
+<li class:list={[card && 'entry-card sched', card && image && 'has-thumb']}>
   <div class="entry-left">
   <p class="entry-dates">{dates}</p>
   {(place || venue) && <p class="entry-place">{[place, venue].filter(Boolean).join(' · ')}</p>}
