@@ -475,7 +475,7 @@ dialog.lightbox::backdrop { background: #000; } /* solid black around the pictur
 img.framed { border: 1px solid var(--line); }
 
 /* footer (designer, 261009): just the copyright line, P2 size, grey */
-.site-footer { text-align: center; padding: 0 var(--gutter) 2.5rem; }
+.site-footer { text-align: center; padding: 2.5rem var(--gutter) 2.5rem; }
 .site-footer p { margin: 0; color: var(--muted); font-size: var(--p2-size); }
 .wk-pre { white-space: pre-line; margin: 0; }
 .contact-first { margin-top: 0; }
