@@ -471,6 +471,7 @@ input::placeholder, textarea::placeholder { color: #767676; opacity: 1; } /* fai
 .entries.compact .entry-sub { margin-top: .25rem; }
 .narrow { max-width: var(--measure); margin-inline: 0; }
 .narrow-center { margin-inline: auto; text-align: center; }
+@media (max-width: 63.9375rem) { .narrow-center { text-align: left; } } /* phones and tablets: the Lectures intro is left-aligned (designer, 261009) */
 .narrow > h2:first-child { margin-top: 0; }
 .entry-thumb-link { display: block; grid-area: thumb; }
 .entry-card.has-thumb .entry-thumb-link { margin: 1rem 0 0; }
