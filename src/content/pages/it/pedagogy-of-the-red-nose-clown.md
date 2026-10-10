@@ -41,8 +41,6 @@ C’è un solo modo di stare in piedi, mentre ci sono infiniti modi di cadere.
 L’intelligenza è limitata.  
 La stupidità è infinita.*
 
-*Giovanni Fusetti*
-
 ![](/wp-content/uploads/2021/03/heliclowns.chorus.jpg)
 
 Helikos School 2013

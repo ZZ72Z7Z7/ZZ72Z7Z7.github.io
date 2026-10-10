@@ -2,6 +2,7 @@
 title: "Bring Your Own Psyche"
 subtitle: "An advanced Psychodrama and Physical Theatre workshop a la carte"
 image: "/wp-content/uploads/2025/04/miro.femme_.lune_.oiseaux.1950.png"
+accordion_desktop: true
 gallery:
   - src: "/wp-content/uploads/2023/03/miro-constellations.jpg"
     caption: "(2)"
@@ -32,6 +33,8 @@ body_it: |-
   Questo workshop è la naturale evoluzione delle sessioni precedenti ed è aperto a chi, avendo già sperimentato l’approccio che integra Psicodramma e Teatro Fisico, desidera approfondire la propria ricerca portando alcuni temi specifici della propria vita che vuole esplorare con questi strumenti.  
   <br>
   **Bentornati al Teatro della Psiche !**  
+
+  <!--more-->
 
   **L’APPROCCIO**
 
@@ -65,6 +68,8 @@ In the three previous workshops the focus has been on relationships and interper
 This workshop is the natural evolution of the previous sessions and is open to those who, having already experienced the approach integrating Psychodrama and Physical Theatre, want to deepen their quest bringing some specific themes of their life that they want to explore with these tools.  
 <br>
 **Welcome back to the Theatre of the Psyche !**  
+
+<!--more-->
 
 **THE APPROACH**
 

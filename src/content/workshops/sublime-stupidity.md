@@ -34,8 +34,6 @@ body_it: |-
   *C’è un solo modo di stare in piedi, e infiniti modi di cadere.*  
   *L’intelligenza è limitata. La stupidità è infinita.*
 
-  *Giovanni Fusetti*
-
   ![](/wp-content/uploads/2021/04/181122_clowns_89.jpg)
 
   **IL PROGRAMMA**
@@ -88,8 +86,6 @@ As a theatre genre, Clown has a unique poetic potential because it allows the pe
  *There are as many clowns, as there are human beings.*  
 *There is one way to stand, and infinite ways to fall.*  
 *Intelligence is limited. Stupidity is infinite.*
-
-*Giovanni Fusetti*
 
 ![](/wp-content/uploads/2021/04/181122_clowns_89.jpg)
 

@@ -2,6 +2,7 @@
 title: "Famiglia dell’Arte"
 subtitle: "Exploring Family Stories, Roles, Dynamics, Patterns and Scripts\nthrough Psychodrama and Physical Theatre"
 image: "/wp-content/uploads/2026/09/miro.family.1970.jpg"
+accordion_desktop: true
 gallery:
   - src: "/wp-content/uploads/2024/03/miro.painting.1933.jpg"
     caption: "(2)"
@@ -32,6 +33,8 @@ body_it: |-
   Benvenuti in un gruppo di sviluppo personale giocoso e fortemente esperienziale, in cui l’*Approccio Psicodrammatico* e il *Teatro Fisico* danzeranno insieme per offrire un’esperienza unica di consapevolezza emotiva e di spontaneità incarnata.  
   <br>
   Il focus del gruppo sarà l’esplorazione della Famiglia come campo di ruoli, dinamiche e schemi relazionali.
+
+  <!--more-->
 
   La famiglia d’origine è il terreno fondante del nostro sviluppo psicologico, un campo di dispiegamento ancestrale in cui spesso troviamo l’origine di molti dei nostri schemi psicologici di fondo. La famiglia, nella sua inevitabile intensità intima, è un campo di grande potenza e di grandi paradossi: amore e ferita, nutrimento e offesa, sostegno e conflitti, appartenenza e individuazione. Emozioni di ogni genere scorrono sotto il tetto di famiglia e la profonda natura creativa di questa meravigliosa configurazione umana danza sempre con la possibilità di grandi crepacuori. Può offrire risorse e sostegno per tutta la vita, oppure delusioni senza fine e dolorose accettazioni, così come la possibilità di guarigione, riparazione e trasformazione.  
   <br>
@@ -109,6 +112,8 @@ translation: "draft"
 Welcome to a highly experiential and playful group of personal development in which the *Psychodrama Approach* and *Physical Theatre* will dance together to provide a unique experience of emotional awareness and embodied spontaneity.  
 <br>
 The focus of the group will be on the exploration of the Family as a field of roles, dynamics and relational patterns.
+
+<!--more-->
 
 The Family of origin is the founding ground of our psychological development, a field of ancestral unfolding in which we often find the origin of many of our core psychological patterns. The family, in its inevitable intimate intensity, is a field of great power and great paradoxes: love and hurt, nurturing and wounding, support and conflicts, belonging and individuation. Emotions of all kinds flow under the family roof and the deep creative nature of this wonderful human configuration always dances with the potential for great heartbreaks. It can provide lifelong resources and support or endless disappointments and painful acceptance, as well as the possibility of healing, reparation and transformation.  
 <br>

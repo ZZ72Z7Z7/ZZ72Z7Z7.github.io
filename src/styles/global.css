@@ -399,15 +399,63 @@ h1 + .subtitle.entry-sub { font-size: var(--p2-size); font-style: italic; } /* t
 /* workshop page sections: open on load on desktop (plain headings), accordion rows below 1024px */
 .acc.wk-gallery { margin-top: 0; }
 @media (min-width: 64rem) {
-  .acc.wk-acc { border: 0; margin-top: 2rem; }
-  .acc.wk-acc:last-child { border: 0; }
-  .acc.wk-acc > summary { padding: 0 0 .75rem; cursor: default; pointer-events: none; }
-  .acc.wk-acc > summary::after { display: none; }
-  .acc.wk-acc .acc-title { font-size: var(--h2-size); }
-  .acc.wk-acc > summary:hover .acc-title { color: inherit; }
-  .acc.wk-acc .acc-body { padding: 0; }
+  .acc-list:not([data-desktop-acc]) .acc.wk-acc { border: 0; margin-top: 2rem; }
+  .acc-list:not([data-desktop-acc]) .acc.wk-acc:last-child { border: 0; }
+  .acc-list:not([data-desktop-acc]) .acc.wk-acc > summary { padding: 0 0 .75rem; cursor: default; pointer-events: none; }
+  .acc-list:not([data-desktop-acc]) .acc.wk-acc > summary::after { display: none; }
+  .acc-list:not([data-desktop-acc]) .acc.wk-acc .acc-title { font-size: var(--h2-size); }
+  .acc-list:not([data-desktop-acc]) .acc.wk-acc > summary:hover .acc-title { color: inherit; }
+  .acc-list:not([data-desktop-acc]) .acc.wk-acc .acc-body { padding: 0; }
 }
 .wk-gallery { margin-top: 3rem; }
+/* data-desktop-acc on a workshop's section list (field accordion_desktop in the workshop file) keeps the phone accordion on desktop too; used on one page while the designer experiments */
+.acc.wk-acc .acc-title { text-transform: uppercase; } /* section headings on workshop and event pages: all caps (designer, 261010) */
+/* Photo slideshow at the bottom of a workshop page (designer, 261010): one photo at a time, the neighbours peeking in at the edges on desktop; the next photo every 3 seconds (src/scripts/slideshow.ts) */
+.wk-slideshow { position: relative; margin: 4rem 0 0; width: min(var(--wide), calc(100vw - 2 * var(--gutter))); left: 50%; transform: translateX(-50%); container-type: inline-size; }
+.ss-track { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-inline: 4rem; }
+.ss-track::-webkit-scrollbar { display: none; }
+.ss-slide { flex: 0 0 auto; margin: 0; width: calc(100cqw - 8rem); scroll-snap-align: center; }
+.ss-slide img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; margin: 0; }
+.ss-slide img.ss-tall { object-fit: contain; background: #f3f3f3; } /* portrait and near-square pictures are shown whole */
+.ss-slide figcaption { margin-top: .5rem; color: var(--muted); text-align: center; }
+.wk-slideshow.ss-ready .ss-slide { opacity: .45; transition: opacity .4s; }
+.wk-slideshow.ss-ready .ss-slide.is-active { opacity: 1; }
+.ss-btn { position: absolute; top: calc((100cqw - 8rem) * .3125); transform: translateY(-50%); display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 0; background: rgba(255,255,255,.88); color: var(--text); cursor: pointer; }
+.ss-btn:hover { color: var(--red-text); }
+.ss-prev { left: 1.25rem; } .ss-next { right: 1.25rem; }
+.wk-slideshow .wk-credits { margin-top: 1.25rem; }
+@media (max-width: 47.9375rem) { /* phones: one photo across the full width, no peeking */
+  .ss-track { padding-inline: 0; }
+  .ss-slide { width: 100cqw; }
+  .ss-btn { top: calc(100cqw * .3125); }
+  .ss-prev { left: .5rem; } .ss-next { right: .5rem; }
+}
+.wk-acc .acc-body li { line-height: 1.4; }
+.wk-acc .prose ul:not(.entries):not(.post-list):not(.cats) > li::before { top: calc((1lh - 1.22em) / 2 + .64em - .25rem); } /* centres the dot on the text of the first line (Figtree: ascent .94em, descent .28em, middle of the lowercase letters about .3em above the baseline) */
+.wk-program .prose h3 { margin-top: 32px; margin-bottom: 16px; } /* Week subheadings are H3: one more line of space above each, after the previous week's list (designer, 261010) */
+.wk-program .acc-body .prose > h3:first-child { margin-top: 1.8rem; } /* one more line between PROGRAM and Week 1 */
+.wk-acc .acc-body li + li { margin-top: 10px; } /* bullets on workshop pages (the Program first, then every list in a section): tighter lines inside a point (1.4), gap between points kept at the earlier look (designer, 261010) */
+.wk-language { margin-top: 1.5rem; }
+.wk-language .wk-dates { margin-top: 0; }
+/* "Read more" inside a section (designer, 261010): text after a <!--more--> line in a workshop description stays folded until selected */
+.read-more > summary { display: flex; justify-content: center; align-items: center; gap: .6rem; margin-top: .5rem; cursor: pointer; list-style: none; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--red-text); }
+.read-more > summary::-webkit-details-marker { display: none; }
+.read-more > summary::after { content: "+"; font-size: var(--h3-size); line-height: 1; font-weight: 400; }
+.read-more[open] > summary::after { content: "\2212"; }
+.read-more > summary:hover { color: var(--text); }
+.read-more .rm-less, .read-more[open] .rm-more { display: none; }
+.read-more[open] .rm-less { display: inline; }
+.read-more[open] > summary { margin-bottom: 1rem; }
+/* "Practical information" panel (designer, 261010, option 2): Schedule, Location, Tuition and Application together in a tinted panel, a red label left and the text right. Below 1024px it is only a wrapper: the accordion rows stay as they were. */
+.wk-panel-title { display: none; }
+.wk-panel:not(:last-child) > .acc:last-child { border-bottom: 0; }
+@media (min-width: 64rem) {
+  .acc-list:not([data-desktop-acc]) .wk-panel { background: #f3f3f3; margin: 3rem -4rem 0; padding: 1.75rem 2rem .5rem; }
+  .acc-list:not([data-desktop-acc]) .wk-panel-title { display: block; text-align: center; text-transform: uppercase; margin: 0 0 1.25rem; font-size: var(--h2-size); font-weight: 700; line-height: 1.2; }
+  .acc-list:not([data-desktop-acc]) .wk-panel > .acc.wk-acc { display: grid; grid-template-columns: 13rem 1fr; gap: 0 1.5rem; margin: 0; padding: 1.25rem 0; border-top: 1px solid #d6d6d6; }
+  .acc-list:not([data-desktop-acc]) .wk-panel > .acc.wk-acc > summary { padding: 0; align-items: flex-start; }
+  .acc-list:not([data-desktop-acc]) .wk-panel > .acc.wk-acc .acc-title { font-size: var(--p1-size); color: var(--red-text); text-transform: uppercase; }
+}
 .wk-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); }
 .wk-gallery-grid figure { margin: 0; }
 .wk-gallery-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; margin: 0; }

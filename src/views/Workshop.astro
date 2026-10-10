@@ -9,6 +9,7 @@ import { splitByDate } from '../lib/content';
 import { formatRange, cityName } from '../lib/dates';
 import { md } from '../lib/md';
 import { isPale } from '../lib/pale';
+import { isTall } from '../lib/shape';
 import Lightbox from '../components/Lightbox.astro';
 import { t, pick, type Lang } from '../i18n/ui';
 interface Props { id: string; lang: Lang }
@@ -24,7 +25,7 @@ const fallback = lang !== 'en' && !it;
 const runs = (await getCollection('schedule')).filter((s) => s.data.workshop?.id === id);
 const { upcoming } = splitByDate(runs);
 
-const html = md(source);
+const [html, htmlMore] = md(source).split(/<!--\s*more\s*-->/);
 
 // Workshops with upcoming editions use the sectioned layout; other workshops show just the description, without headings.
 const sectioned = upcoming.length > 0;
@@ -32,24 +33,34 @@ const accSections = sections_for();
 function sections_for() {
   // four separate sections, each written per edition
   const groups = [
-    { heading: ui.scheduleHeading, key: 'schedule' },
-    { heading: ui.locationHeading, key: 'location_details' },
-    { heading: ui.tuitionHeading, key: 'tuition' },
-    { heading: ui.applicationsHeading, key: 'applications' },
+    { heading: ui.locationHeading, keys: ['location_details'] },
+    { heading: ui.scheduleHeading, keys: ['schedule'] },
+    { heading: ui.travelAccommodationsHeading, keys: ['travel', 'accommodation'] },
+    { heading: ui.tuitionHeading, keys: ['tuition'] },
+    { heading: ui.applicationsHeading, keys: ['applications'] },
   ];
+  const textOf = (d: Record<string, any>, key: string) => {
+    const text = (lang === 'it' && d[`${key}_it`]?.trim() ? d[`${key}_it`] : d[key]) as string | undefined;
+    return text ?? (key === 'location_details' ? (d.venue as string | undefined) : undefined);
+  };
   return groups.map((g) => {
     const items = upcoming.map((e) => {
       const d = e.data as Record<string, any>;
-      const text = (lang === 'it' && d[`${g.key}_it`]?.trim() ? d[`${g.key}_it`] : d[g.key]) as string | undefined;
-      const body = text ?? (g.key === 'location_details' ? e.data.venue : undefined);
+      const body = g.keys.map((k) => textOf(d, k)?.trim()).filter(Boolean).join('\n\n');
       return body ? { dates: e.data.extra_dates ?? formatRange(e.data.start, e.data.end, lang), html: md(body) } : undefined;
     }).filter(Boolean) as { dates: string; html: string }[];
     return { heading: g.heading, items };
   }).filter((g) => g.items.length);
 }
+const languageItems = upcoming.map((e) => {
+  const d = e.data as Record<string, any>;
+  const text = (lang === 'it' && d.language_it?.trim() ? d.language_it : d.language) as string | undefined;
+  return text?.trim() ? { dates: e.data.extra_dates ?? formatRange(e.data.start, e.data.end, lang), html: md(text) } : undefined;
+}).filter(Boolean) as { dates: string; html: string }[];
 const programHtml = md(lang === 'it' && w.program_it?.trim() ? w.program_it : w.program);
 const image = w.image ?? upcoming.find((r) => r.data.image)?.data.image;
 const imagePale = await isPale(image);
+const tall = new Set((await Promise.all((w.gallery ?? []).map(async (g) => ((await isTall(g.src)) ? g.src : '')))).filter(Boolean));
 const captionSource = lang === 'it' && w.image_caption_it?.trim() ? w.image_caption_it : w.image_caption;
 const creditsSource = lang === 'it' && w.credits_it?.trim() ? w.credits_it : w.credits;
 const capOf = (g: { caption?: string; caption_it?: string }) => (lang === 'it' && g.caption_it?.trim() ? g.caption_it : g.caption);
@@ -80,52 +91,78 @@ const place = (d: (typeof runs)[number]['data']) => [cityName(d.city, lang), d.r
   )}
 
   {sectioned ? (
-    <div class="acc-list" data-wk-acc>
+    <>
+    <div class="acc-list" data-wk-acc data-desktop-acc={w.accordion_desktop ? "" : undefined}>
       {html && (
-        <details class="acc wk-acc" open lang={fallback ? 'en' : undefined}>
+        <details class="acc wk-acc" open lang={fallback ? 'en' : undefined} data-open-default>
           <summary><h2 class="acc-title">{ui.descriptionHeading}</h2></summary>
           <div class="acc-body">
             {fallback && <p class="notice" lang={lang}>{ui.englishNotice}</p>}
             <div class="prose" set:html={html} />
+            {htmlMore?.trim() && (
+              <details class="read-more">
+                <summary><span class="rm-more">{ui.readMore}</span><span class="rm-less">{ui.readLess}</span></summary>
+                <div class="prose" set:html={htmlMore} />
+                {languageItems.map((it) => (
+                  <div class="wk-language">
+                    {languageItems.length > 1 && <p class="wk-dates">{it.dates}</p>}
+                    <div class="prose" set:html={it.html} />
+                  </div>
+                ))}
+              </details>
+            )}
+            {!htmlMore?.trim() && languageItems.map((it) => (
+              <div class="wk-language">
+                {languageItems.length > 1 && <p class="wk-dates">{it.dates}</p>}
+                <div class="prose" set:html={it.html} />
+              </div>
+            ))}
           </div>
         </details>
       )}
       {programHtml && (
-        <details class="acc wk-acc" open lang={fallback ? 'en' : undefined}>
+        <details class="acc wk-acc wk-program" open lang={fallback ? 'en' : undefined}>
           <summary><h2 class="acc-title">{ui.programHeading}</h2></summary>
           <div class="acc-body"><div class="prose" set:html={programHtml} /></div>
         </details>
       )}
-      {accSections.map((sec) => (
-        <details class="acc wk-acc" open>
-          <summary><h2 class="acc-title">{sec.heading}</h2></summary>
-          <div class="acc-body">
-            {sec.items.map((it) => (
-              <>
-                {upcoming.length > 1 && <p class="wk-dates">{it.dates}</p>}
-                <div class="prose" set:html={it.html} />
-              </>
-            ))}
-          </div>
-        </details>
-      ))}
-      {w.gallery && w.gallery.length > 0 && (
-        <details class="acc wk-acc wk-gallery" open>
-          <summary><h2 class="acc-title">{ui.galleryHeading}</h2></summary>
-          <div class="acc-body">
-            <div class="gallery-grid wk-gallery-grid">
-              {w.gallery.map((g) => (
-                <figure>
-                  <a href={g.src}><img src={g.src} alt="" loading="lazy" /></a>
-                  {capOf(g) && <figcaption class="p3" set:html={inline(capOf(g)!)} />}
-                </figure>
+      <div class="wk-panel">
+        <p class="wk-panel-title">{ui.practicalHeading}</p>
+        {accSections.map((sec) => (
+          <details class="acc wk-acc" open>
+            <summary><h2 class="acc-title">{sec.heading}</h2></summary>
+            <div class="acc-body">
+              {sec.items.map((it) => (
+                <>
+                  {upcoming.length > 1 && <p class="wk-dates">{it.dates}</p>}
+                  <div class="prose" set:html={it.html} />
+                </>
               ))}
             </div>
-            {creditsSource && <div class="prose wk-credits p3" set:html={md(creditsSource)} />}
-          </div>
-        </details>
-      )}
+          </details>
+        ))}
+      </div>
     </div>
+    {w.gallery && w.gallery.length > 0 && (
+      <section class="wk-gallery wk-slideshow" data-slideshow aria-roledescription="carousel" aria-label={ui.galleryHeading}>
+        <div class="ss-track" tabindex="0">
+          {w.gallery.map((g) => (
+            <figure class="ss-slide">
+              <a href={g.src}><img class:list={[tall.has(g.src) && 'ss-tall']} src={g.src} alt="" loading="lazy" /></a>
+              {capOf(g) && <figcaption class="p3" set:html={inline(capOf(g)!)} />}
+            </figure>
+          ))}
+        </div>
+        <button type="button" class="ss-btn ss-prev" aria-label={ui.lightboxPrev}>
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </button>
+        <button type="button" class="ss-btn ss-next" aria-label={ui.lightboxNext}>
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </button>
+        {creditsSource && <div class="prose wk-credits p3" set:html={md(creditsSource)} />}
+      </section>
+    )}
+    </>
   ) : (
     <>
       {html && (
@@ -157,5 +194,6 @@ const place = (d: (typeof runs)[number]['data']) => [cityName(d.city, lang), d.r
   <script>
     import '../scripts/lightbox.ts';
     import '../scripts/workshop-sections.ts';
+    import '../scripts/slideshow.ts';
   </script>
 </Base>

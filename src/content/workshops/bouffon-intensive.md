@@ -2,6 +2,7 @@
 title: "Bouffon Intensive"
 subtitle: "A journey into the world of Bouffons and Grotesque Theatre\nfrom the emergence of the Bouffon State to devising and performing"
 image: "/wp-content/uploads/2024/05/we.too_.1.jpg"
+accordion_desktop: true
 gallery:
   - src: "/wp-content/uploads/2024/09/bouffons.2024.web_-1.jpg"
     caption: "Bouffon Intensive, Boulder (USA), 2024"
@@ -34,38 +35,40 @@ gallery:
     caption: "*Bouffon Training, Melbourne 2017*"
     caption_it: "*Bouffon Training, Melbourne 2017*"
 program: |
-  **First Week: THE BOUFFON FOLLY**  
-  – Play, action/reaction and fun  
-  – Flocking and collective movements: the shapeshifting chorus  
-  – From children playing to Bouffon games  
-  – Engaged Madness: the “buzz”  
-  – The Bouffon “state” and the mocking eyes  
-  – The grotesque body: amplification, deformation, swelling and puffing  
-  – The white bodies    
-  – Altered states of play: bands of Bouffons, rhythm, rituals and mocking dynamics.  
-  – The shapeshifting body.  
-  – How the Bouffons see the world: themes of play  
-  – Bouffons impro: non-linear and non local writing.  
-  – The Bouffons mocking the great themes of humanity.
+  ### Week 1: THE BOUFFON FOLLY
 
-  **Second Week: THE DYNAMICS OF MOCKING**  
-  – How Bouffon relates to Tragedy, Melodrama and Clown.  
-  – Grotesque Characters and Grotesque Bouffons.  
-  – Grotesque Writing  
-  – The devising of a Bouffon piece  
-  – Staging of bands of Bouffons  
-  – Rhythmicality and Musicality of a Bouffon band  
-  <br>
-  <br>
-  **Third Week: DEVISING WITH BOUFFONS**  
-  – Writing, Staging and Directing in the Bouffon genre: participants will work and rework on some acts, which will  be presented in a public performance.  
-  – Devising, rehearsing and performing an evening of Bouffons.  
-  – First performance of a series of Bouffon acts.
+  - Play, action/reaction and fun
+  - Flocking and collective movements: the shapeshifting chorus
+  - From children playing to Bouffon games
+  - Engaged Madness: the “buzz”
+  - The Bouffon “state” and the mocking eyes
+  - The grotesque body: amplification, deformation, swelling and puffing
+  - The white bodies  
+  - Altered states of play: bands of Bouffons, rhythm, rituals and mocking dynamics.
+  - The shapeshifting body.
+  - How the Bouffons see the world: themes of play
+  - Bouffons impro: non-linear and non local writing.
+  - The Bouffons mocking the great themes of humanity.
 
-  **Fourth Week: DEVELOPING THE WORK**  
-  – The scenes presented on the public performance of week three will be developed into longer forms. The group will be divided in smaller bands, each one of them developing further their work.  
-  – Focusing on the three roles of the *player*, the *writer* and the *director*, each band will develop their piece aiming for short Bouffon Shows that will be presented in three public evenings.  
-  – The core principles of devising in the style of Bouffons will be constantly at work, with the purpose of nurturing and breeding a few band of wild, ruthless and unsinkable theatre bouffons, ready to bring their work and their state of play into the world .
+  ### Week 2: THE DYNAMICS OF MOCKING
+
+  - How Bouffon relates to Tragedy, Melodrama and Clown.
+  - Grotesque Characters and Grotesque Bouffons.
+  - Grotesque Writing
+  - The devising of a Bouffon piece
+  - Staging of bands of Bouffons
+  - Rhythmicality and Musicality of a Bouffon band
+  ### Week 3: DEVISING WITH BOUFFONS
+
+  - Writing, Staging and Directing in the Bouffon genre: participants will work and rework on some acts, which will  be presented in a public performance.
+  - Devising, rehearsing and performing an evening of Bouffons.
+  - First performance of a series of Bouffon acts.
+
+  ### Week 4: DEVELOPING THE WORK
+
+  - The scenes presented on the public performance of week three will be developed into longer forms. The group will be divided in smaller bands, each one of them developing further their work.
+  - Focusing on the three roles of the *player*, the *writer* and the *director*, each band will develop their piece aiming for short Bouffon Shows that will be presented in three public evenings.
+  - The core principles of devising in the style of Bouffons will be constantly at work, with the purpose of nurturing and breeding a few band of wild, ruthless and unsinkable theatre bouffons, ready to bring their work and their state of play into the world .
 subtitle_it: |-
   Un viaggio nel mondo dei Bouffon e del Teatro Grottesco
   dall’emergere dello Stato del Bouffon all’ideazione e alla performance
@@ -83,6 +86,8 @@ body_it: |-
   pronti a deridere l’esquisita insania della razza umana*  
   <br>
   *È Tempo di Tempi Satirici !*
+
+  <!--more-->
 
   **CHI SONO I BOUFFON?**
 
@@ -110,38 +115,40 @@ body_it: |-
 
   È richiesta una feroce e giocosa urgenza di recitare!
 program_it: |-
-  **Prima Settimana: LA FOLLIA DEL BOUFFON**  
-  – Gioco, azione/reazione e divertimento  
-  – Flocking e movimenti collettivi: il coro mutaforma  
-  – Dai bambini che giocano ai giochi del Bouffon  
-  – Follia Impegnata: il “brusio”  
-  – Lo “stato” del Bouffon e gli occhi che deridono  
-  – Il corpo grottesco: amplificazione, deformazione, gonfiore e soffio  
-  – I corpi bianchi    
-  – Stati alterati di gioco: bande di Bouffon, ritmo, rituali e dinamiche della derisione.  
-  – Il corpo mutaforma.  
-  – Come i Bouffon vedono il mondo: temi di gioco  
-  – Impro dei Bouffon: scrittura non lineare e non locale.  
-  – I Bouffon che deridono i grandi temi dell’umanità.
+  ### Settimana 1: LA FOLLIA DEL BOUFFON
 
-  **Seconda Settimana: LE DINAMICHE DELLA DERISIONE**  
-  – Come il Bouffon si rapporta alla Tragedia, al Melodramma e al Clown.  
-  – Personaggi Grotteschi e Bouffon Grotteschi.  
-  – Scrittura Grottesca  
-  – L’ideazione di un pezzo di Bouffon  
-  – Messa in scena di bande di Bouffon  
-  – Ritmicità e Musicalità di una banda di Bouffon  
-  <br>
-  <br>
-  **Terza Settimana: CREAZIONE COLLETTIVA CON I BOUFFON**  
-  – Scrittura, Messa in scena e Regia nel genere del Bouffon: i partecipanti lavoreranno e rilavoreranno alcuni numeri, che saranno presentati in una performance pubblica.  
-  – Ideare, provare e mettere in scena una serata di Bouffon.  
-  – Prima performance di una serie di numeri di Bouffon.
+  - Gioco, azione/reazione e divertimento
+  - Flocking e movimenti collettivi: il coro mutaforma
+  - Dai bambini che giocano ai giochi del Bouffon
+  - Follia Impegnata: il “brusio”
+  - Lo “stato” del Bouffon e gli occhi che deridono
+  - Il corpo grottesco: amplificazione, deformazione, gonfiore e soffio
+  - I corpi bianchi
+  - Stati alterati di gioco: bande di Bouffon, ritmo, rituali e dinamiche della derisione.
+  - Il corpo mutaforma.
+  - Come i Bouffon vedono il mondo: temi di gioco
+  - Impro dei Bouffon: scrittura non lineare e non locale.
+  - I Bouffon che deridono i grandi temi dell’umanità.
 
-  **Quarta Settimana: SVILUPPARE IL LAVORO**  
-  – Le scene presentate nella performance pubblica della terza settimana saranno sviluppate in forme più lunghe. Il gruppo sarà diviso in bande più piccole, ciascuna delle quali svilupperà ulteriormente il proprio lavoro.  
-  – Concentrandosi sui tre ruoli del *performer*, dell’*autore* e del *regista*, ogni banda svilupperà il proprio pezzo puntando a brevi Spettacoli di Bouffon che saranno presentati in tre serate pubbliche.  
-  – I principi fondamentali dell’ideazione nello stile dei Bouffon saranno costantemente al lavoro, con lo scopo di nutrire e far crescere alcune bande di bouffon teatrali selvaggi, spietati e inaffondabili, pronti a portare il loro lavoro e il loro stato di gioco nel mondo.
+  ### Settimana 2: LE DINAMICHE DELLA DERISIONE
+
+  - Come il Bouffon si rapporta alla Tragedia, al Melodramma e al Clown.
+  - Personaggi Grotteschi e Bouffon Grotteschi.
+  - Scrittura Grottesca
+  - L’ideazione di un pezzo di Bouffon
+  - Messa in scena di bande di Bouffon
+  - Ritmicità e Musicalità di una banda di Bouffon
+  ### Settimana 3: CREAZIONE COLLETTIVA CON I BOUFFON
+
+  - Scrittura, Messa in scena e Regia nel genere del Bouffon: i partecipanti lavoreranno e rilavoreranno alcuni numeri, che saranno presentati in una performance pubblica.
+  - Ideare, provare e mettere in scena una serata di Bouffon.
+  - Prima performance di una serie di numeri di Bouffon.
+
+  ### Settimana 4: SVILUPPARE IL LAVORO
+
+  - Le scene presentate nella performance pubblica della terza settimana saranno sviluppate in forme più lunghe. Il gruppo sarà diviso in bande più piccole, ciascuna delle quali svilupperà ulteriormente il proprio lavoro.
+  - Concentrandosi sui tre ruoli del *performer*, dell’*autore* e del *regista*, ogni banda svilupperà il proprio pezzo puntando a brevi Spettacoli di Bouffon che saranno presentati in tre serate pubbliche.
+  - I principi fondamentali dell’ideazione nello stile dei Bouffon saranno costantemente al lavoro, con lo scopo di nutrire e far crescere alcune bande di bouffon teatrali selvaggi, spietati e inaffondabili, pronti a portare il loro lavoro e il loro stato di gioco nel mondo.
 translation: "draft"
 ---
 
@@ -158,6 +165,8 @@ The Bouffons are buzzing with jubilation
 ready to mock the exquisite insanity of human race*  
 <br>
 *It’s Time for Satyric Timing !*
+
+<!--more-->
 
 **WHO ARE THE BOUFFONS?**
 
@@ -184,4 +193,3 @@ This workshop is for theatre practitioners who have previous experiences in move
 The aim of this course is to give participants professional theatre tools, in order to play and devise in the genre of Bouffon and Grotesque. It is a training based on generosity, poetic ruthlesness and a commitment to exploring extreme states of physical excitement, madness and play.
 
 A fierce and playful urgency to perform is required!
-

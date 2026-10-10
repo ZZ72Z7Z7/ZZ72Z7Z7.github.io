@@ -28,6 +28,7 @@ const workshops = defineCollection({
     credits_it: z.string().optional(),
     translation: z.string().optional(),
     program: z.string().optional(), // the "Program" section, only for workshops that have one
+    accordion_desktop: z.boolean().optional(), // experiment: keep the accordion rows on desktop too
     gallery: z.array(z.object({ src: z.string(), caption: z.string().optional(), caption_it: z.string().optional() })).optional(), // the other pictures
     credits: z.string().optional(), // photo credits, shown under the gallery
     // The body of the file is the English description; body_it is the Italian one.
@@ -53,10 +54,16 @@ const schedule = defineCollection({
     schedule: z.string().optional(),
     location_details: z.string().optional(),
     tuition: z.string().optional(),
+    language: z.string().optional(),
+    travel: z.string().optional(),
+    accommodation: z.string().optional(),
     applications: z.string().optional(),
     schedule_it: z.string().optional(),
     location_details_it: z.string().optional(),
     tuition_it: z.string().optional(),
+    language_it: z.string().optional(),
+    travel_it: z.string().optional(),
+    accommodation_it: z.string().optional(),
     applications_it: z.string().optional(),
     translation: z.string().optional(),
     taught_with: z.string().optional(),

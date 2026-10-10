@@ -1,1 +1,0 @@
-var e=document.querySelector(`[data-wk-acc]`);if(e){let t=Array.from(e.querySelectorAll(`details.wk-acc`)),n=window.matchMedia(`(min-width: 64rem)`),r=()=>t.forEach(e=>{e.open=n.matches});r(),n.addEventListener(`change`,r),t.forEach(e=>e.querySelector(`summary`).addEventListener(`click`,e=>{n.matches&&e.preventDefault()}))}

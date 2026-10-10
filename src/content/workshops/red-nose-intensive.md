@@ -2,6 +2,7 @@
 title: "Red Nose Intensive"
 subtitle: "Theatrical Clown and the Essence of Physical Comedy"
 image: "/wp-content/uploads/2024/10/poster.2024.web_.jpg"
+accordion_desktop: true
 image_caption: "*Padova, Red Nose Intensive – 202*4"
 gallery:
   - src: "/wp-content/uploads/2024/03/the-race.01-1.jpg"
@@ -41,41 +42,41 @@ gallery:
     caption: "*Red Nose Intensive, Spring 2023, Padova*"
     caption_it: "*Red Nose Intensive, primavera 2023, Padova*"
 program: |
-  **First Week: THE CLOWN “STATE”**
+  ### Week 1: THE CLOWN “STATE”
 
-  – Play, action/reaction and fun  
-  – The empty space and the non-intentional mind  
-  – From the neutral state to the comic state: movement analysis of the body in space  
-  – The Red Nose as a mask: amplification and articulation of movement  
-  – The clown as a state of being on stage  
-  – Emotional presence and awareness: the contact with the emotional body of the actor  
-  – Awareness of awareness  
-  – Contact and play with the audience  
-  – Playing with space and with objects
+  - Play, action/reaction and fun
+  - The empty space and the non-intentional mind
+  - From the neutral state to the comic state: movement analysis of the body in space
+  - The Red Nose as a mask: amplification and articulation of movement
+  - The clown as a state of being on stage
+  - Emotional presence and awareness: the contact with the emotional body of the actor
+  - Awareness of awareness
+  - Contact and play with the audience
+  - Playing with space and with objects
 
-  **Second Week: THE PLAY (le jeu)**
+  ### Week 2: THE PLAY (le jeu)
 
-  – The relationship among clowns: hierarchy, masters and servants, levels of stupidity  
-  – The Circus Clown Archetypes: Augustus, White Clown, Monsieur Loyal  
-  – The Clown’s Voice  
-  – Clown acts and l*e bide (fiasco)*  
-  – Rhythmical space and time: entrance, crescendo, development of themes, climax and exit  
-  – The actor’s skills in service to the clown: playing with music, singing, acrobatics, juggling, dance and unusual or unique skills.
+  - The relationship among clowns: hierarchy, masters and servants, levels of stupidity
+  - The Circus Clown Archetypes: Augustus, White Clown, Monsieur Loyal
+  - The Clown’s Voice
+  - Clown acts and l*e bide (fiasco)*
+  - Rhythmical space and time: entrance, crescendo, development of themes, climax and exit
+  - The actor’s skills in service to the clown: playing with music, singing, acrobatics, juggling, dance and unusual or unique skills.
 
-  **Third Week: DEVISING CLOWN ACTS**
+  ### Week 3: DEVISING CLOWN ACTS
 
-  – Devising of Clown Acts based on the previous weeks’ improvisations  
-  – Accidents and comic routines  
-  – Devising a clown variety show  
-  – Staging and directing clowns: each clown will work and rework on some acts /routines to be presented in three public performances  
-  – Rehearsing a Clown Variety Show
+  - Devising of Clown Acts based on the previous weeks’ improvisations
+  - Accidents and comic routines
+  - Devising a clown variety show
+  - Staging and directing clowns: each clown will work and rework on some acts /routines to be presented in three public performances
+  - Rehearsing a Clown Variety Show
 
-  **Fourth week : PERFORMING**
+  ### Week 4: PERFORMING
 
-  – Public presentation of a Clown Variety Show, devised by the participants under the direction of Giovanni Fusetti.  
-  – Feedback on the performance and re-work for a second and a third performance.  
-  – Feedback on the whole process and final.celebration of the clowns and their world.  
-  – Perspectives on how to continue the work.
+  - Public presentation of a Clown Variety Show, devised by the participants under the direction of Giovanni Fusetti.
+  - Feedback on the performance and re-work for a second and a third performance.
+  - Feedback on the whole process and final.celebration of the clowns and their world.
+  - Perspectives on how to continue the work.
 subtitle_it: "Il Clown Teatrale e l’Essenza della Comicità Fisica"
 body_it: |-
   *Benvenuti alla Sublime Stupidità dei Clown* !  
@@ -86,11 +87,11 @@ body_it: |-
   *Venite a esplorare l’arte di giocare, ideare e dirigere*  
   *nella pratica rigorosa del Clown Teatrale del Naso Rosso.*  
 
-  **IL CLOWN DEL NASO ROSSO**
-
   Il clown è **poesia comica** : divertente e toccante, essenziale e rigorosa. È un tuffo nel mistero del riso.
 
   Profondamente radicato nel teatro di movimento, questo workshop propone una formazione intensiva nel Clown Teatrale del Naso Rosso – un genere teatrale e poetico specifico. La pedagogia si concentra in particolare sull’analisi, l’amplificazione e il gioco del mondo fisico ed emotivo di ogni attore, così come lo rivela il suo corpo nello spazio. Questo **approccio somatico** condurrà alla scoperta di **un clown individuale unico,** con un corpo, un tempo, una voce, un costume, atteggiamenti, emozioni e un universo poetico specifici.  
+
+  <!--more-->
 
   Il viaggio comincia con l’esplorazione e l’analisi del corpo nello spazio teatrale. In termini di movimento, nessun corpo è neutro – ogni corpo porta con sé temi profondamente espressivi, incarnati nel movimento quotidiano. Dentro il movimento e la presenza fisica di ogni persona c’è una trama di “atteggiamenti non neutri” e di “rumori di fondo” fisici ed emotivi.
 
@@ -117,8 +118,6 @@ body_it: |-
    *Ci sono tanti clown quanti sono gli esseri umani.*  
   *C’è una sola linea retta e infiniti modi di vagare.*  
   *L’intelligenza è limitata. La stupidità è infinita.*
-
-  *Giovanni Fusetti*
 
   **LA PEDAGOGIA**  
   **Un Approccio Somatico al Clown**
@@ -159,41 +158,41 @@ body_it: |-
   <br>
   Leggete **[il documento allegato](/wp-content/uploads/2026/05/the-red-nose-padova-2026.pdf)** di Giovanni, così come la [**BIO**](/giovanni-fusetti/) di Giovanni e la pagina [**LE RADICI**,](/the-roots/) per saperne di più sugli ingredienti del suo approccio al clown e al teatro.
 program_it: |-
-  **Prima Settimana: LO “STATO” DEL CLOWN**
+  ### Settimana 1: LO “STATO” DEL CLOWN
 
-  – Gioco, azione/reazione e divertimento  
-  – Lo spazio vuoto e la mente non intenzionale  
-  – Dallo stato neutro allo stato comico: analisi del movimento del corpo nello spazio  
-  – Il Naso Rosso come maschera: amplificazione e articolazione del movimento  
-  – Il clown come stato dell’essere in scena  
-  – Presenza e consapevolezza emotiva: il contatto con il corpo emotivo dell’attore  
-  – Consapevolezza della consapevolezza  
-  – Contatto e gioco con il pubblico  
-  – Giocare con lo spazio e con gli oggetti
+  - Gioco, azione/reazione e divertimento
+  - Lo spazio vuoto e la mente non intenzionale
+  - Dallo stato neutro allo stato comico: analisi del movimento del corpo nello spazio
+  - Il Naso Rosso come maschera: amplificazione e articolazione del movimento
+  - Il clown come stato dell’essere in scena
+  - Presenza e consapevolezza emotiva: il contatto con il corpo emotivo dell’attore
+  - Consapevolezza della consapevolezza
+  - Contatto e gioco con il pubblico
+  - Giocare con lo spazio e con gli oggetti
 
-  **Seconda Settimana: IL GIOCO (le jeu)**
+  ### Settimana 2: IL GIOCO (le jeu)
 
-  – La relazione tra clown: gerarchia, padroni e servi, livelli di stupidità  
-  – Gli Archetipi del Clown da Circo: Augusto, Clown Bianco, Monsieur Loyal  
-  – La Voce del Clown  
-  – Numeri clown e l*e bide (fiasco)*  
-  – Spazio e tempo ritmici: entrata, crescendo, sviluppo dei temi, culmine e uscita  
-  – Le abilità dell’attore al servizio del clown: giocare con la musica, il canto, l’acrobatica, la giocoleria, la danza e abilità insolite o uniche.
+  - La relazione tra clown: gerarchia, padroni e servi, livelli di stupidità
+  - Gli Archetipi del Clown da Circo: Augusto, Clown Bianco, Monsieur Loyal
+  - La Voce del Clown
+  - Numeri clown e l*e bide (fiasco)*
+  - Spazio e tempo ritmici: entrata, crescendo, sviluppo dei temi, culmine e uscita
+  - Le abilità dell’attore al servizio del clown: giocare con la musica, il canto, l’acrobatica, la giocoleria, la danza e abilità insolite o uniche.
 
-  **Terza Settimana: IDEARE NUMERI CLOWN**
+  ### Settimana 3: IDEARE NUMERI CLOWN
 
-  – Creazione collettiva di Numeri Clown a partire dalle improvvisazioni delle settimane precedenti  
-  – Incidenti e routine comiche  
-  – Ideare uno spettacolo di varietà clown  
-  – Messa in scena e regia dei clown: ogni clown lavorerà e rielaborerà alcuni numeri /routine da presentare in tre spettacoli pubblici  
-  – Provare uno Spettacolo di Varietà Clown
+  - Creazione collettiva di Numeri Clown a partire dalle improvvisazioni delle settimane precedenti
+  - Incidenti e routine comiche
+  - Ideare uno spettacolo di varietà clown
+  - Messa in scena e regia dei clown: ogni clown lavorerà e rielaborerà alcuni numeri /routine da presentare in tre spettacoli pubblici
+  - Provare uno Spettacolo di Varietà Clown
 
-  **Quarta settimana : LA PERFORMANCE**
+  ### Settimana 4: LA PERFORMANCE
 
-  – Presentazione pubblica di uno Spettacolo di Varietà Clown, ideato dai partecipanti sotto la direzione di Giovanni Fusetti.  
-  – Feedback sulla performance e rielaborazione per una seconda e una terza replica.  
-  – Feedback sull’intero processo e celebrazione finale dei clown e del loro mondo.  
-  – Prospettive su come proseguire il lavoro.
+  - Presentazione pubblica di uno Spettacolo di Varietà Clown, ideato dai partecipanti sotto la direzione di Giovanni Fusetti.
+  - Feedback sulla performance e rielaborazione per una seconda e una terza replica.
+  - Feedback sull’intero processo e celebrazione finale dei clown e del loro mondo.
+  - Prospettive su come proseguire il lavoro.
 image_caption_it: "*Padova, Red Nose Intensive – 202*4"
 translation: "draft"
 ---
@@ -206,11 +205,11 @@ translation: "draft"
 *Come and explore the art of playing, devising and directing*  
 *in the rigorous practice of Red Nose Theater Clown.*  
 
-**THE RED NOSE CLOWN**
-
 Clown is about **comic poetry** : funny and touching, essential and rigorous. It’s a dive into the mystery of laughter.
 
 Deeply rooted in movement-based theater, this workshop proposes an intensive training in Red Nose Theater Clown – a specific theatrical and poetical genre. The pedagogy focuses in particular on the analysis, amplification and play of the physical and emotional world of each actor, as revealed by their body in space. This **somatic approach** will lead to the discovery of **a unique individual clown,** with a specific body, tempo, voice, costume, attitudes, emotions, and poetic universe.  
+
+<!--more-->
 
 The journey begins with the exploration and analysis of the body within the theatrical space. In terms of movement, no body is neutral – every body carries profoundly expressive themes, embodied in everyday movement. Within each person’s movement and physical presence there is a web of “non-neutral attitudes” and physical and emotional “background sounds”.
 
@@ -237,8 +236,6 @@ As a personal journey it is an ecstatic way to get in touch with one’s unique 
  *There are as many clowns as there are human beings.*  
 *There is one straight line and infinite ways to wander.*  
 *Intelligence is limited. Stupidity is infinite.*
-
-*Giovanni Fusetti*
 
 **THE PEDAGOGY**  
 **A Somatic Approach to Clown**

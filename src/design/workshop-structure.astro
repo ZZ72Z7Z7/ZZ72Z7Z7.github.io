@@ -1,0 +1,146 @@
+---
+// Design review page (261010): ways to give the individual workshop page more visual structure. Not part of the site: remove before launch.
+// Text is real Red Nose Intensive wording, shortened with "…" only for this comparison.
+import Base from '../layouts/Base.astro';
+const desc = [
+  'Clown is about <strong>comic poetry</strong> : funny and touching, essential and rigorous. It’s a dive into the mystery of laughter.',
+  'Deeply rooted in movement-based theater, this workshop proposes an intensive training in Red Nose Theater Clown – a specific theatrical and poetical genre…',
+  'Before being a character, the clown is a state of playing, in which everyone has access to the key question: <strong><em>what is so funny about me ?</em></strong>',
+];
+const quote = 'There are as many clowns as there are human beings. There is one straight line and infinite ways to wander. Intelligence is limited. Stupidity is infinite.';
+const weeks = [
+  { n: 1, t: 'THE CLOWN “STATE”', l: ['Play, action/reaction and fun', 'The empty space and the non-intentional mind', 'The Red Nose as a mask: amplification and articulation of movement', 'Contact and play with the audience'] },
+  { n: 2, t: 'THE PLAY (le jeu)', l: ['The relationship among clowns: hierarchy, masters and servants, levels of stupidity', 'The Circus Clown Archetypes: Augustus, White Clown, Monsieur Loyal', 'The Clown’s Voice'] },
+  { n: 3, t: 'DEVISING CLOWN ACTS', l: ['Devising of Clown Acts based on the previous weeks’ improvisations', 'Accidents and comic routines', 'Rehearsing a Clown Variety Show'] },
+  { n: 4, t: 'PERFORMING', l: ['Public presentation of a Clown Variety Show', 'Feedback on the performance and re-work for a second and a third performance', 'Perspectives on how to continue the work'] },
+];
+const sched = ['Week 1: Sunday, November 1st, through Friday November 6th', 'Week 2: Monday November 9th through Friday November 13th', 'Week 3: Monday November 16th through Friday November 20th', 'Week 4: Sunday November 22nd through Saturday November 28th'];
+const facts = [
+  ['When', 'November 1 - 28, 2026'], ['Where', 'Helikos Studio, Padova, Italy'], ['Time', '9:30am – 5:30pm each day'], ['Tuition', 'EURO 2.200 → 2.700'], ['Language', 'English'], ['Group', '12 students'],
+];
+---
+<Base title="Design: workshop page structure" lang="en" path="/design/workshop-structure/" section="workshops">
+  <h1>Workshop page: more structure</h1>
+  <p class="p2">Review page for the designer, local only. The same Red Nose Intensive content (shortened here with "…") in five treatments. Each is a mock-up at desktop width; the real page would use the real text. Option 0 is today.</p>
+
+  <!-- 0 · TODAY -->
+  <section class="opt"><h2 class="h3">0 · Today</h2>
+    <p class="p2 why">Every section is an H2 with plain text under it. Nothing separates a paragraph about the pedagogy from the tuition or the application steps.</p>
+    <div class="frame">
+      <h3 class="o-h2">Description</h3>{desc.map((p) => <p set:html={p} />)}
+      <h3 class="o-h2">Program</h3><p><strong>First Week: THE CLOWN “STATE”</strong></p><ul class="o-ul">{weeks[0].l.map((x) => <li>{x}</li>)}</ul>
+      <h3 class="o-h2">Schedule</h3>{sched.map((s) => <p class="tight">{s}</p>)}
+      <h3 class="o-h2">Tuition</h3><p><strong>Tuition</strong>: EURO 2.200 → 2.700</p><p>The tuition is following a <strong>sliding scale</strong> approach…</p>
+    </div>
+  </section>
+
+  <!-- 1 · QUICK FACTS + RED RULES -->
+  <section class="opt"><h2 class="h3">1 · Key-facts strip, red-ruled sections</h2>
+    <p class="p2 why">A grey strip right under the picture answers the visitor’s first questions at a glance (when, where, time, price, language, group size). Below it every section starts with a short red rule and a small numbered label, so the eye can jump from block to block. Text stays in one column.</p>
+    <p class="p2 cost"><strong>Cost / catch:</strong> the facts (time, language, group size) are inside the client’s free text today. This needs a few extra short fields in the schedule form (“Time”, “Language”, “Group size”), or I copy them over by hand now and the client keeps them up to date.</p>
+    <div class="frame o1">
+      <dl class="facts">{facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+      <section><p class="sec-n"><span>01</span> Description</p>{desc.map((p) => <p set:html={p} />)}</section>
+      <section><p class="sec-n"><span>02</span> Program</p><p><strong>First Week: THE CLOWN “STATE”</strong></p><ul class="o-ul">{weeks[0].l.map((x) => <li>{x}</li>)}</ul></section>
+      <section><p class="sec-n"><span>03</span> Schedule</p>{sched.map((s) => <p class="tight">{s}</p>)}</section>
+      <section><p class="sec-n"><span>04</span> Tuition</p><p><strong>Tuition</strong>: EURO 2.200 → 2.700</p><p>The tuition is following a <strong>sliding scale</strong> approach…</p></section>
+    </div>
+  </section>
+
+  <!-- 2 · TWO ZONES -->
+  <section class="opt"><h2 class="h3">2 · Two zones: the story, then the practicalities</h2>
+    <p class="p2 why">Splits the page by purpose. Description and Program read as an essay in plain white. Schedule, Location, Tuition and Application move into one tinted panel laid out as rows: a label on the left (Schedule, Location, Tuition, Application), the text on the right. It looks like a form or a timetable, so it is obviously “the useful part”, and a visitor who only wants the price jumps straight to it.</p>
+    <p class="p2 cost"><strong>Cost / catch:</strong> purely visual; the four fields and the editor stay exactly as they are. On phones the labels sit above their text (and the accordions stay).</p>
+    <div class="frame o2">
+      <h3 class="o-h2">Description</h3>{desc.map((p) => <p set:html={p} />)}
+      <h3 class="o-h2">Program</h3><p><strong>First Week: THE CLOWN “STATE”</strong></p><ul class="o-ul">{weeks[0].l.map((x) => <li>{x}</li>)}</ul>
+      <div class="panel">
+        <p class="panel-title">Practical information</p>
+        <div class="row"><h3>Schedule</h3><div>{sched.map((s) => <p class="tight">{s}</p>)}<p class="tight">Time: 9:30am – 5:30pm each day</p></div></div>
+        <div class="row"><h3>Location</h3><div><p class="tight">HELIKOS STUDIO, Via Monte Solarolo 16/A, PADOVA, ITALY</p></div></div>
+        <div class="row"><h3>Tuition</h3><div><p class="tight"><strong>Tuition</strong>: EURO 2.200 → 2.700</p><p class="tight">The tuition is following a <strong>sliding scale</strong> approach…</p></div></div>
+        <div class="row"><h3>Application</h3><div><p class="tight">There is no application form. To apply to <strong>THE RED NOSE INTENSIVE,</strong> please email…</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SIDE INDEX -->
+  <section class="opt"><h2 class="h3">3 · Sticky section index on the side</h2>
+    <p class="p2 why">On a wide screen a slim list (Description, Program, Schedule, Location, Tuition, Application, Gallery) stays beside the text and highlights the section you are in. Clicking jumps to it. The page becomes a navigable document: you always know where you are and can go straight to Tuition or Application. Text column unchanged.</p>
+    <p class="p2 cost"><strong>Cost / catch:</strong> needs the wide layout (64rem, as the lists use). Below 1024px it disappears and the existing accordions do the job, so phones are unchanged. Small script for the highlight.</p>
+    <div class="frame o3">
+      <nav class="idx"><p>On this page</p><a class="on">Description</a><a>Program</a><a>Schedule</a><a>Location</a><a>Tuition</a><a>Application</a><a>Gallery</a></nav>
+      <div>
+        <h3 class="o-h2">Description</h3>{desc.map((p) => <p set:html={p} />)}
+        <h3 class="o-h2">Program</h3><p><strong>First Week: THE CLOWN “STATE”</strong></p><ul class="o-ul">{weeks[0].l.map((x) => <li>{x}</li>)}</ul>
+        <h3 class="o-h2">Schedule</h3>{sched.map((s) => <p class="tight">{s}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · PROGRAM AS WEEK CARDS + LEAD -->
+  <section class="opt"><h2 class="h3">4 · Week cards for the Program, lead paragraph and quote in the Description</h2>
+    <p class="p2 why">Works inside the sections instead of around them. The four weeks become four cards (a big red number, the week’s title, its list), two across; the dense list is now four small, clearly different blocks. In the Description the first paragraph is set a size larger as an introduction, and the closing lines (“There are as many clowns…”) sit as a quote with a red bar. Reads like a magazine page.</p>
+    <p class="p2 cost"><strong>Cost / catch:</strong> the program text has to be split at each “First Week / Second Week…” line (the template can do it automatically, no change for the client). Quotes need the client’s italic line marked once. Only works for pages that have a program and such lines; others keep the plain look.</p>
+    <div class="frame o4">
+      <h3 class="o-h2">Description</h3>
+      <p class="lead" set:html={desc[0]} />
+      <p set:html={desc[1]} /><p set:html={desc[2]} />
+      <blockquote>{quote}<cite>Giovanni Fusetti</cite></blockquote>
+      <h3 class="o-h2">Program</h3>
+      <div class="weeks">{weeks.map((w) => <div class="wk"><span class="n">{w.n}</span><h4>{w.t}</h4><ul>{w.l.map((x) => <li>{x}</li>)}</ul></div>)}</div>
+    </div>
+  </section>
+
+  <section class="opt rec"><h2 class="h3">My recommendation</h2>
+    <p><strong>Option 2 (two zones), plus the week cards and the quote from option 4.</strong> They add structure without changing a word or any of the editor’s fields: the practical information becomes one clearly separate, scannable block, the program becomes four blocks, and the description gets a lead and a quote. Option 1’s key-facts strip is the best single addition for “clarity at a glance” but needs new fields; I would add it later, once you and the client agree which facts matter. Option 3 helps long pages but adds a second column for little gain on desktop and nothing on phones.</p>
+    <p class="p2">Tell me which to apply (any combination), and anything to change in them (colour of the panel, card style, number labels).</p>
+  </section>
+</Base>
+
+<style>
+  .opt { margin: 3.5rem 0; padding-top: 1.5rem; border-top: 3px solid var(--text); }
+  .opt .why, .opt .cost { max-width: 44rem; }
+  .opt .cost { color: var(--muted); }
+  .rec { border-top-color: var(--red-text); }
+  .frame { border: 1px solid var(--line); padding: 2rem 2.5rem; margin-top: 1.25rem; max-width: 52rem; }
+  .frame p { margin: 0 0 var(--space-p); }
+  .frame p.tight { margin: 0; }
+  .o-h2 { font-size: var(--h2-size); margin: 2rem 0 .75rem; }
+  .frame > .o-h2:first-child { margin-top: 0; }
+  .o-ul { margin: 0 0 var(--space-p); padding-left: 1.25rem; }
+
+  /* 1 */
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin: 0 0 2.5rem; background: #f3f3f3; border-top: 3px solid var(--red); }
+  .facts div { padding: .9rem 1.1rem; border-bottom: 1px solid #fff; }
+  .facts dt { font-size: var(--p3-size); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0; }
+  .facts dd { margin: .15rem 0 0; font-weight: 700; }
+  .o1 section { margin-top: 2.25rem; }
+  .sec-n { font-size: var(--h3-size); font-weight: 700; margin: 0 0 .9rem !important; padding-top: .9rem; position: relative; }
+  .sec-n::before { content: ""; position: absolute; top: 0; left: 0; width: 3rem; height: 3px; background: var(--red); }
+  .sec-n span { color: var(--red-text); font-size: var(--p2-size); font-weight: 600; margin-right: .6rem; vertical-align: .15em; }
+
+  /* 2 */
+  .panel { background: #f3f3f3; margin: 2.5rem -1rem 0; padding: 1.5rem 2rem 1rem; border-top: 3px solid var(--red); }
+  .panel-title { font-size: var(--h2-size); font-weight: 700; margin: 0 0 1rem !important; }
+  .row { display: grid; grid-template-columns: 9rem 1fr; gap: 1.5rem; padding: 1.1rem 0; border-top: 1px solid #d6d6d6; }
+  .row h3 { margin: 0; font-size: var(--p1-size); color: var(--red-text); }
+
+  /* 3 */
+  .o3 { display: grid; grid-template-columns: 11rem 1fr; gap: 2.5rem; max-width: 64rem; }
+  .idx { position: sticky; top: 7rem; align-self: start; display: flex; flex-direction: column; border-left: 1px solid var(--line); }
+  .idx p { margin: 0 0 .5rem; padding-left: 1rem; font-size: var(--p3-size); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .idx a { padding: .35rem 1rem; font-size: var(--p2-size); text-decoration: none; margin-left: -1px; border-left: 3px solid transparent; }
+  .idx a.on { border-left-color: var(--red); font-weight: 700; color: var(--red-text); }
+
+  /* 4 */
+  .lead { font-size: 1.35rem; line-height: 1.5; }
+  blockquote { margin: 2rem 0; padding: .25rem 0 .25rem 1.5rem; border-left: 4px solid var(--red); font-style: italic; font-size: 1.25rem; line-height: 1.5; }
+  blockquote cite { display: block; margin-top: .6rem; font-size: var(--p2-size); font-style: normal; color: var(--muted); }
+  .weeks { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .wk { background: #f3f3f3; padding: 1.1rem 1.25rem 1rem; position: relative; }
+  .wk .n { display: block; font-size: 2.75rem; line-height: 1; font-weight: 800; color: var(--red); }
+  .wk h4 { margin: .35rem 0 .6rem; font-size: var(--p2-size); letter-spacing: .04em; }
+  .wk ul { margin: 0; padding-left: 1.1rem; font-size: var(--p2-size); }
+  .wk li { margin-bottom: .3rem; }
+</style>

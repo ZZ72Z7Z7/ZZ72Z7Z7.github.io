@@ -40,8 +40,6 @@ There is one way to stand while there are infinite ways to fall.
 Intelligence is limited.   
 Stupidity is infinite.* 
 
-*Giovanni Fusetti*
-
 ![](/wp-content/uploads/2021/03/heliclowns.chorus.jpg)
 
 Helikos School 2013
