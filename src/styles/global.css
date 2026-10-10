@@ -210,6 +210,12 @@ form button:hover:not(:disabled), .btn-red:hover:not(:disabled) { background: #8
 
 
 .prose img { display: block; margin: 1.5rem 0; }
+/* Portrait pictures (class "tall", added by the text renderer and the workshop template): scaled down to fit a 3:2 landscape box the width of the text column
+   and centred, from tablet width up (designer, 261010, option A1). Event posters, list thumbnails and the galleries are not affected. */
+@media (min-width: 48rem) {
+  .prose img.tall, .wk-primary img.tall { width: auto; max-width: 100%; height: auto; max-height: calc(var(--measure) * 2 / 3); margin-left: auto; margin-right: auto; }
+  .prose p:has(> img.tall), .wk-primary:has(img.tall) figcaption { text-align: center; }
+}
 /* photo galleries: the photos in a grid; embedded videos at full width, 16:9 */
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: .5rem; margin: 1.5rem 0; }
 .gallery-grid img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin: 0; display: block; }
@@ -411,25 +417,17 @@ h1 + .subtitle.entry-sub { font-size: var(--p2-size); font-style: italic; } /* t
 /* data-desktop-acc on a workshop's section list (field accordion_desktop in the workshop file) keeps the phone accordion on desktop too; used on one page while the designer experiments */
 .acc.wk-acc .acc-title { text-transform: uppercase; } /* section headings on workshop and event pages: all caps (designer, 261010) */
 /* Photo slideshow at the bottom of a workshop page (designer, 261010): one photo at a time, the neighbours peeking in at the edges on desktop; the next photo every 3 seconds (src/scripts/slideshow.ts) */
-.wk-slideshow { position: relative; margin: 4rem 0 0; width: min(var(--wide), calc(100vw - 2 * var(--gutter))); left: 50%; transform: translateX(-50%); container-type: inline-size; }
-.ss-track { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-inline: 4rem; }
+.wk-slideshow { position: relative; margin: 4rem 0 0; width: min(56rem, calc(100vw - 2 * var(--gutter))); left: 50%; transform: translateX(-50%); container-type: inline-size; }
+.ss-track { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .ss-track::-webkit-scrollbar { display: none; }
-.ss-slide { flex: 0 0 auto; margin: 0; width: calc(100cqw - 8rem); scroll-snap-align: center; }
+.ss-slide { flex: 0 0 auto; margin: 0; width: 100cqw; scroll-snap-align: center; }
 .ss-slide img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; margin: 0; }
-.ss-slide img.ss-tall { object-fit: contain; background: #f3f3f3; } /* portrait and near-square pictures are shown whole */
+.ss-slide img.ss-tall { object-fit: contain; } /* portrait and near-square pictures are shown whole, on the page's own background */
 .ss-slide figcaption { margin-top: .5rem; color: var(--muted); text-align: center; }
-.wk-slideshow.ss-ready .ss-slide { opacity: .45; transition: opacity .4s; }
-.wk-slideshow.ss-ready .ss-slide.is-active { opacity: 1; }
-.ss-btn { position: absolute; top: calc((100cqw - 8rem) * .3125); transform: translateY(-50%); display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 0; background: rgba(255,255,255,.88); color: var(--text); cursor: pointer; }
+.ss-btn { position: absolute; top: calc(100cqw * .3125); transform: translateY(-50%); display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 0; background: rgba(255,255,255,.88); color: var(--text); cursor: pointer; }
 .ss-btn:hover { color: var(--red-text); }
-.ss-prev { left: 1.25rem; } .ss-next { right: 1.25rem; }
+.ss-prev { left: .5rem; } .ss-next { right: .5rem; }
 .wk-slideshow .wk-credits { margin-top: 1.25rem; }
-@media (max-width: 47.9375rem) { /* phones: one photo across the full width, no peeking */
-  .ss-track { padding-inline: 0; }
-  .ss-slide { width: 100cqw; }
-  .ss-btn { top: calc(100cqw * .3125); }
-  .ss-prev { left: .5rem; } .ss-next { right: .5rem; }
-}
 .wk-acc .acc-body li { line-height: 1.4; }
 .wk-acc .prose ul:not(.entries):not(.post-list):not(.cats) > li::before { top: calc((1lh - 1.22em) / 2 + .64em - .25rem); } /* centres the dot on the text of the first line (Figtree: ascent .94em, descent .28em, middle of the lowercase letters about .3em above the baseline) */
 .wk-program .prose h3 { margin-top: 32px; margin-bottom: 16px; } /* Week subheadings are H3: one more line of space above each, after the previous week's list (designer, 261010) */
@@ -456,9 +454,9 @@ h1 + .subtitle.entry-sub { font-size: var(--p2-size); font-style: italic; } /* t
   .acc-list:not([data-desktop-acc]) .wk-panel > .acc.wk-acc > summary { padding: 0; align-items: flex-start; }
   .acc-list:not([data-desktop-acc]) .wk-panel > .acc.wk-acc .acc-title { font-size: var(--p1-size); color: var(--red-text); text-transform: uppercase; }
 }
-.wk-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); }
-.wk-gallery-grid figure { margin: 0; }
-.wk-gallery-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; margin: 0; }
+.wk-gallery-grid { display: block; columns: 11rem; column-gap: 8px; }
+.wk-gallery-grid figure { margin: 0 0 8px; break-inside: avoid; }
+.wk-gallery-grid img { width: 100%; height: auto; aspect-ratio: auto; object-fit: fill; display: block; margin: 0; }
 .wk-credits { margin-top: 1.5rem; color: var(--muted); }
 
 /* gallery lightbox: the picture large over the page, arrows left and right (designer, 261009) */
@@ -572,7 +570,7 @@ a.btn-red:hover { color: #fff; text-decoration: none; }
 }
 @keyframes logo-spin { to { transform: rotate(-360deg); } }
 */
-.footer-spiral { display: block; width: 28px; height: auto; margin: 0 auto .75rem; }
+.footer-spiral { display: block; width: 35px; height: auto; margin: 0 auto .75rem; }
 .prose ul:not(.entries):not(.post-list):not(.cats), .acc-body ul { list-style: none; padding-left: 0; }
 .prose ul:not(.entries):not(.post-list):not(.cats) > li, .acc-body ul > li { position: relative; padding-left: 1.25rem; }
 .prose ul:not(.entries):not(.post-list):not(.cats) > li::before, .acc-body ul > li::before { content: ""; position: absolute; left: .1rem; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--red); }
@@ -585,10 +583,10 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 .gallery-tiles .tile::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.6); } /* 60% black veil over every thumbnail (designer, 261009) */
 .gallery-tiles .tile span { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem 2rem; font-size: var(--h2-size); font-weight: 700; line-height: 1.2; text-shadow: 0 2px 14px rgba(0,0,0,.6); }
 .gallery-tiles .tile:hover span, .gallery-tiles .tile:focus-visible span { color: var(--red); } /* the title turns the logo red on hover */
-.prose .gallery-grid.wk-gallery { grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 4px; } /* photo gallery pages: smaller thumbnails, 4px apart (designer, 261009) */
-.prose .gallery-grid.wk-gallery figure { margin: 0; }
+.prose .gallery-grid.wk-gallery { display: block; columns: 10rem; column-gap: 4px; } /* photo gallery pages: smaller thumbnails, 4px apart (designer, 261009) */
+.prose .gallery-grid.wk-gallery figure { margin: 0 0 4px; break-inside: avoid; }
 .prose .gallery-grid.wk-gallery a { display: block; }
-.prose .gallery-grid.wk-gallery img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; margin: 0; }
+.prose .gallery-grid.wk-gallery img { display: block; width: 100%; max-width: none; max-height: none; height: auto; aspect-ratio: auto; object-fit: fill; margin: 0; } /* masonry columns: every photo whole, in its own proportions (designer, 261010, option C2) */
 /* Video page (designer, 261009): a tight grid of 16:9 thumbnails, two across on desktop, three rows (one column below 1024px), title and info over the picture on a 60% veil like the Photos tiles; a selected video plays in the viewer */
 .video-tiles { display: grid; grid-template-columns: 1fr; gap: 4px; margin: 0; }
 @media (min-width: 64rem) { .video-tiles { grid-template-columns: repeat(2, 1fr); } }

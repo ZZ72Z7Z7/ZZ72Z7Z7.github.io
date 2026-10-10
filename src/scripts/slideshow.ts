@@ -16,17 +16,6 @@ if (root && track) {
   root.querySelector('.ss-next')?.addEventListener('click', () => go(1));
   if (slides.length < 2) root.querySelectorAll<HTMLElement>('.ss-btn').forEach((b) => (b.hidden = true));
 
-  // dim the photos that only peek in at the edges: the one nearest the middle is the active one
-  root.classList.add('ss-ready');
-  const markActive = () => {
-    const mid = track.scrollLeft + track.clientWidth / 2;
-    let best = slides[0], bestD = Infinity;
-    slides.forEach((sl) => { const d = Math.abs(sl.offsetLeft + sl.offsetWidth / 2 - mid); if (d < bestD) { bestD = d; best = sl; } });
-    slides.forEach((sl) => sl.classList.toggle('is-active', sl === best));
-  };
-  track.addEventListener('scroll', markActive, { passive: true });
-  markActive();
-
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   let hover = false, focus = false, visible = false, touching = false;
   root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hover = true; });

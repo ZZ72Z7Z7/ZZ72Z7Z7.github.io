@@ -1,14 +1,13 @@
 import sharp from 'sharp';
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { publicFile } from './publicfile';
 
 /** Photos whose edges are nearly white (drawings, posters, white backgrounds) get a hairline frame (1d, designer 261009),
  *  so they do not dissolve into the white page. Decided at build time from the average brightness of the picture's outer edge. */
 const cache = new Map<string, Promise<boolean>>();
 
 async function measure(src: string): Promise<boolean> {
-  const file = join(process.cwd(), 'public', src.split('?')[0]);
-  if (!existsSync(file)) return false;
+  const file = publicFile(src);
+  if (!file) return false;
   try {
     const { data, info } = await sharp(file).flatten({ background: '#fff' }).resize(40, 40, { fit: 'fill' }).greyscale().raw().toBuffer({ resolveWithObject: true });
     let sum = 0, n = 0;

@@ -10,6 +10,7 @@ import { formatRange, cityName } from '../lib/dates';
 import { md } from '../lib/md';
 import { isPale } from '../lib/pale';
 import { isTall } from '../lib/shape';
+import { isTallImage } from '../lib/imgsize';
 import Lightbox from '../components/Lightbox.astro';
 import { t, pick, type Lang } from '../i18n/ui';
 interface Props { id: string; lang: Lang }
@@ -60,6 +61,7 @@ const languageItems = upcoming.map((e) => {
 const programHtml = md(lang === 'it' && w.program_it?.trim() ? w.program_it : w.program);
 const image = w.image ?? upcoming.find((r) => r.data.image)?.data.image;
 const imagePale = await isPale(image);
+const imageTall = !!image && isTallImage(image);
 const tall = new Set((await Promise.all((w.gallery ?? []).map(async (g) => ((await isTall(g.src)) ? g.src : '')))).filter(Boolean));
 const captionSource = lang === 'it' && w.image_caption_it?.trim() ? w.image_caption_it : w.image_caption;
 const creditsSource = lang === 'it' && w.credits_it?.trim() ? w.credits_it : w.credits;
@@ -85,7 +87,7 @@ const place = (d: (typeof runs)[number]['data']) => [cityName(d.city, lang), d.r
 
   {image && (
     <figure class="wk-primary">
-      <img class:list={[imagePale && 'framed']} src={image} alt="" />
+      <img class:list={[imagePale && 'framed', imageTall && 'tall']} src={image} alt="" />
       {imageCaption && <figcaption class="p3" set:html={imageCaption} />}
     </figure>
   )}
