@@ -1,0 +1,128 @@
+---
+// Design review page: three ways to bring the "stupidus" text onto the landing photo. Local only.
+import Base from '../layouts/Base.astro';
+
+// The client's text, split at his own line breaks. Each slide is one beat.
+const slides = [
+  { lead: 'I practice the freedom to be', word: 'stupidus' },
+  { lines: ['Stupefied by life, nature, beauty', 'and the mystery of the human condition'] },
+  { lines: ['I celebrate the sublime stupidity of Clowns', 'I long for the crazy wisdom of The Fool'] },
+  { lines: ['Intelligence is limited', 'Stupidity is infinite'] },
+  { lines: ['Clowning is a very serious work on how to be stupid'] },
+  { lines: ['To the delusional quest for a mechanical artificial intelligence', 'I will respond with the daily practice of  embodied natural stupidity'] },
+];
+const options = [
+  {
+    key: 'a',
+    title: 'A · Surtitles at the left, one beat at a time',
+    text: 'The text sits in the left third of the photo, on white strips like theatre surtitles. Each beat fades in, stays about four seconds, then gives way to the next, and the sequence loops. His face (centre) is never covered. "stupidus" opens the sequence large, in red.',
+    notes: 'Personality: the pacing, like lines of a show. Cost: motion, so people who prefer less motion get all the text still, static, below the photo.',
+  },
+  {
+    key: 'b',
+    title: 'B · A subtitle band along the bottom',
+    text: 'One beat at a time in a white band across the bottom of the photo, over his coat and scarf, centred like film subtitles. Same sequence and timing. Works on phones too, because on the portrait crop the bottom is also his coat.',
+    notes: 'Personality: the film-subtitle feel, quiet and clearly separate from the face. It is the most robust on every screen shape.',
+  },
+  {
+    key: 'c',
+    title: 'C · One red label, the rest below',
+    text: 'No sequence. A single red label sits at the bottom left of the photo: "I practice the freedom to be" with "stupidus" large, which wobbles once as the page loads. All the remaining text sits below the photo as plain static text, as it does now.',
+    notes: 'Personality: the bold red block, like a clown prop, and one small gesture. Simplest and calmest, with no looping animation.',
+  },
+];
+---
+<Base title="Hero text review" lang="en" path="/design/hero-text/" noindex wide>
+  <h1>Landing page: the "stupidus" text</h1>
+  <p>Three approaches, each shown on the real photo at 16:9. A and B loop on their own; C plays its wobble once (press Replay). Tell me a letter, or a mix.</p>
+
+  {options.map((o) => (
+    <section class={`opt opt-${o.key}`} data-opt={o.key}>
+      <h2>{o.title}</h2>
+      <p class="how">{o.text}</p>
+      <p class="why">{o.notes}</p>
+      <div class="frame">
+        <img src="/images/hero.jpg" alt="" width="1920" height="1080" />
+        {o.key !== 'c' && (
+          <div class="slides" aria-hidden="true">
+            {slides.map((s, i) => (
+              <div class={`slide ${i === 0 ? 'on' : ''}`}>
+                {s.lead && <p class="line lead">{s.lead}</p>}
+                {s.word && <p class="line word">{s.word}</p>}
+                {s.lines && s.lines.map((l) => <p class="line">{l}</p>)}
+              </div>
+            ))}
+          </div>
+        )}
+        {o.key === 'c' && (
+          <div class="label">
+            <p class="lead">I practice the freedom to be</p>
+            <p class="word">stupidus</p>
+          </div>
+        )}
+      </div>
+      {o.key === 'c' && <button type="button" class="replay">Replay</button>}
+    </section>
+  ))}
+
+  <h2>Things that apply to any of them</h2>
+  <ul>
+    <li><strong>The face stays clear.</strong> He sits in the centre of the photo. A keeps to the left third, B to the bottom band over the coat, C to the bottom-left corner.</li>
+    <li><strong>Reduced motion.</strong> For visitors who have asked their device for less movement, the animation stops and the full text is shown plainly below the photo.</li>
+    <li><strong>Everyone gets all the text.</strong> In A and B the sequence is a reveal only: the complete text also sits in the page below the photo for reading and for search engines and screen readers.</li>
+    <li><strong>Phones.</strong> The portrait crop puts the bottom on his coat, so B and C carry over directly. A's left-hand placement would move to the bottom there.</li>
+    <li><strong>His words stay exactly as he wrote them,</strong> including the double space in "of  embodied".</li>
+  </ul>
+
+  <script is:inline>
+    // A and B: cycle through the beats.
+    document.querySelectorAll('.opt-a, .opt-b').forEach(function (sec) {
+      var slides = sec.querySelectorAll('.slide'); var i = 0;
+      setInterval(function () {
+        slides[i].classList.remove('on'); i = (i + 1) % slides.length; slides[i].classList.add('on');
+      }, 4200);
+    });
+    // C: replay the wobble.
+    var rb = document.querySelector('.replay');
+    if (rb) rb.addEventListener('click', function () {
+      var w = document.querySelector('.opt-c .word'); w.classList.remove('wob'); void w.offsetWidth; w.classList.add('wob');
+    });
+    document.querySelector('.opt-c .word').classList.add('wob');
+  </script>
+
+  <style>
+    .opt { margin: 2.5rem 0; }
+    .opt h2 { font-size: 1.15rem; margin: 0 0 .4rem; }
+    .how, .why { max-width: 46rem; margin: 0 0 .5rem; }
+    .why { color: var(--muted); font-size: .93rem; }
+    .frame { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #ddd; margin-top: .75rem; container-type: inline-size; }
+    .frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .slides { position: absolute; inset: 0; pointer-events: none; }
+    .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; display: flex; flex-direction: column; justify-content: center; }
+    .slide.on { opacity: 1; }
+    .line { margin: 0; font-style: italic; font-weight: 700; color: var(--text); background: rgba(255, 255, 255, .92); padding: .12em .6em; width: fit-content; font-size: 2.3cqw; line-height: 1.5; }
+    .line.lead { font-size: 2.6cqw; }
+    .line.word { font-size: 9cqw; line-height: 1.05; color: var(--red-text); padding: .02em .25em .08em; }
+
+    /* A: left third */
+    .opt-a .slide { align-items: flex-start; padding-left: 3.5%; max-width: 36%; }
+    .opt-a .line { font-size: 2cqw; }
+    .opt-a .line.lead { font-size: 2.2cqw; }
+    .opt-a .line.word { font-size: 7.5cqw; }
+    /* B: bottom band */
+    .opt-b .slide { justify-content: flex-end; align-items: center; padding-bottom: 3%; text-align: center; }
+    .opt-b .line { background: rgba(255, 255, 255, .92); text-align: center; }
+    .opt-b .line.word { font-size: 6cqw; }
+
+    /* C: red label */
+    .label { position: absolute; left: 3.5%; bottom: 5%; background: var(--red-text); color: #fff; padding: 1.4cqw 2.4cqw 1.2cqw; }
+    .label p { margin: 0; font-style: italic; font-weight: 700; line-height: 1.05; }
+    .label .lead { font-size: 2.4cqw; margin-bottom: .6cqw; }
+    .label .word { font-size: 8cqw; display: inline-block; transform-origin: 20% 90%; }
+    @keyframes wob { 0% { transform: rotate(0) } 20% { transform: rotate(-4deg) } 40% { transform: rotate(3deg) } 60% { transform: rotate(-2deg) } 80% { transform: rotate(1deg) } 100% { transform: rotate(0) } }
+    .wob { animation: wob 1.1s ease-in-out .3s 1; }
+    .replay { font: inherit; color: var(--text); font-weight: 500; margin-top: .6rem; padding: .35rem .9rem; border: 1px solid var(--muted); background: var(--bg); cursor: pointer; }
+    .replay:hover { border-color: var(--red-text); color: var(--red-text); }
+    @media (prefers-reduced-motion: reduce) { .slide { transition: none; } .wob { animation: none; } }
+  </style>
+</Base>

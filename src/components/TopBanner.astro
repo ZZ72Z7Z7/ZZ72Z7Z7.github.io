@@ -1,0 +1,9 @@
+---
+// Full-width photo banner directly under the header (use in the "hero" slot of Base).
+import type { Banner } from '../lib/banners';
+interface Props { banner: Banner }
+const { banner } = Astro.props;
+---
+<figure class="top-banner" style={`--tb-phone-ratio: ${banner.phoneRatio}`}>
+  <img src={banner.src} width="2560" height="1440" alt={banner.alt} style={`object-position: ${banner.pos}`} fetchpriority="high" />
+</figure>

@@ -1,0 +1,9 @@
+node_modules/
+.astro/
+.DS_Store
+# dist/ is the built site. It stays in the local folder as a ready-to-open copy,
+# but is not committed: GitHub builds its own, and committing it would double the repository size.
+dist/
+
+# internal backups of earlier versions of the content (kept locally; not needed on GitHub)
+archive/

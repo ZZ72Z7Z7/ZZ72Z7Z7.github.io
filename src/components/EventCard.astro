@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { t, pick, href, type Lang } from '../i18n/ui';
+import { formatDay, formatRange, cityName } from '../lib/dates';
+import { formatTime } from '../lib/content';
+import { isPale } from '../lib/pale';
+/** card: the Events-page layout, same as the Workshops cards (thumbnail left, text right); "Details →" opens the event's own page. */
+interface Props { entry: CollectionEntry<'events'>; lang: Lang }
+const { entry, lang } = Astro.props;
+const ui = t(lang);
+const d = entry.data;
+const title = pick(d, 'title', lang).value!;
+const subtitle = pick(d, 'subtitle', lang).value;
+const link = href(`/events/${entry.id}/`, lang);
+const pale = await isPale(d.image);
+const when = d.end && d.end.getTime() !== d.start.getTime() ? formatRange(d.start, d.end, lang) : formatDay(d.start, lang);
+const time = formatTime(d.time, lang);
+const place = [cityName(d.city, lang), d.country].filter(Boolean).join(', ');
+---
+<li class:list={['entry-card', d.image && 'has-thumb']}>
+  <div class="entry-left">
+    <p class="entry-dates">{when}{time && ` · ${time}`}</p>
+    {(place || d.venue) && <p class="entry-place">{[place, d.venue].filter(Boolean).join(' · ')}</p>}
+    <p class="entry-title"><a href={link}>{title}</a></p>
+    {d.image && <img class:list={['entry-thumb', pale && 'framed']} src={d.image} alt="" loading="lazy" />}
+  </div>
+  <div class="entry-right">
+    {subtitle && <p class="entry-sub">{subtitle}</p>}
+    <p class="entry-more"><a href={link}>{ui.moreInfo} →</a></p>
+  </div>
+</li>

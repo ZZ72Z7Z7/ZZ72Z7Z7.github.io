@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
+import { t, href, pick, type Lang } from '../i18n/ui';
+import { formatRange, cityName } from '../lib/dates';
+import { isPale } from '../lib/pale';
+/** card: the Workshops-page layout (thumbnail, dates, place, title, short description, "More Info →"). */
+interface Props { entry: CollectionEntry<'schedule'>; lang: Lang; showTitle?: boolean; card?: boolean; noThumb?: boolean }
+const { entry, lang, showTitle = true, card = false, noThumb = false } = Astro.props;
+const ui = t(lang);
+const d = entry.data;
+const workshop = d.workshop ? await getEntry(d.workshop) : undefined;
+const title = workshop ? pick(workshop.data, 'title', lang).value : pick(d, 'title', lang).value;
+const description = pick(d, 'description', lang).value;
+const subtitle = description ?? (workshop && showTitle ? pick(workshop.data, 'subtitle', lang).value : undefined);
+const image = noThumb ? undefined : d.image ?? workshop?.data.image;
+const pale = await isPale(image);
+const extra = pick(d, 'extra_dates', lang).value;
+const dates = extra ?? formatRange(d.start, d.end, lang);
+const place = [cityName(d.city, lang), d.region, d.country].filter(Boolean).join(', ');
+const venue = d.venue;
+const note = pick(d, 'language_note', lang).value;
+const link = workshop ? href(`/workshops/${workshop.id}/`, lang) : d.external_link;
+---
+<li class:list={[card && 'entry-card', card && image && 'has-thumb']}>
+  <div class="entry-left">
+  <p class="entry-dates">{dates}</p>
+  {(place || venue) && <p class="entry-place">{[place, venue].filter(Boolean).join(' · ')}</p>}
+  {showTitle && title && (
+    <p class="entry-title">{link ? <a href={link}>{title}</a> : title}</p>
+  )}
+  {card && image && <img class:list={['entry-thumb', pale && 'framed']} src={image} alt="" loading="lazy" />}
+  </div>
+  <div class="entry-right">
+  {subtitle && <p class="entry-sub">{subtitle}</p>}
+  {(d.taught_with || d.collaboration_name || note) && (
+    <p class="entry-meta">
+      {d.taught_with && <span>{ui.with} {d.taught_with}</span>}
+      {d.taught_with && (d.collaboration_name || note) && ' · '}
+      {d.collaboration_name && (
+        <span>{ui.inCollaborationWith} {d.collaboration_url ? <a href={d.collaboration_url}>{d.collaboration_name}</a> : d.collaboration_name}</span>
+      )}
+      {d.collaboration_name && note && ' · '}
+      {note && <span>{note}</span>}
+    </p>
+  )}
+  {!card && d.external_link && workshop && <p class="entry-meta"><a href={d.external_link}>{ui.moreInfo}</a></p>}
+  {card && link && <p class="entry-more"><a href={link}>{ui.moreInfo} →</a></p>}
+  </div>
+</li>

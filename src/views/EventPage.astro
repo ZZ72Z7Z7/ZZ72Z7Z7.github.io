@@ -1,0 +1,87 @@
+---
+// The individual event page, built like the standard workshop page (designer, 261009):
+//   title, tagline, date and time, place, primary image, then the sections Description, Location, Admission, Tickets.
+//   On desktop every section is open; below 1024px each section is an accordion row (closed until selected). Without JavaScript everything is open.
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Text from '../components/Text.astro';
+import { formatDay, formatRange, cityName } from '../lib/dates';
+import { formatTime } from '../lib/content';
+import { isPale } from '../lib/pale';
+import { t, pick, type Lang } from '../i18n/ui';
+interface Props { id: string; lang: Lang }
+const { id, lang } = Astro.props;
+const ui = t(lang);
+const entry = (await getEntry('events', id))!;
+const d = entry.data;
+const title = pick(d, 'title', lang).value!;
+const tagline = pick(d, 'subtitle', lang).value;
+const admission = pick(d, 'admission', lang).value;
+const it = lang === 'it' && d.body_it?.trim();
+const source = it ? d.body_it : entry.body;
+const fallback = lang !== 'en' && !it;
+const when = d.end && d.end.getTime() !== d.start.getTime() ? formatRange(d.start, d.end, lang) : formatDay(d.start, lang);
+const time = formatTime(d.time, lang);
+const place = [cityName(d.city, lang), d.country].filter(Boolean).join(', ');
+const where = [d.venue, d.address].filter(Boolean).join('\n');
+const pale = await isPale(d.image);
+const hasBooking = Boolean(d.booking_link || d.booking_email);
+---
+<Base title={title} lang={lang} path={`/events/${id}/`} section="events">
+  <h1 class="title-tight">{title}</h1>
+  {tagline && <p class="subtitle entry-sub">{tagline}</p>}
+
+  <div class="wk-runs">
+    <div class="wk-run">
+      <p class="wk-dates">{when}{time && ` · ${time}`}</p>
+      {(place || d.venue) && <p class="wk-place">{[d.venue, place].filter(Boolean).join(' · ')}</p>}
+    </div>
+  </div>
+
+  {d.image && (
+    <figure class="wk-primary">
+      <img class:list={[pale && 'framed']} src={d.image} alt="" />
+    </figure>
+  )}
+
+  <div class="acc-list" data-wk-acc>
+    {(source?.trim() || d.pdfs?.length) && (
+      <details class="acc wk-acc" open>
+        <summary><h2 class="acc-title">{ui.descriptionHeading}</h2></summary>
+        <div class="acc-body">
+          <Text source={source} lang={lang} fallback={fallback} />
+          {d.pdfs && d.pdfs.length > 0 && (
+            <ul>{d.pdfs.map((p) => <li><a href={p.file}>{pick(p, 'label', lang).value}</a></li>)}</ul>
+          )}
+        </div>
+      </details>
+    )}
+    {where && (
+      <details class="acc wk-acc" open>
+        <summary><h2 class="acc-title">{ui.locationHeading}</h2></summary>
+        <div class="acc-body"><p class="wk-pre">{where}</p></div>
+      </details>
+    )}
+    {admission && (
+      <details class="acc wk-acc" open>
+        <summary><h2 class="acc-title">{ui.admission}</h2></summary>
+        <div class="acc-body"><p class="wk-pre">{admission}</p></div>
+      </details>
+    )}
+    {hasBooking && (
+      <details class="acc wk-acc" open>
+        <summary><h2 class="acc-title">{ui.tickets}</h2></summary>
+        <div class="acc-body">
+          <p>
+            {d.booking_link && <a href={d.booking_link}>{d.booking_link.replace(/^https?:\/\//, '')}</a>}
+            {d.booking_link && d.booking_email && <br />}
+            {d.booking_email && <a href={`mailto:${d.booking_email}`}>{d.booking_email}</a>}
+          </p>
+        </div>
+      </details>
+    )}
+  </div>
+  <script>
+    import '../scripts/workshop-sections.ts';
+  </script>
+</Base>

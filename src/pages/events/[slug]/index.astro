@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import EventPage from '../../../views/EventPage.astro';
+export async function getStaticPaths() {
+  return (await getCollection('events')).map((e) => ({ params: { slug: e.id } }));
+}
+const { slug } = Astro.params;
+---
+<EventPage id={slug!} lang="en" />

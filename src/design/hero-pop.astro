@@ -1,0 +1,159 @@
+---
+// Design review page: landing text where the words pop in one by one, lines stacking down the photo.
+// Each stanza holds, then clears at once (no crossfade), and the next starts from empty. Local only.
+import Base from '../layouts/Base.astro';
+---
+<Base title="Hero pop-in review" lang="en" path="/design/hero-pop/" noindex wide>
+  <h1>Landing text: words appear at the pace of speech</h1>
+  <p>Lines and stanzas exactly as you set them. Words appear one after another at the pace of speech, the lines stack down the photo, STUPIDUS and STUPIDITY stand large on their own lines, each stanza holds then clears at once, and the next starts from an empty photo.</p>
+
+  <form class="ctl" onsubmit="return false">
+    <label>Where the text sits
+      <select id="pos"><option value="centre">Centre of the photo</option><option value="lower">Lower third</option><option value="left">Left side</option><option value="right">Right side</option></select>
+    </label>
+    <label>Text style
+      <select id="sty"><option value="sticker">Black text, white outline (sticker)</option><option value="fade">White text, photo darkened a little</option><option value="shadow">White text with a shadow only</option></select>
+    </label>
+    <label>Speaking pace
+      <select id="pace"><option value="1">Natural, a deliberate reading</option><option value="0.8">Brisker</option><option value="1.3">Slower, more theatrical</option></select>
+    </label>
+    <label>Hold at the end of each stanza
+      <select id="hold"><option value="3000">3 s</option><option value="2000">2 s</option><option value="4500">4.5 s</option></select>
+    </label>
+    <label>Photo shape (to test the layout)
+      <select id="shape"><option value="16 / 9">Wide 16:9 (desktop)</option><option value="3 / 4">Portrait 3:4 (phone)</option><option value="1 / 1">Square 1:1</option><option value="21 / 9">Very wide 21:9</option></select>
+    </label>
+    <button type="button" id="restart">Restart</button>
+  </form>
+
+  <div class="frame pos-centre sty-sticker" id="frame">
+    <img src="/images/hero.jpg" alt="" width="1920" height="1080" />
+    <div class="dim"></div>
+    <div class="stage" id="stage" aria-hidden="true"></div>
+  </div>
+
+  <h2>Notes</h2>
+  <ul>
+    <li><strong>The full text always sits on the page,</strong> below the photo, for reading, search engines and screen readers. The animation is a reveal only.</li>
+    <li><strong>Reduced motion:</strong> for visitors who have asked their device for less movement, nothing animates; the text is shown plainly below the photo.</li>
+    <li><strong>Phones:</strong> the portrait crop has the same sequence, with the type sized to the width of the screen.</li>
+    <li><strong>His words are exactly as he wrote them,</strong> including the double space in "of  embodied" (not visible in an animation, but kept in the page text).</li>
+  </ul>
+
+  <script is:inline>
+    // Stanzas and line breaks exactly as set by the designer. *Word* marks an emphasised line.
+    var STANZAS = [
+      ['I practice', 'the freedom', 'to be', '*STUPIDUS*'],
+      ['Stupefied by', 'life', 'nature', 'beauty'],
+      ['and the', 'mystery', 'of the', 'human condition'],
+      ['I celebrate', 'the', 'sublime stupidity', 'of Clowns'],
+      ['I long', 'for the', 'crazy wisdom', 'of', 'The Fool'],
+      ['Intelligence', 'is', 'limited'],
+      ['Stupidity', 'is', 'Infinite'],
+      ['Clowning', 'is very serious work', 'on how to be', 'stupid'],
+      ['To the', 'delusional quest', 'for a', 'mechanical', 'artificial', 'intelligence'],
+      ['I will respond', 'with the daily practice', 'of', 'embodied', 'natural', '*STUPIDITY*']
+    ];
+
+    // Rough syllable count, enough to time a spoken word.
+    function syllables(w) {
+      w = w.toLowerCase().replace(/[^a-zàèéìòù]/g, '');
+      if (!w) return 1;
+      var m = w.replace(/(?:[^laeiouyàèéìòù]es|ed|[^laeiouyàèéìòù]e)$/, '').replace(/^y/, '').match(/[aeiouyàèéìòù]{1,2}/g);
+      return Math.max(1, m ? m.length : 1);
+    }
+
+    // Words with the time to wait before the next one, as if spoken: a beat per syllable,
+    // a breath at the end of each line, and a longer beat before an emphasised line.
+    function parse(lines, speed) {
+      var out = [];
+      lines.forEach(function (line, li) {
+        var emph = /^\*.*\*$/.test(line), text = emph ? line.slice(1, -1) : line;
+        text.split(/\s+/).forEach(function (w, wi, arr) {
+          var wait = 150 * syllables(w) + 60;
+          if (wi === arr.length - 1) wait += 260;                       // breath at the end of the line
+          if (/[,;:]$/.test(w)) wait += 300;
+          out.push({ text: w, emph: emph, line: li, first: wi === 0, wait: wait * speed, before: (emph && wi === 0) ? 650 * speed : 0 });
+        });
+      });
+      return out;
+    }
+
+    var frame = document.getElementById('frame'), stage = document.getElementById('stage');
+    var run = 0;
+    function val(id) { return document.getElementById(id).value; }
+    function play() {
+      var my = ++run, s = 0;
+      function stanza() {
+        if (my !== run) return;
+        stage.innerHTML = '';
+        var words = parse(STANZAS[s], parseFloat(val('pace')));
+        var flow = document.createElement('div'); flow.className = 'flow';
+        var cur = null, curLine = -1;
+        words.forEach(function (w) {
+          if (w.line !== curLine) {
+            cur = document.createElement('div'); cur.className = w.emph ? 'ln emph' : 'ln'; flow.appendChild(cur); curLine = w.line;
+          }
+          var sp = document.createElement('span'); sp.className = 'w'; sp.textContent = w.text;
+          cur.appendChild(sp); cur.appendChild(document.createTextNode(' '));
+          w.el = sp;
+        });
+        stage.appendChild(flow);
+        var i = 0;
+        function next() {
+          if (my !== run) return;
+          if (i >= words.length) {
+            return setTimeout(function () {
+              if (my !== run) return;
+              stage.innerHTML = ''; s = (s + 1) % STANZAS.length; setTimeout(stanza, 700);
+            }, parseInt(val('hold'), 10));
+          }
+          var w = words[i];
+          setTimeout(function () {
+            if (my !== run) return;
+            w.el.className += ' on'; i++; setTimeout(next, w.wait);
+          }, w.before);
+        }
+        next();
+      }
+      stanza();
+    }
+    document.getElementById('pos').addEventListener('change', function (e) { frame.className = frame.className.replace(/pos-\w+/, 'pos-' + e.target.value); });
+    document.getElementById('sty').addEventListener('change', function (e) { frame.className = frame.className.replace(/sty-\w+/, 'sty-' + e.target.value); });
+    document.getElementById('shape').addEventListener('change', function (e) { frame.style.aspectRatio = e.target.value; });
+    document.getElementById('restart').addEventListener('click', play);
+    ['pace', 'hold'].forEach(function (id) { document.getElementById(id).addEventListener('change', play); });
+    play();
+  </script>
+
+  <style is:global>
+    .ctl { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: .8rem 1.25rem; max-width: none; margin-bottom: 1.5rem; align-items: end; }
+    .ctl label { font-size: .88rem; }
+    select { font: inherit; padding: .4rem .5rem; border: 1px solid var(--muted); background: var(--bg); color: var(--text); }
+    #restart { font: inherit; font-weight: 500; color: var(--text); background: var(--bg); border: 1px solid var(--muted); padding: .45rem .9rem; justify-self: start; }
+    /* container-type: size lets the type scale to the SHORTER side of the photo (cqmin) */
+    .frame { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #ddd; container-type: size; max-width: 100%; margin: 0 auto; }
+    .frame[style*="3 / 4"] { max-width: 28rem; }
+    .frame[style*="1 / 1"] { max-width: 36rem; }
+    .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .dim { position: absolute; inset: 0; background: rgba(0, 0, 0, 0); }
+    .sty-fade .dim { background: rgba(0, 0, 0, .38); }
+    .stage { position: absolute; inset: 0; display: flex; padding: 6cqmin; }
+    .flow { margin: 0; font-style: italic; font-weight: 700; font-size: 6.2cqmin; line-height: 1.22; max-width: 80cqmin; }
+    .pos-centre .stage { justify-content: center; align-items: center; text-align: center; }
+    .pos-lower .stage { justify-content: center; align-items: flex-end; text-align: center; padding-bottom: 8cqmin; }
+    .pos-left .stage { justify-content: flex-start; align-items: center; text-align: left; }
+    .pos-right .stage { justify-content: flex-end; align-items: center; text-align: right; }
+    .pos-left .flow, .pos-right .flow { max-width: 52cqmin; }
+    .w { visibility: hidden; }
+    .w.on { visibility: visible; }
+    .ln { display: block; }
+    .ln.emph { font-size: 2.1em; line-height: 1.05; margin-top: .08em; }   /* the emphasised word stands on its own line */
+
+    .sty-sticker .flow { color: var(--text); -webkit-text-stroke: .9cqmin #fff; paint-order: stroke fill; }
+    .sty-sticker .ln.emph { color: var(--red-text); -webkit-text-stroke: 1.4cqmin #fff; }
+    .sty-fade .flow, .sty-shadow .flow { color: #fff; }
+    .sty-shadow .flow { text-shadow: 0 1px 3px rgba(0,0,0,.9), 0 0 16px rgba(0,0,0,.7); }
+    @media (prefers-reduced-motion: reduce) { .w { visibility: visible; } }
+  </style>
+</Base>

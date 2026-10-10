@@ -1,0 +1,127 @@
+---
+// Design review page: language toggle approaches. Local only.
+import Globe from '../components/Globe.astro';
+import Base from '../layouts/Base.astro';
+const menu = ['About', 'Workshops', 'Events', 'Creations', 'Blog', 'Contact'];
+const options = [
+  {
+    key: 'A',
+    name: 'Show only the other language, in its own language',
+    how: 'One plain link that says "Italiano" on English pages and "English" on Italian pages. Always labelled in the language it leads to, so the person who needs it can read it. Very common on bilingual sites, and the simplest.',
+    why: 'Pros: clearest and quietest, nothing to decode. Cons: shows only one option, so it does not scale to a third language.',
+  },
+  {
+    key: 'B',
+    name: 'Segmented switch: EN | IT',
+    how: 'A small two-part pill. The current language is filled in solid (black or red), the other is outlined. Reads as a switch.',
+    why: 'Pros: shows the choice and where you are at once, compact, familiar from apps. Cons: two-letter codes are less friendly than names.',
+  },
+  {
+    key: 'C',
+    name: 'Globe icon with a dropdown',
+    how: 'A globe icon and the current language name, "English ▾". Clicking opens a short list: English, Italiano. The language names are written in their own language.',
+    why: 'Pros: the standard pattern on large international sites, scales to any number of languages. Cons: two clicks for a two-language site, which is more than needed.',
+  },
+  {
+    key: 'D',
+    name: 'Both names side by side',
+    how: '"English · Italiano" as text links, the current one bold with the red underline used in the menu. No codes, no icons.',
+    why: 'Pros: plain and unambiguous, both options always visible, matches the menu style. Cons: takes more width, especially on phones.',
+  },
+  {
+    key: 'E',
+    name: 'Globe icon with the target language',
+    how: 'A small globe icon followed by the one language you can switch to: "Italiano". The globe signals "language", the word says where it leads.',
+    why: 'Pros: compact, instantly recognisable as a language switch, still readable. Cons: like A, it shows only the other language.',
+  },
+];
+---
+<Base title="Language toggle review" lang="en" path="/design/language-toggle/" noindex wide>
+  <h1>Language toggle: five approaches</h1>
+  <p>Each mock header below uses the real header style. Mock A, D and E show the English page. Click around: C opens a list, and the others are static. Tell me a letter, or a mix (for example "D on desktop, the dropdown C inside the phone menu").</p>
+
+  {options.map((o) => (
+    <section class="opt">
+      <h2>{o.key} · {o.name}</h2>
+      <p class="how">{o.how}</p>
+      <p class="why">{o.why}</p>
+      <div class="mock">
+        <a class="brand" href="#"><img class="brand-logo" src="/wp-content/uploads/2021/01/spiral-1.jpg" alt="" width="216" height="225" /><span class="brand-name">Giovanni Fusetti</span></a>
+        <div class="right">
+          <ul class="nav">{menu.map((m, i) => <li><a href="#" aria-current={i === 1 ? 'page' : undefined}>{m}</a></li>)}</ul>
+
+          {o.key === 'A' && <a class="tl" href="#" lang="it" hreflang="it">Italiano</a>}
+
+          {o.key === 'B' && (
+            <div class="seg" role="group" aria-label="Language">
+              <a href="#" aria-current="true" lang="en">EN</a><a href="#" lang="it">IT</a>
+            </div>
+          )}
+
+          {o.key === 'C' && (
+            <details class="dd">
+              <summary><Globe /> English <span aria-hidden="true">▾</span></summary>
+              <ul><li><a href="#" aria-current="true" lang="en">English</a></li><li><a href="#" lang="it">Italiano</a></li></ul>
+            </details>
+          )}
+
+          {o.key === 'D' && (
+            <div class="names" role="group" aria-label="Language">
+              <a href="#" aria-current="true" lang="en">English</a><span aria-hidden="true">·</span><a href="#" lang="it">Italiano</a>
+            </div>
+          )}
+
+          {o.key === 'E' && (
+            <a class="tl" href="#" lang="it" hreflang="it"><Globe /> Italiano</a>
+          )}
+        </div>
+      </div>
+      <p class="phone-note">On a phone, inside the open menu: {
+        o.key === 'A' ? 'the link "Italiano" under the menu items.' :
+        o.key === 'B' ? 'the same pill under the menu items.' :
+        o.key === 'C' ? 'the same dropdown, opening downward.' :
+        o.key === 'D' ? '"English · Italiano" on one line under the menu items.' :
+        'the globe and "Italiano" under the menu items.'}</p>
+    </section>
+  ))}
+
+  <style>
+    .opt { margin-bottom: 2.5rem; }
+    .opt h2 { font-size: 1.15rem; margin: 2rem 0 .4rem; }
+    .how, .why { margin: 0 0 .5rem; max-width: 46rem; }
+    .why { color: var(--muted); font-size: .93rem; }
+    .phone-note { color: var(--muted); font-size: .88rem; margin: .5rem 0 0; }
+    .mock { border: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; padding: 1.1rem 1.25rem; }
+    .brand { display: flex; align-items: center; gap: .85rem; text-decoration: none; }
+    .brand-logo { height: 4.5rem; width: auto; }
+    .brand-name { font-size: 1.6rem; font-weight: 700; }
+    .right { display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; }
+    .nav { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }
+    .nav a, .tl, .names a { text-decoration: none; padding: .35rem 0; border-bottom: 3px solid transparent; display: inline-block; }
+    .nav a:hover, .tl:hover, .names a:hover { border-bottom-color: var(--red); }
+    .nav a[aria-current] { border-bottom-color: var(--red); }
+    .globe { vertical-align: -4px; }
+    .tl { display: inline-flex; align-items: center; gap: .4rem; }
+
+    /* B: segmented */
+    .seg { display: inline-flex; border: 2px solid var(--text); border-radius: 999px; overflow: hidden; font-size: .85rem; font-weight: 700; letter-spacing: .04em; }
+    .seg a { padding: .3rem .75rem; text-decoration: none; }
+    .seg a[aria-current] { background: var(--text); color: #fff; }
+    .seg a:not([aria-current]):hover { background: var(--line); color: var(--text); }
+
+    /* C: dropdown */
+    .dd { position: relative; }
+    .dd summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; padding: .35rem 0; border-bottom: 3px solid transparent; }
+    .dd summary::-webkit-details-marker { display: none; }
+    .dd summary:hover, .dd[open] summary { border-bottom-color: var(--red); }
+    .dd ul { position: absolute; right: 0; top: 100%; margin: .25rem 0 0; padding: .35rem 0; list-style: none; background: var(--bg); border: 1px solid var(--line); min-width: 9rem; box-shadow: 0 6px 18px rgba(0,0,0,.08); z-index: 3; }
+    .dd li a { display: block; padding: .5rem 1rem; text-decoration: none; }
+    .dd li a:hover { background: #f4f4f4; }
+    .dd li a[aria-current] { font-weight: 700; }
+
+    /* D: both names */
+    .names { display: inline-flex; align-items: center; gap: .6rem; }
+    .names a[aria-current] { font-weight: 700; border-bottom-color: var(--red); }
+    .names a:not([aria-current]) { color: var(--muted); }
+  </style>
+</Base>

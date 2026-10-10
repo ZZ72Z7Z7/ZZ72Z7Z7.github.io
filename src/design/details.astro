@@ -1,0 +1,73 @@
+---
+// Design review page (1d Shapes and details, part 2: links, focus ring, images). Local only, never published.
+import Base from '../layouts/Base.astro';
+const links = [
+  { id: 'l1', t: 'A · Black, underlined; red on hover (now)', n: 'Always recognisable as a link, strong contrast, red as a reward on hover.' },
+  { id: 'l2', t: 'B · Dark red, underlined', n: 'Links read as links at a glance, but red is then used for both links and emphasis (the dates, "stupidus").' },
+  { id: 'l3', t: 'C · Black text, red underline', n: 'Text stays black; the underline is logo red and slightly thicker. A touch of colour, still very legible.' },
+  { id: 'l4', t: 'D · Black, thin grey underline; red on hover', n: 'Quietest. Links are easy to miss in running text, so I would not use it for the body.' },
+];
+const focus = [
+  { id: 'f1', t: 'A · Red ring (now)', n: '3px logo red, 3px off the element. Matches the site; 4.4:1 against white.' },
+  { id: 'f2', t: 'B · Black ring', n: '3px black. Maximum contrast on white and on the grey past band.' },
+  { id: 'f3', t: 'C · Black ring with a white gap, then red', n: 'Double ring (white, then red). Visible on any background, including photos.' },
+];
+const images = [
+  { id: 'i1', t: 'A · Plain (now)', n: 'No frame. The photo edge is the edge.' },
+  { id: 'i2', t: 'B · Hairline frame', n: '1px light grey line. Keeps pale photos from dissolving into the white page.' },
+  { id: 'i3', t: 'C · Soft shadow', n: 'Very light lift off the page. Slightly more "web", less editorial.' },
+];
+---
+<Base title="Details review" lang="en" path="/design/details/" noindex wide>
+  <h1>1d · Links, focus ring, images</h1>
+  <p>Samples only; nothing is applied. <strong>Recommendation:</strong> keep <strong>A</strong> for links (clearest, and it suits the black and white page), keep the <strong>A</strong> red focus ring, and add the <strong>B</strong> hairline frame to photos that sit on white (pale or white-background pictures such as the Famiglia dell’Arte drawing).</p>
+
+  <h2>Links in running text</h2>
+  <div class="dt-grid">
+    {links.map((o) => (
+      <section class={`dt ${o.id}`}>
+        <h3>{o.t}</h3><p class="note">{o.n}</p>
+        <p>I practice the freedom to be stupid. Read <a href="#">Joan Schirle: The Ascent of a Legend</a>, or <a href="#">join the mailing list</a> to hear about new workshops.</p>
+        <p class="d">Details → <a href="#">Pedagogic Journey</a> · <a href="#">Events</a></p>
+      </section>
+    ))}
+  </div>
+
+  <h2>Focus ring (what a keyboard user sees; click a sample, then press Tab)</h2>
+  <div class="dt-grid">
+    {focus.map((o) => (
+      <section class={`dt ${o.id}`}>
+        <h3>{o.t}</h3><p class="note">{o.n}</p>
+        <p><a href="#">A link</a> &nbsp; <button type="button">A button</button> &nbsp; <input type="text" value="A field" style="width:7rem" /></p>
+        <p class="onphoto" style="background:#222;padding:1rem"><a href="#" style="color:#fff">A link on a dark photo</a></p>
+      </section>
+    ))}
+  </div>
+
+  <h2>Photos</h2>
+  <div class="dt-grid">
+    {images.map((o) => (
+      <section class={`dt ${o.id}`}>
+        <h3>{o.t}</h3><p class="note">{o.n}</p>
+        <img src="/images/hero.jpg" alt="" class="ph" />
+        <img src="/wp-content/uploads/2026/05/depression_a3_2026.jpg" alt="" class="ph pale" />
+      </section>
+    ))}
+  </div>
+</Base>
+
+<style is:global>
+  .dt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1.5rem; margin: 1rem 0 3rem; }
+  .dt { border: 1px dashed #bbb; padding: 1rem; } .dt h3 { font-size: 1.0625rem; margin: 0 0 .25rem; } .dt .note { color: var(--muted); font-size: .9375rem; margin: 0 0 1rem; }
+  .dt.l1 a { color: var(--text); text-decoration: underline; } .dt.l1 a:hover { color: var(--red-text); text-decoration-thickness: 2px; }
+  .dt.l2 a { color: var(--red-text); text-decoration: underline; } .dt.l2 a:hover { color: var(--text); text-decoration-thickness: 2px; }
+  .dt.l3 a { color: var(--text); text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 3px; } .dt.l3 a:hover { color: var(--red-text); }
+  .dt.l4 a { color: var(--text); text-decoration: underline; text-decoration-color: #aaa; } .dt.l4 a:hover { color: var(--red-text); text-decoration-color: var(--red-text); }
+  .dt.f1 :focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+  .dt.f2 :focus-visible { outline: 3px solid #000; outline-offset: 3px; }
+  .dt.f3 :focus-visible { outline: 3px solid var(--red); outline-offset: 3px; box-shadow: 0 0 0 3px #fff; }
+  .dt .ph { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; margin-bottom: 1rem; }
+  .dt .ph.pale { aspect-ratio: auto; max-height: 14rem; object-fit: contain; background: #fff; }
+  .dt.i2 .ph { border: 1px solid var(--line); }
+  .dt.i3 .ph { box-shadow: 0 4px 14px rgba(0,0,0,.14); }
+</style>

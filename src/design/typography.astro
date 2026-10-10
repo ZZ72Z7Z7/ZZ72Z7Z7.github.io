@@ -1,0 +1,101 @@
+---
+// Design review page (1b Typography). Not part of the site: remove before launch.
+// Fonts load from Google here only for this comparison. The chosen font will be downloaded and
+// served from this site itself (no requests to Google for visitors).
+import Base from '../layouts/Base.astro';
+
+const options = [
+  {
+    key: 'a',
+    name: 'A · System font (current)',
+    note: "Whatever the visitor's device uses: San Francisco on Apple, Segoe on Windows, Roboto on Android. Fast, neutral, and looks different on each device.",
+    head: "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+    body: "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+  },
+  {
+    key: 'b',
+    name: 'B · Figtree, one friendly sans',
+    note: 'Rounded, warm geometric sans for everything. Clean and modern, a little playful in the letter shapes.',
+    head: "'Figtree', sans-serif",
+    body: "'Figtree', sans-serif",
+  },
+  {
+    key: 'c',
+    name: 'C · Newsreader, a reading serif',
+    note: 'A book-style serif for everything. Suits his essays and poems, and gives the site a literary, theatrical feel.',
+    head: "'Newsreader', Georgia, serif",
+    body: "'Newsreader', Georgia, serif",
+  },
+  {
+    key: 'd',
+    name: 'D · Fraunces headings + Figtree text',
+    note: "Fraunces is a soft, slightly wobbly serif with a lot of character, a natural fit for a clown. Plain Figtree keeps the reading text calm.",
+    head: "'Fraunces', Georgia, serif",
+    body: "'Figtree', sans-serif",
+  },
+];
+---
+<Base title="Typography review" lang="en" path="/design/typography/" noindex wide>
+  <link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
+  <link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&display=swap"
+  />
+
+  <h1>1b · Typography</h1>
+  <p>Four options, each shown on the real content that is hardest to set: a menu and site name, a workshop list, a poem, running text with italics and bold, and small print with Italian accents. Compare them side by side, then tell me the letter you prefer, or mix (for example "headings from D, text from C").</p>
+
+  {options.map((o) => (
+    <section class="opt" style={`--head:${o.head}; --body:${o.body}`}>
+      <h2 class="opt-title">{o.name}</h2>
+      <p class="opt-note">{o.note}</p>
+
+      <div class="specimen">
+        <div class="bar">
+          <span class="name">Giovanni Fusetti</span>
+          <span class="menu">Home &nbsp; About &nbsp; Workshops &nbsp; Events &nbsp; Creations &nbsp; Blog &nbsp; Contact</span>
+        </div>
+
+        <h3 class="s-h1">Workshops</h3>
+        <h4 class="s-h2">Upcoming</h4>
+        <div class="entry">
+          <p class="dates">November 1 → 28, 2026</p>
+          <p class="place">Padova, Italy · Helikos Studio</p>
+          <p class="etitle">Red Nose Intensive</p>
+          <p class="esub">A unique opportunity to train and practice<br />At the essence of Theatre Clown<br />and at the roots of Physical Comedy</p>
+        </div>
+
+        <h4 class="s-h2">Running text</h4>
+        <p class="para">Clown is about <strong>comic poetry</strong>: funny and touching, essential and rigorous. <em>There are as many clowns as there are human beings.</em> Before being a character, the clown is a state of playing, in which everyone has access to the key question: <strong><em>what is so funny about me?</em></strong></p>
+
+        <h4 class="s-h2">Poem</h4>
+        <p class="poem"><em>Rest in joy<br />dearest Joan</em></p>
+        <p class="poem">They arrived today<br />on a wooden canoe on the Mad River<br />They suddenly appeared on the crisp water<br />skillfully stirring on the current</p>
+
+        <p class="small">Il Santo Folle · è una commedia fisica e spirituale · Venerdì 20 Giugno · L’ultimo spettacolo · 1 2 3 4 5 6 7 8 9 0 · €10</p>
+      </div>
+    </section>
+  ))}
+
+  <style>
+    .opt { margin-bottom: 3rem; }
+    .opt-title { font-family: system-ui, sans-serif; font-size: 1.1rem; margin: 2rem 0 .25rem; }
+    .opt-note { color: var(--muted); font-size: .92rem; font-family: system-ui, sans-serif; max-width: 40rem; }
+    .specimen { border: 1px solid var(--line); padding: 1.5rem; font-family: var(--body); font-size: 1.0625rem; line-height: 1.6; }
+    .bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .5rem 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; }
+    .name { font-family: var(--head); font-weight: 700; font-size: 1.4rem; }
+    .menu { font-family: var(--body); }
+    .s-h1 { font-family: var(--head); font-size: 2rem; font-weight: 700; margin: 0 0 .5rem; line-height: 1.2; }
+    .s-h2 { font-family: var(--head); font-size: 1.4rem; font-weight: 700; margin: 1.5rem 0 .5rem; line-height: 1.25; }
+    .entry p { margin: 0; }
+    .dates { font-weight: 700; }
+    .place { color: var(--muted); }
+    .etitle { font-family: var(--head); font-weight: 700; font-size: 1.15rem; margin-top: .25rem !important; }
+    .esub { margin: 0 !important; }
+    .para { max-width: 40rem; margin: 0 0 1rem; }
+    .poem { margin: 0 0 1rem; }
+    .small { color: var(--muted); font-size: .9rem; margin: 1.5rem 0 0; }
+  </style>
+</Base>

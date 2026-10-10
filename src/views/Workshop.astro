@@ -1,0 +1,161 @@
+---
+// The standard individual workshop page (designer, 261009):
+//   title, tagline, dates, location (city, state/province, country), primary image, then the sections
+//   Description, Program (where there is one), Schedule, Location, Tuition, Application (each written per edition, in its schedule entry) and Gallery.
+//   On desktop every section is open on load; on phones and tablets (below 1024px) each section is an accordion row (all closed until selected).
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { splitByDate } from '../lib/content';
+import { formatRange, cityName } from '../lib/dates';
+import { md } from '../lib/md';
+import { isPale } from '../lib/pale';
+import Lightbox from '../components/Lightbox.astro';
+import { t, pick, type Lang } from '../i18n/ui';
+interface Props { id: string; lang: Lang }
+const { id, lang } = Astro.props;
+const ui = t(lang);
+const workshop = (await getCollection('workshops')).find((w) => w.id === id)!;
+const w = workshop.data;
+const title = pick(w, 'title', lang).value!;
+const tagline = pick(w, 'subtitle', lang).value;
+const it = lang === 'it' && w.body_it?.trim();
+const source = it ? w.body_it : workshop.body;
+const fallback = lang !== 'en' && !it;
+const runs = (await getCollection('schedule')).filter((s) => s.data.workshop?.id === id);
+const { upcoming } = splitByDate(runs);
+
+const html = md(source);
+
+// Workshops with upcoming editions use the sectioned layout; other workshops show just the description, without headings.
+const sectioned = upcoming.length > 0;
+const accSections = sections_for();
+function sections_for() {
+  // four separate sections, each written per edition
+  const groups = [
+    { heading: ui.scheduleHeading, key: 'schedule' },
+    { heading: ui.locationHeading, key: 'location_details' },
+    { heading: ui.tuitionHeading, key: 'tuition' },
+    { heading: ui.applicationsHeading, key: 'applications' },
+  ];
+  return groups.map((g) => {
+    const items = upcoming.map((e) => {
+      const d = e.data as Record<string, any>;
+      const text = (lang === 'it' && d[`${g.key}_it`]?.trim() ? d[`${g.key}_it`] : d[g.key]) as string | undefined;
+      const body = text ?? (g.key === 'location_details' ? e.data.venue : undefined);
+      return body ? { dates: e.data.extra_dates ?? formatRange(e.data.start, e.data.end, lang), html: md(body) } : undefined;
+    }).filter(Boolean) as { dates: string; html: string }[];
+    return { heading: g.heading, items };
+  }).filter((g) => g.items.length);
+}
+const programHtml = md(lang === 'it' && w.program_it?.trim() ? w.program_it : w.program);
+const image = w.image ?? upcoming.find((r) => r.data.image)?.data.image;
+const imagePale = await isPale(image);
+const captionSource = lang === 'it' && w.image_caption_it?.trim() ? w.image_caption_it : w.image_caption;
+const creditsSource = lang === 'it' && w.credits_it?.trim() ? w.credits_it : w.credits;
+const capOf = (g: { caption?: string; caption_it?: string }) => (lang === 'it' && g.caption_it?.trim() ? g.caption_it : g.caption);
+const imageCaption = captionSource && !/^\(\d+\)$/.test(captionSource.trim()) ? md(captionSource).replace(/^<p>|<\/p>\s*$/g, '') : undefined;
+const inline = (s?: string) => (s ? md(s).replace(/^<p>|<\/p>\s*$/g, '') : '');
+const place = (d: (typeof runs)[number]['data']) => [cityName(d.city, lang), d.region, d.country].filter(Boolean).join(', ');
+---
+<Base title={title} lang={lang} path={`/workshops/${id}/`} section="workshops">
+  <h1 class="title-tight">{title}</h1>
+  {tagline && <p class="subtitle entry-sub">{tagline}</p>}
+
+  {upcoming.length > 0 && (
+    <div class="wk-runs">
+      {upcoming.map((e) => (
+        <div class="wk-run">
+          <p class="wk-dates">{e.data.extra_dates ?? formatRange(e.data.start, e.data.end, lang)}</p>
+          {place(e.data) && <p class="wk-place">{place(e.data)}</p>}
+        </div>
+      ))}
+    </div>
+  )}
+
+  {image && (
+    <figure class="wk-primary">
+      <img class:list={[imagePale && 'framed']} src={image} alt="" />
+      {imageCaption && <figcaption class="p3" set:html={imageCaption} />}
+    </figure>
+  )}
+
+  {sectioned ? (
+    <div class="acc-list" data-wk-acc>
+      {html && (
+        <details class="acc wk-acc" open lang={fallback ? 'en' : undefined}>
+          <summary><h2 class="acc-title">{ui.descriptionHeading}</h2></summary>
+          <div class="acc-body">
+            {fallback && <p class="notice" lang={lang}>{ui.englishNotice}</p>}
+            <div class="prose" set:html={html} />
+          </div>
+        </details>
+      )}
+      {programHtml && (
+        <details class="acc wk-acc" open lang={fallback ? 'en' : undefined}>
+          <summary><h2 class="acc-title">{ui.programHeading}</h2></summary>
+          <div class="acc-body"><div class="prose" set:html={programHtml} /></div>
+        </details>
+      )}
+      {accSections.map((sec) => (
+        <details class="acc wk-acc" open>
+          <summary><h2 class="acc-title">{sec.heading}</h2></summary>
+          <div class="acc-body">
+            {sec.items.map((it) => (
+              <>
+                {upcoming.length > 1 && <p class="wk-dates">{it.dates}</p>}
+                <div class="prose" set:html={it.html} />
+              </>
+            ))}
+          </div>
+        </details>
+      ))}
+      {w.gallery && w.gallery.length > 0 && (
+        <details class="acc wk-acc wk-gallery" open>
+          <summary><h2 class="acc-title">{ui.galleryHeading}</h2></summary>
+          <div class="acc-body">
+            <div class="gallery-grid wk-gallery-grid">
+              {w.gallery.map((g) => (
+                <figure>
+                  <a href={g.src}><img src={g.src} alt="" loading="lazy" /></a>
+                  {capOf(g) && <figcaption class="p3" set:html={inline(capOf(g)!)} />}
+                </figure>
+              ))}
+            </div>
+            {creditsSource && <div class="prose wk-credits p3" set:html={md(creditsSource)} />}
+          </div>
+        </details>
+      )}
+    </div>
+  ) : (
+    <>
+      {html && (
+        <div class="wk-description" lang={fallback ? 'en' : undefined}>
+          {fallback && <p class="notice" lang={lang}>{ui.englishNotice}</p>}
+          <div class="prose" set:html={html} />
+        </div>
+      )}
+      {w.gallery && w.gallery.length > 0 && (
+        <section class="wk-gallery">
+          <h2>{ui.galleryHeading}</h2>
+          <div class="gallery-grid wk-gallery-grid">
+            {w.gallery.map((g) => (
+              <figure>
+                <a href={g.src}><img src={g.src} alt="" loading="lazy" /></a>
+                {capOf(g) && <figcaption class="p3" set:html={inline(capOf(g)!)} />}
+              </figure>
+            ))}
+          </div>
+          {creditsSource && <div class="prose wk-credits p3" set:html={md(creditsSource)} />}
+        </section>
+      )}
+    </>
+  )}
+
+  {w.gallery && w.gallery.length > 0 && (
+    <Lightbox lang={lang} label={ui.galleryHeading} />
+  )}
+  <script>
+    import '../scripts/lightbox.ts';
+    import '../scripts/workshop-sections.ts';
+  </script>
+</Base>

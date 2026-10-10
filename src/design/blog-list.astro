@@ -1,0 +1,59 @@
+---
+// Design review page (Category 3, Blog list). Local only, never published. Uses the real posts.
+import Base from '../layouts/Base.astro';
+import { getPosts, postPath } from '../lib/content';
+import { formatLongDate } from '../lib/dates';
+const posts = (await getPosts()).slice(0, 8);
+const first = (b = '') => {
+  const line = b.split('\n').map((l) => l.replace(/!\[[^\]]*\]\([^)]*\)|<[^>]+>|[*_#>`]/g, '').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').trim()).find((l) => l.length > 12 && !/^\(?\d{4}/.test(l));
+  return line ? (line.length > 110 ? line.slice(0, 107).trimEnd() + '…' : line) : '';
+};
+const year = (d: Date) => d.getUTCFullYear();
+const options = [
+  { id: 'a', t: 'A · Title, date, category on one line (now)', n: 'The simplest. Dense, easy to scan; the categories line up at the right.' },
+  { id: 'b', t: 'B · Date column, then title', n: 'The classic editorial list: short date at the left, title beside it, category small underneath. Very quiet.' },
+  { id: 'c', t: 'C · Title, date, first line', n: 'Each post gets a title, a small date and category, and its first line. Suits a blog of poems: the first line is the hook.' },
+  { id: 'd', t: 'D · Grouped by year, titles only', n: 'Year headings with plain titles under them. The lightest list, good when there are many posts; each shows its date on hover only.' },
+];
+---
+<Base title="Blog list review" lang="en" path="/design/blog-list/" noindex>
+  <h1>Blog list · options</h1>
+  <p>Real posts, four ordinary blog layouts. Nothing here is applied. <strong>Recommendation:</strong> <strong>C</strong>. With only 17 posts, mostly poems and short essays, a first line makes each one inviting without adding a single image or button, and it stays simple and minimal. B is the quietest alternative.</p>
+  {options.map((o) => (
+    <section class={`bl bl-${o.id}`}>
+      <h2>{o.t}</h2><p class="note">{o.n}</p>
+      {o.id === 'd' ? (
+        <div>
+          {[...new Set(posts.map((p) => year(p.data.date)))].map((y) => (
+            <div>
+              <h3 class="yr">{y}</h3>
+              <ul>{posts.filter((p) => year(p.data.date) === y).map((p) => <li><a href={postPath(p)} title={formatLongDate(p.data.date, 'en')}>{p.data.title}</a></li>)}</ul>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <ul>
+          {posts.map((p) => (
+            <li>
+              {o.id === 'a' && <><a href={postPath(p)}>{p.data.title}</a><time>{formatLongDate(p.data.date, 'en')}</time><span class="cat">{p.data.category}</span></>}
+              {o.id === 'b' && <><time>{p.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })}</time><div><a href={postPath(p)}>{p.data.title}</a><span class="cat">{p.data.category}</span></div></>}
+              {o.id === 'c' && <><a class="t" href={postPath(p)}>{p.data.title}</a><p class="meta">{formatLongDate(p.data.date, 'en')} · {p.data.category}</p><p class="ex">{first(p.body)}</p></>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  ))}
+</Base>
+
+<style is:global>
+  .bl { border-top: 1px solid var(--line); padding: 2rem 0; } .bl h2 { font-size: 1.25rem; margin: 0 0 .25rem; } .bl .note { color: var(--muted); font-size: var(--p2-size); margin: 0 0 1.25rem; }
+  .bl ul { list-style: none; margin: 0; padding: 0; }
+  .bl-a li { padding: .75rem 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: .25rem 1rem; align-items: baseline; }
+  .bl-a time { color: var(--muted); font-size: var(--p2-size); } .bl-a .cat { margin-left: auto; color: var(--muted); font-size: var(--p2-size); }
+  .bl-b li { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: .9rem 0; border-top: 1px solid var(--line); }
+  .bl-b time { color: var(--muted); font-size: var(--p2-size); padding-top: .2rem; } .bl-b li a { font-weight: 600; } .bl-b .cat { display: block; color: var(--muted); font-size: var(--p3-size); }
+  .bl-c li { padding: 1.4rem 0; border-top: 1px solid var(--line); } .bl-c .t { font-size: var(--h3-size); font-weight: 700; text-decoration: none; } .bl-c .t:hover { text-decoration: underline; }
+  .bl-c .meta { margin: .2rem 0 0; color: var(--muted); font-size: var(--p2-size); } .bl-c .ex { margin: .5rem 0 0; font-style: italic; color: #333; }
+  .bl-d .yr { font-size: var(--h3-size); margin: 1.5rem 0 .5rem; } .bl-d li { padding: .35rem 0; }
+</style>

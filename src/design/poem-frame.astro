@@ -1,0 +1,85 @@
+---
+// Design review page: five quiet ways to frame the poem on white. Not part of the site: remove before launch.
+// Each option is the real poem and signature, in the real home-page styles, with one framing touch added. No motion.
+import Base from '../layouts/Base.astro';
+
+const options = [
+  { id: 'a', title: 'A · Two short red rules', note: 'A short red rule above and below, like a bookplate. The most restrained.' },
+  { id: 'b', title: 'B · A quiet grey band', note: 'The poem sits on a very pale grey band that runs the full width, with fine lines top and bottom. It separates the poem from the page without any ornament.' },
+  { id: 'c', title: 'C · A thin double frame', note: 'A fine black line with a second line just outside it, like a theatre bill. Formal and graphic.' },
+  { id: 'd', title: 'D · A pale spiral behind the poem', note: 'The logo\'s spiral, huge and very faint, centred behind the poem. It ties the page to the logo and gives the white some depth. Fades to nothing at the edges.' },
+  { id: 'e', title: 'E · Red corner marks', note: 'Four small red corner brackets, like crop marks on a photograph or a stage mark on the floor. Light and a little theatrical.' },
+];
+const stanzas = [
+  ['stupefied by life, nature, beauty', 'and the mystery of the human condition'],
+  ['I celebrate the sublime stupidity of Clowns', 'I long for the crazy wisdom of The Fool'],
+  ['intelligence is limited', 'stupidity is infinite'],
+  ['Clowning is very serious work', 'on how to be stupid'],
+  ['to the delusional quest', 'for a mechanical artificial intelligence', 'I will respond with the daily practice', 'of embodied natural stupidity'],
+];
+---
+<Base title="Poem frame review" lang="en" path="/design/poem-frame/" noindex>
+  <Fragment slot="hero">
+    <div class="rv-intro">
+      <h1>Framing the poem</h1>
+      <p>Five quiet touches that stop the poem floating on white. Each shows the real poem and signature at the real home-page size. Nothing moves. Resize the window or use a phone to see how each holds up.</p>
+      <p><strong>Recommendation:</strong> <strong>D</strong>, the faint spiral. It is the only one that says something about him and the logo, and it adds depth without adding lines or boxes. <strong>A</strong> is the most restrained alternative, and <strong>B</strong> the safest.</p>
+    </div>
+
+    {options.map((o) => (
+      <Fragment>
+        <div class="rv-label"><strong>{o.title}.</strong> {o.note}</div>
+        <section class={`split-poem fr fr-${o.id}`}>
+          <div class="prose">
+            <div class="poem-s">
+              <p class="lead">I practice the freedom to be</p>
+              <p class="word">stupidus</p>
+              {stanzas.map((s) => <p>{s.map((l, i) => <Fragment>{i > 0 && <br />}{l}</Fragment>)}</p>)}
+            </div>
+            <div class="poem-sign">
+              <p class="dots" aria-hidden="true">•••</p>
+              <p class="sign-name">GIOVANNI FUSETTI</p>
+              <p class="sign-roles">Artist, Natural Scientist, Pedagogue<br />Multi-Disciplinary Fool</p>
+            </div>
+          </div>
+        </section>
+      </Fragment>
+    ))}
+    <div class="rv-label rv-end">Each frame is built on the poem's own box, so the type still shrinks to fit and no line wraps, on phones too.</div>
+  </Fragment>
+</Base>
+
+<style is:global>
+  .rv-intro { max-width: var(--measure); margin: 0 auto; padding: 2rem var(--gutter) 1rem; }
+  .rv-label { max-width: var(--measure); margin: 0 auto; padding: 1.5rem var(--gutter); color: var(--muted); }
+  .rv-end { padding-bottom: 4rem; }
+  .fr { position: relative; }
+
+  /* A: two short red rules */
+  .fr-a { padding-top: calc(var(--space-block) + 1rem); padding-bottom: calc(var(--space-block) + 1rem); }
+  .fr-a::before, .fr-a::after { content: ""; position: absolute; left: 50%; width: 3rem; height: 3px; background: var(--red); transform: translateX(-50%); }
+  .fr-a::before { top: calc(var(--space-block) - .5rem); }
+  .fr-a::after { bottom: calc(var(--space-block) - .5rem); }
+
+  /* B: pale grey band */
+  .fr-b { background: #f3f3f3; border-block: 1px solid #ddd; }
+
+  /* C: thin double frame */
+  .fr-c { max-width: 44rem; margin: 3.5rem auto; padding: 3.5rem clamp(1.5rem, 5vw, 3rem); border: 1px solid var(--text); box-shadow: 0 0 0 6px #fff, 0 0 0 7px var(--text); width: calc(100% - 2 * var(--gutter) - 14px); }
+
+  /* D: faint spiral behind the poem */
+  .fr-d { overflow: hidden; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><path d='M100.0 95.0 L100.3 94.8 L100.6 94.6 L100.9 94.4 L101.2 94.3 L101.5 94.1 L101.9 94.0 L102.3 93.9 L102.6 93.9 L103.0 93.8 L103.5 93.8 L103.9 93.8 L104.3 93.8 L104.7 93.9 L105.2 94.0 L105.6 94.1 L106.1 94.3 L106.5 94.4 L107.0 94.7 L107.4 94.9 L107.8 95.2 L108.2 95.5 L108.6 95.8 L109.0 96.2 L109.4 96.6 L109.8 97.0 L110.1 97.4 L110.5 97.9 L110.8 98.4 L111.0 98.9 L111.3 99.5 L111.5 100.1 L111.7 100.7 L111.8 101.3 L112.0 101.9 L112.1 102.6 L112.1 103.2 L112.1 103.9 L112.1 104.6 L112.1 105.3 L112.0 106.0 L111.8 106.7 L111.7 107.4 L111.4 108.1 L111.2 108.8 L110.9 109.5 L110.5 110.2 L110.1 110.9 L109.7 111.5 L109.2 112.2 L108.7 112.8 L108.2 113.4 L107.6 114.0 L106.9 114.5 L106.3 115.1 L105.6 115.6 L104.8 116.0 L104.1 116.4 L103.3 116.8 L102.4 117.2 L101.6 117.5 L100.7 117.8 L99.8 118.0 L98.9 118.2 L97.9 118.3 L96.9 118.4 L96.0 118.4 L95.0 118.4 L94.0 118.3 L93.0 118.2 L92.0 118.0 L91.0 117.7 L90.0 117.4 L89.0 117.1 L88.0 116.7 L87.1 116.2 L86.1 115.7 L85.2 115.1 L84.3 114.5 L83.4 113.8 L82.6 113.1 L81.8 112.3 L81.0 111.4 L80.3 110.6 L79.6 109.6 L78.9 108.6 L78.3 107.6 L77.7 106.6 L77.2 105.5 L76.8 104.4 L76.4 103.2 L76.0 102.0 L75.7 100.8 L75.5 99.6 L75.4 98.3 L75.3 97.0 L75.3 95.7 L75.3 94.4 L75.4 93.1 L75.6 91.8 L75.8 90.5 L76.2 89.2 L76.6 87.9 L77.0 86.6 L77.6 85.4 L78.2 84.1 L78.8 82.9 L79.6 81.7 L80.4 80.6 L81.2 79.4 L82.2 78.3 L83.2 77.3 L84.2 76.3 L85.4 75.3 L86.5 74.4 L87.8 73.6 L89.0 72.8 L90.4 72.1 L91.8 71.4 L93.2 70.9 L94.6 70.3 L96.1 69.9 L97.6 69.5 L99.2 69.2 L100.7 69.0 L102.3 68.9 L103.9 68.8 L105.6 68.9 L107.2 69.0 L108.8 69.2 L110.4 69.5 L112.0 69.9 L113.6 70.3 L115.2 70.9 L116.8 71.5 L118.3 72.2 L119.8 73.0 L121.3 73.9 L122.8 74.9 L124.2 75.9 L125.5 77.0 L126.8 78.2 L128.1 79.5 L129.2 80.8 L130.4 82.2 L131.4 83.7 L132.4 85.2 L133.3 86.8 L134.1 88.5 L134.9 90.2 L135.5 91.9 L136.1 93.7 L136.6 95.5 L137.0 97.3 L137.3 99.2 L137.5 101.1 L137.6 103.0 L137.6 105.0 L137.5 106.9 L137.3 108.9 L137.0 110.8 L136.6 112.7 L136.1 114.7 L135.5 116.6 L134.8 118.4 L134.0 120.3 L133.1 122.1 L132.1 123.9 L131.0 125.6 L129.8 127.3 L128.5 128.9 L127.1 130.5 L125.7 132.0 L124.1 133.4 L122.5 134.8 L120.8 136.1 L119.1 137.3 L117.2 138.4 L115.3 139.4 L113.4 140.3 L111.4 141.2 L109.3 141.9 L107.2 142.5 L105.0 143.0 L102.9 143.5 L100.7 143.8 L98.4 143.9 L96.2 144.0 L93.9 144.0 L91.6 143.8 L89.4 143.5 L87.1 143.1 L84.9 142.6 L82.6 142.0 L80.4 141.2 L78.3 140.4 L76.1 139.4 L74.0 138.3 L72.0 137.1 L70.0 135.8 L68.1 134.4 L66.2 132.9 L64.5 131.2 L62.7 129.5 L61.1 127.7 L59.6 125.8 L58.1 123.8 L56.8 121.8 L55.6 119.6 L54.4 117.4 L53.4 115.1 L52.5 112.8 L51.7 110.4 L51.0 108.0 L50.5 105.5 L50.0 103.0 L49.7 100.5 L49.6 97.9 L49.5 95.3 L49.6 92.7 L49.9 90.1 L50.2 87.5 L50.7 85.0 L51.4 82.4 L52.1 79.9 L53.0 77.4 L54.0 74.9 L55.2 72.5 L56.5 70.1 L57.9 67.8 L59.4 65.6 L61.1 63.4 L62.8 61.4 L64.7 59.4 L66.7 57.5 L68.8 55.6 L71.0 53.9 L73.2 52.3 L75.6 50.9 L78.1 49.5 L80.6 48.2 L83.2 47.1 L85.8 46.1 L88.5 45.3 L91.3 44.6 L94.1 44.0 L97.0 43.5 L99.8 43.2 L102.7 43.1 L105.6 43.1 L108.6 43.3 L111.5 43.6 L114.4 44.0 L117.3 44.6 L120.1 45.4 L123.0 46.3 L125.8 47.3 L128.5 48.5 L131.2 49.9 L133.8 51.3 L136.4 53.0 L138.9 54.7 L141.3 56.6 L143.6 58.6 L145.8 60.7 L147.9 63.0 L149.9 65.3 L151.7 67.8 L153.5 70.4 L155.1 73.0 L156.6 75.8 L158.0 78.6 L159.2 81.6 L160.2 84.5 L161.2 87.6 L161.9 90.7 L162.5 93.8 L163.0 97.0 L163.2 100.2 L163.4 103.4 L163.3 106.7 L163.1 109.9 L162.7 113.1 L162.2 116.4 L161.5 119.6 L160.6 122.7 L159.5 125.9 L158.3 129.0 L157.0 132.0 L155.5 135.0 L153.8 137.9 L151.9 140.7 L150.0 143.4 L147.8 146.0 L145.6 148.5 L143.2 151.0 L140.7 153.3 L138.0 155.4 L135.3 157.5 L132.4 159.4 L129.4 161.1 L126.4 162.7 L123.2 164.2 L120.0 165.5 L116.7 166.6 L113.3 167.6 L109.9 168.4 L106.4 169.0 L102.9 169.5 L99.4 169.7 L95.8 169.8 L92.2 169.7 L88.7 169.5 L85.1 169.0 L81.6 168.4 L78.1 167.5 L74.6 166.5 L71.1 165.3 L67.8 164.0 L64.5 162.4 L61.2 160.7 L58.1 158.8 L55.0 156.8 L52.0 154.6 L49.2 152.2 L46.4 149.7 L43.8 147.1 L41.3 144.3 L39.0 141.3 L36.8 138.3 L34.7 135.1 L32.8 131.9 L31.1 128.5 L29.5 125.0 L28.2 121.5 L27.0 117.8 L25.9 114.1 L25.1 110.4 L24.5 106.6 L24.0 102.7 L23.8 98.9 L23.7 95.0 L23.9 91.1 L24.2 87.2 L24.8 83.3 L25.5 79.4 L26.4 75.6 L27.6 71.8 L28.9 68.1 L30.4 64.4 L32.2 60.8 L34.1 57.3 L36.1 53.9 L38.4 50.6 L40.8 47.4 L43.5 44.3 L46.2 41.3 L49.1 38.5 L52.2 35.8 L55.4 33.3 L58.7 31.0 L62.2 28.8 L65.8 26.7 L69.5 24.9 L73.3 23.3 L77.2 21.8 L81.1 20.5 L85.1 19.5 L89.2 18.6 L93.4 18.0 L97.5 17.5 L101.7 17.3 L106.0 17.3 L110.2 17.5 L114.4 17.9 L118.6 18.5 L122.8 19.4 L126.9 20.4 L131.0 21.7 L135.0 23.2 L139.0 24.9 L142.9 26.8 L146.6 28.9 L150.3 31.2 L153.9 33.7 L157.3 36.3 L160.6 39.2 L163.8 42.2 L166.8 45.4 L169.7 48.7 L172.4 52.2 L174.9 55.9 L177.2 59.6 L179.4 63.5 L181.3 67.5 L183.1 71.6 L184.6 75.8 L185.9 80.1 L187.0 84.5 L187.9 88.9 L188.6 93.4 L189.0 97.9 L189.2 102.4 L189.2 107.0 L188.9 111.5 L188.4 116.0 L187.7 120.6 L186.7 125.1 L185.5 129.5 L184.1 133.9 L182.5 138.2 L180.6 142.5 L178.5 146.6 L176.2 150.7 L173.7 154.6 L171.0 158.4 L168.1 162.1 L165.0 165.6 L161.7 169.0 L158.3 172.2 L154.7 175.2' fill='none' stroke='%23f00800' stroke-opacity='.09' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / min(95vw, 44rem) no-repeat; }
+
+  /* E: red corner marks */
+  .fr-e { max-width: 44rem; margin: 2rem auto; padding: 4.5rem clamp(1.5rem, 5vw, 3.5rem); width: calc(100% - 2 * var(--gutter)); }
+  .fr-e::before { content: ""; position: absolute; inset: 1rem; pointer-events: none;
+    background:
+      linear-gradient(var(--red), var(--red)) top left / 2.25rem 3px no-repeat,
+      linear-gradient(var(--red), var(--red)) top left / 3px 2.25rem no-repeat,
+      linear-gradient(var(--red), var(--red)) top right / 2.25rem 3px no-repeat,
+      linear-gradient(var(--red), var(--red)) top right / 3px 2.25rem no-repeat,
+      linear-gradient(var(--red), var(--red)) bottom left / 2.25rem 3px no-repeat,
+      linear-gradient(var(--red), var(--red)) bottom left / 3px 2.25rem no-repeat,
+      linear-gradient(var(--red), var(--red)) bottom right / 2.25rem 3px no-repeat,
+      linear-gradient(var(--red), var(--red)) bottom right / 3px 2.25rem no-repeat; }
+</style>

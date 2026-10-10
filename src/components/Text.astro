@@ -1,0 +1,15 @@
+---
+// Renders a piece of the client's text. In any other language, if only English exists,
+// the English text is shown, marked as English, with a short notice.
+import { md } from '../lib/md';
+import { t, type Lang } from '../i18n/ui';
+interface Props { source?: string; lang: Lang; fallback?: boolean; notice?: boolean; class?: string }
+const { source, lang, fallback = false, notice = true, class: cls } = Astro.props;
+const html = md(source);
+---
+{html && (
+  <>
+    {lang !== 'en' && fallback && notice && <p class="notice" lang={lang}>{t(lang).englishNotice}</p>}
+    <div class:list={['prose', cls]} lang={fallback ? 'en' : undefined} set:html={html} />
+  </>
+)}

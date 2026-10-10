@@ -1,0 +1,43 @@
+---
+// Design review page (Photos: three variations of option C, title centred over a darkened thumbnail). Local only, never published.
+import Base from '../layouts/Base.astro';
+const tiles = [
+  ['Pedagogic Journey 2019', '/wp-content/uploads/2021/03/pj.2019.group_-e1619431553561.jpg'],
+  ['Bouffons', '/wp-content/uploads/2021/03/bouff.mel_.int_.2019-edited-2.jpg'],
+  ['Melbourne Red Nose Intensive 2018', '/images/gallery-melbourne-red-nose.jpg'],
+  ['Boulder Programs', '/images/gallery-boulder-programs.jpg'],
+];
+const options = [
+  { id: 'c1', t: 'C1 · Light veil, soft shadow behind the title', n: 'A 30% black veil, so the pictures keep most of their brightness; the white title carries its own soft shadow. The lightest of the three.' },
+  { id: 'c2', t: 'C2 · Vignette: dark behind the title, clear at the edges', n: 'The picture is darkest in the middle, where the title sits, and almost untouched at the corners. The pictures feel framed, not covered.' },
+  { id: 'c3', t: 'C3 · 50% veil, title in a thin white frame', n: 'A stronger veil and a hairline white frame around the title, like a plaque. The most graphic; the frame also makes it read as a button.' },
+];
+---
+<Base title="Gallery titles, variations of C" lang="en" path="/design/gallery-titles-c/" noindex wide>
+  <h1>Photos · three variations of C</h1>
+  <p>Title centred over each thumbnail. In all three the veil lifts when you point at a picture (try it); on phones it stays as shown. <strong>Recommendation: C2</strong>: the title stays legible and the photographs stay luminous at the edges.</p>
+  {options.map((o) => (
+    <section class={`gc ${o.id}`}>
+      <h2>{o.t}</h2><p class="note">{o.n}</p>
+      <div class="gc-grid">
+        {tiles.map(([t, src]) => <a class="gc-tile" href="#"><img src={src} alt="" /><span><b>{t}</b></span></a>)}
+      </div>
+    </section>
+  ))}
+</Base>
+
+<style is:global>
+  .gc { border-top: 1px solid var(--line); padding: 1.5rem 0 2rem; } .gc h2 { font-size: 1.25rem; margin: 0 0 .25rem; } .gc .note { color: var(--muted); font-size: var(--p2-size); margin: 0 0 1.25rem; max-width: 44rem; }
+  .gc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .gc-tile { position: relative; display: block; overflow: hidden; text-decoration: none; color: #fff; }
+  .gc-tile img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 35%; }
+  .gc-tile::after { content: ""; position: absolute; inset: 0; transition: opacity .25s; }
+  .gc-tile span { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem 2rem; }
+  .gc-tile b { font-size: 1.75rem; line-height: 1.2; font-weight: 700; }
+  .gc-tile:hover::after, .gc-tile:focus-visible::after { opacity: .45; }
+  .c1 .gc-tile::after { background: rgba(0,0,0,.3); }
+  .c1 b { text-shadow: 0 2px 14px rgba(0,0,0,.65); }
+  .c2 .gc-tile::after { background: radial-gradient(ellipse at center, rgba(0,0,0,.72) 0%, rgba(0,0,0,.4) 55%, rgba(0,0,0,.08) 100%); }
+  .c3 .gc-tile::after { background: rgba(0,0,0,.5); }
+  .c3 b { border: 2px solid #fff; padding: .9rem 1.4rem; font-size: 1.4rem; }
+</style>

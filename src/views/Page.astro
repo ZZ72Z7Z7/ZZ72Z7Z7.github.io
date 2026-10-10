@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import Text from '../components/Text.astro';
+import TopBanner from '../components/TopBanner.astro';
+import { banners } from '../lib/banners';
+import Lightbox from '../components/Lightbox.astro';
+import VideoLightbox from '../components/VideoLightbox.astro';
+import { getPage } from '../lib/content';
+import { t, type Lang } from '../i18n/ui';
+interface Props { id: string; lang: Lang; path: string; section?: any; hero?: boolean; wide?: boolean }
+const { id, lang, path, section, hero = false, wide = false } = Astro.props;
+const { entry, fallback } = await getPage(id, lang);
+const source = entry.body ?? '';
+const isAbout = id === 'giovanni-fusetti';
+const untitled = id === 'photo-galleries' || id === 'videos'; // Photo and Video pages show no visible title (designer, 261009); the title stays for screen readers
+const banner = banners[id];
+---
+<Base title={entry.data.title} lang={lang} path={path} section={section} description={entry.data.description} bare={hero} wide={wide}>
+  {banner && <TopBanner banner={banner} slot="hero" />}
+  {hero ? (
+    <section class="split" data-fade>
+      <script is:inline>
+        // The pinned fade-in is an extra layer: it is switched on here only when scripts run and the visitor has not asked for less motion.
+        // Without that, the page stays the plain stacked layout (photo, then the poem below it).
+        (function () { if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('fx-home'); setTimeout(function () { var r = document.documentElement; if (!r.classList.contains('fx-on')) r.classList.remove('fx-home'); }, 4000); })(); // safety net: if the script never starts, fall back to the plain layout
+      </script>
+      <h1 class="visually-hidden">{entry.data.title}</h1>
+      <div class="split-track">
+        <div class="split-stage">
+          <figure class="split-photo">
+            <picture>
+              <img src="/images/hero.jpg" width="1920" height="1080" alt="" fetchpriority="high" />
+            </picture>
+            <img class="split-soft" src="/images/hero-soft.jpg" width="1920" height="1080" alt="" aria-hidden="true" />
+          </figure>
+          <div class="split-poem" id="poem">
+            <Text source={source} lang={lang} fallback={fallback} />
+          </div>
+        </div>
+      </div>
+    </section>
+  ) : (
+    <>
+      <h1 class={isAbout || untitled ? 'visually-hidden' : 'center-title'}>{entry.data.title}</h1>
+      <div class={isAbout ? 'about-section' : untitled ? 'untitled-top' : undefined}>
+        <Text source={source} lang={lang} fallback={fallback} />
+      </div>
+    </>
+  )}
+  {id === 'videos' && <VideoLightbox lang={lang} label={entry.data.title} />}
+  {id.startsWith('galleries/') && <Lightbox lang={lang} label={entry.data.title} />}
+</Base>
+
+<script>
+  import '../scripts/home-fade.ts';
+  if (document.querySelector('.wk-gallery')) import('../scripts/lightbox.ts');
+  if (document.querySelector('.video-tiles')) import('../scripts/video-lightbox.ts');
+</script>

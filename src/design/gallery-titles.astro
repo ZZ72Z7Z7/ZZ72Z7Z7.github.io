@@ -1,0 +1,45 @@
+---
+// Design review page (Photos: titles over the thumbnails). Local only, never published.
+import Base from '../layouts/Base.astro';
+const U = '/wp-content/uploads/';
+const tiles = [
+  ['Pedagogic Journey 2019', U + '2021/03/pj.2019.group_-e1619431553561.jpg'],
+  ['Bouffons', U + '2021/03/bouff.mel_.int_.2019-edited-2.jpg'],
+  ['Melbourne Red Nose Intensive 2018', '/images/gallery-melbourne-red-nose.jpg'],
+  ['Boulder Programs', '/images/gallery-boulder-programs.jpg'],
+];
+const options = [
+  { id: 'a', t: 'A · Dark gradient from the bottom', n: 'The picture stays visible; the lower third fades to black behind white text. Looks best on photos, but on a poster full of small print the text can still fight the image.' },
+  { id: 'b', t: 'B · Solid black strip along the bottom (recommended)', n: 'A 70% black band across the bottom with white text. Readable on any picture, including the red nose posters, because the text never sits on the artwork.' },
+  { id: 'c', t: 'C · Whole picture darkened, title centred', n: 'A 45% black veil over the whole picture with the title in the middle, so it also works as a hover state. Strong and graphic, but the posters lose their colour and small print becomes mush.' },
+  { id: 'd', t: 'D · Title appears only on hover', n: 'No text at rest, so the posters stay clean; a strip slides up on hover. Looks elegant but on phones (no hover) the titles would be hidden, so it needs a visible title anyway.' },
+];
+---
+<Base title="Gallery titles review" lang="en" path="/design/gallery-titles/" noindex wide>
+  <h1>Photos · titles over the thumbnails</h1>
+  <p>Same four thumbnails each time. The two red nose pictures are now your text-free versions. <strong>Recommendation: A</strong> (gradient): with the print gone, the picture can stay fully visible and the title still reads. B is the safe alternative.</p>
+  {options.map((o) => (
+    <section class={`gt gt-${o.id}`}>
+      <h2>{o.t}</h2><p class="note">{o.n}</p>
+      <div class="gt-grid">
+        {tiles.map(([t, src]) => (
+          <a class="gt-tile" href="#"><img src={src} alt="" /><span>{t}</span></a>
+        ))}
+      </div>
+    </section>
+  ))}
+</Base>
+
+<style is:global>
+  .gt { border-top: 1px solid var(--line); padding: 1.5rem 0 2rem; } .gt h2 { font-size: 1.25rem; margin: 0 0 .25rem; } .gt .note { color: var(--muted); font-size: var(--p2-size); margin: 0 0 1.25rem; max-width: 44rem; }
+  .gt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .gt-tile { position: relative; display: block; overflow: hidden; text-decoration: none; color: #fff; }
+  .gt-tile img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 35%; }
+  .gt-tile span { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font-weight: 700; font-size: var(--h3-size); line-height: 1.2; padding: 1rem; }
+  .gt-a span { padding-top: 3.5rem; background: linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,0)); }
+  .gt-b span { background: rgba(0,0,0,.7); }
+  .gt-c .gt-tile::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+  .gt-c span { top: 0; display: flex; align-items: center; justify-content: center; z-index: 1; padding: 1rem 2rem; }
+  .gt-d span { background: rgba(0,0,0,.7); transform: translateY(100%); transition: transform .25s; }
+  .gt-d .gt-tile:hover span, .gt-d .gt-tile:focus-visible span { transform: none; }
+</style>

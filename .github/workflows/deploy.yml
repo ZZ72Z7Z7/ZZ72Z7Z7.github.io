@@ -1,0 +1,51 @@
+# Builds the site and publishes it to GitHub Pages.
+# It runs: (1) whenever something is pushed to main (GitHub Desktop, or Pages CMS saving an entry),
+# (2) once a day, so workshops and events move from "upcoming" to "past" by themselves,
+# (3) on demand, from the Actions tab.
+name: Build and publish
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '30 3 * * *'      # every day at 03:30 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # DEMO SETTINGS. At launch: set SITE_URL to https://giovannifusetti.com and NOINDEX to 'false'.
+      SITE_URL: https://${{ github.repository_owner }}.github.io
+      NOINDEX: 'true'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

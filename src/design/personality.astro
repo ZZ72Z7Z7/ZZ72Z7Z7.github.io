@@ -1,0 +1,68 @@
+---
+// Design review page (Category 6, Personality). Local only, never published. Each idea is a live sample; nothing is applied to the site.
+import Base from '../layouts/Base.astro';
+---
+<Base title="Personality review" lang="en" path="/design/personality/" noindex>
+  <h1>6 · Personality</h1>
+  <p>Five small touches, each a live sample. <strong>Recommendation:</strong> apply <strong>1</strong>, <strong>2</strong> and <strong>4</strong>; skip <strong>3</strong> (a second colour, which you ruled out) and <strong>5</strong> (extra motion on a page that already has the home fade).</p>
+
+  <section class="ps">
+    <h2>1 · The spiral turns slowly when you point at the logo</h2>
+    <p class="note">One slow turn (about 3 seconds) when the pointer is over the logo or the logo has keyboard focus. It doesn't move for visitors who've asked for less motion. Pointer devices only; on phones nothing happens.</p>
+    <a href="#" class="ps-brand"><img src="/images/spiral-logo.png" alt="" width="72" height="75" /><span>Giovanni Fusetti</span></a>
+  </section>
+
+  <section class="ps">
+    <h2>2 · A small spiral closes every page</h2>
+    <p class="note">A 28px spiral, centred above the copyright line. It replaces nothing and tells the visitor the page has ended.</p>
+    <div class="ps-foot"><img src="/images/spiral-logo.png" alt="" width="28" height="29" /><p>©2026 Giovanni Fusetti</p></div>
+  </section>
+
+  <section class="ps">
+    <h2>3 · Yellow highlighter on links and the current menu item</h2>
+    <p class="note">The old yellow (#ffcf00) as a marker behind the text on hover. Black on yellow is very readable, but it adds a second colour to a black, white and red site.</p>
+    <p class="ps-hl">Read <a href="#">Joan Schirle: The Ascent of a Legend</a> or <a href="#">join the mailing list</a>. &nbsp; <span class="ps-menu"><a href="#" aria-current="page">Workshops</a> <a href="#">Events</a></span></p>
+  </section>
+
+  <section class="ps">
+    <h2>4 · Red dots as bullets in lists inside text</h2>
+    <p class="note">Plain lists in running text (for example in a workshop's Schedule or Tuition) get a small red dot, the same dot as in the poem signature, in place of the black bullet. Not used anywhere else.</p>
+    <ul class="ps-dots">
+      <li>Four weeks, Monday to Friday, 10:00 - 17:00</li>
+      <li>Final performance in the last week</li>
+      <li>Tuition does not include accommodation</li>
+    </ul>
+  </section>
+
+  <section class="ps">
+    <h2>5 · Pictures rise and fade in as they scroll into view</h2>
+    <p class="note">Each picture eases in (about half a second) the first time it appears. Click the button to see it again. Adds motion to every list page.</p>
+    <button type="button" id="ps-replay">Replay</button>
+    <div class="ps-fade"><img src="/images/hero.jpg" alt="" /></div>
+  </section>
+</Base>
+
+<script>
+  document.getElementById('ps-replay')?.addEventListener('click', () => {
+    const el = document.querySelector<HTMLElement>('.ps-fade img')!;
+    el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
+  });
+</script>
+
+<style is:global>
+  .ps { border-top: 1px solid var(--line); padding: 1.5rem 0 2rem; } .ps h2 { font-size: 1.25rem; margin: 0 0 .25rem; } .ps .note { color: var(--muted); font-size: var(--p2-size); margin: 0 0 1.25rem; }
+  .ps-brand { display: inline-flex; align-items: center; gap: .85rem; text-decoration: none; font-weight: 700; font-size: 1.6rem; }
+  .ps-brand img { display: block; height: 4.5rem; width: auto; }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .ps-brand:hover img, .ps-brand:focus-visible img { animation: ps-spin 3s linear 1; }
+  }
+  @keyframes ps-spin { to { transform: rotate(-360deg); } }
+  .ps-foot { text-align: center; } .ps-foot img { display: block; margin: 0 auto .75rem; width: 28px; height: auto; } .ps-foot p { margin: 0; color: var(--muted); font-size: var(--p2-size); }
+  .ps-hl a { text-decoration: none; border-bottom: 2px solid var(--text); } .ps-hl a:hover { background: #ffcf00; color: #000; }
+  .ps-menu a[aria-current] { background: #ffcf00; padding: 0 .25rem; margin-right: .75rem; } .ps-menu a { text-decoration: none; }
+  .ps-dots { list-style: none; padding: 0; margin: 0; } .ps-dots li { position: relative; padding-left: 1.25rem; margin: .4rem 0; }
+  .ps-dots li::before { content: ""; position: absolute; left: .1rem; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--red); }
+  .ps-fade img { display: block; width: 100%; max-width: 28rem; height: auto; animation: ps-rise .6s ease-out both; margin-top: 1rem; }
+  @keyframes ps-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .ps-fade img { animation: none; } }
+</style>

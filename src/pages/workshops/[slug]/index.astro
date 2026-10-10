@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import Workshop from '../../../views/Workshop.astro';
+export async function getStaticPaths() {
+  return (await getCollection('workshops')).map((w) => ({ params: { slug: w.id } }));
+}
+const { slug } = Astro.params;
+---
+<Workshop id={slug!} lang="en" />

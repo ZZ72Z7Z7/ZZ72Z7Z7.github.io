@@ -1,0 +1,96 @@
+---
+// Design review page: the proposed standard format for an individual workshop page. Not part of the site: remove before launch.
+// The sample uses real words from the old Tao of Clown (Boulder, September 2025) page; the grey labels are annotations, not part of the page.
+import Base from '../layouts/Base.astro';
+---
+<Base title="Workshop page standard" lang="en" path="/design/workshop-page/" noindex wide>
+  <h1>Standard format for an individual workshop page</h1>
+  <p>Every one of the 27 workshops would use this one format. Below it, the page is shown as a visitor would see it; the grey notes say which block is which and who fills it in. The words are the client's, from the old Tao of Clown page.</p>
+  <p><strong>The idea in one sentence:</strong> a workshop page holds what stays the same from one edition to the next (title, tagline, picture, description); everything that changes with each edition (dates, place, fees, how to apply) lives with that edition's date and is shown under it.</p>
+
+  <div class="wp-sample">
+    <p class="wp-note">1 · Title and tagline. Client fills in: Title, Short description (the same text shown in the Workshops list).</p>
+    <h1 class="wp-title">The Tao of Clown</h1>
+    <p class="wp-tag">A poetic journey of Awareness through laughter</p>
+
+    <p class="wp-note">2 · Picture. Client fills in: one main image.</p>
+    <img class="wp-hero" src="/wp-content/uploads/2021/03/matisse.icarus.jpg" alt="" />
+
+    <p class="wp-note">3 · Dates (H2). Comes from the schedule: each upcoming edition with dates, place and teachers, and a "Practical information" panel that opens on selection. If there are no dates: "No dates scheduled at the moment" and the mailing-list link. Past editions are listed underneath, one line each (dates, place).</p>
+    <h2>Dates</h2>
+    <div class="wp-run">
+      <p class="wp-dates">September 15 - 19, 2025</p>
+      <p class="wp-place">Boulder, Colorado, USA · Boulder Circus Center</p>
+      <details class="wp-details">
+        <summary>Practical information</summary>
+        <div class="wp-practical">
+          <p class="wp-note">Client fills in, per edition: one text box (rich text), written the way the old pages did, with the usual headings below. Nothing here has to be filled in if it does not apply.</p>
+          <h3>Schedule</h3>
+          <p>Monday September 15th to Friday September 19<br />9:30am to 5:30pm</p>
+          <h3>Location</h3>
+          <p>The training will take place in Boulder, Colorado, at the BOULDER CIRCUS CENTER<br />4747 26th St, Boulder, CO 80301, United States.</p>
+          <h3>Tuition</h3>
+          <p>Early Bird Discount: <strong>US$600</strong>. If full payment is made by July 15th, 2025<br />Full Price: <strong>US$750</strong>. If full payment is made after July 15th, 2025</p>
+          <h3>How to apply</h3>
+          <p>To apply to the workshop please e-mail a letter of motivation to Giovanni, sharing the essence of your story, vision, dream, desire, fear or un-explicable intuition that leads you to this workshop. Once the application is accepted, applicants need to confirm their enrollment by sending a US $300 non-refundable deposit.</p>
+          <p>The maximum number of participants is 10.</p>
+        </div>
+      </details>
+    </div>
+    <details class="wp-details wp-past">
+      <summary>Past editions</summary>
+      <ul class="wp-pastlist"><li>January 2025 · Wellington, New Zealand</li><li>February 2024 · Melbourne, Australia</li><li>January 2023 · Waiheke Island, New Zealand</li></ul>
+      <p class="wp-note">One line each. Taken automatically from the schedule, so the client adds each edition once.</p>
+    </details>
+
+    <p class="wp-note">4 · Description (H2 headings). Client fills in: one rich-text body. Standard headings, used where they apply: "About the workshop" (the opening, no heading needed), "The approach", "The program", "Who it is for". Photos can sit between paragraphs.</p>
+    <div class="wp-body">
+      <p>Welcome to a unique adventure, in which <strong>poetry meets healing</strong> and your personal clown will reveal some aspects of your own <strong>crazy wisdom</strong>.</p>
+      <p><strong>The Clown is a very personal comic state</strong>. It exists in the fullness of the present moment: in this state of being without doing, the person touches the richness of the <strong>“here and now”</strong>.</p>
+      <h2>The approach</h2>
+      <p>The pedagogical approach integrates <strong>Physical Theatre</strong> with <strong>Gestalt Therapy</strong>, <strong>Bioenergetics</strong>, <strong>Taoist Principles</strong> and <strong>Process Work</strong>. The result is a deep artistic and emotional work, involving the body in a dynamic of play, humor and awareness.</p>
+      <h2>Who it is for</h2>
+      <p>This workshop addresses to every person wishing to experience <strong>a journey of self-discovery through the healing power of laughter.</strong></p>
+    </div>
+
+    <p class="wp-note">5 · Contact line. Standard sentence, the same on every page; the email can be changed per workshop (for example when a host collects applications).</p>
+    <p class="wp-contact">For further information about the content of the workshop and for application and practical enquiries please contact <strong>Giovanni Fusetti</strong> at <a href="mailto:giovanni.fusetti@helikos.com">giovanni.fusetti@helikos.com</a></p>
+
+    <p class="wp-note">6 · Photo credits (smallest text). Client fills in: one text box, optional.</p>
+    <p class="wp-credits">Photo credits: Henri Matisse, Icarus (1947) · Red Nose Intensive Training 2018, Melbourne · Joan Miró, The Smile of the Flamboyant Wings Sun (1953)</p>
+  </div>
+
+  <h2>What the client edits, and where</h2>
+  <ul>
+    <li><strong>Workshop form (once per workshop):</strong> title, short description, main image, description text, photo credits, contact email (optional).</li>
+    <li><strong>Schedule entry (once per edition):</strong> dates, city, country, venue, teachers, thumbnail (optional, for the Workshops list), short description override (optional), and <strong>Practical information</strong> as one rich-text box.</li>
+  </ul>
+  <h2>Choices for you</h2>
+  <ol>
+    <li><strong>Practical information as one text box per edition (recommended)</strong>, versus separate boxes for tuition, schedule, location and how to apply. One box is simpler for the client and matches how the old pages were written; separate boxes would let the site show tuition in the Workshops list.</li>
+    <li><strong>Practical information opens on selection (recommended)</strong>, versus always visible. Always visible makes long pages, since the old practicalities run 300 to 400 words.</li>
+    <li><strong>Past editions as one line each</strong> (recommended), versus each past edition keeping its full old page text. The old edition pages largely repeat the description, and the Red Nose Intensive alone has five of them.</li>
+  </ol>
+
+  <style is:global>
+    .wp-sample { max-width: 44rem; margin: 2rem auto; padding: 1.5rem; border: 1px solid var(--line); background: #fff; }
+    .wp-note { font-size: .875rem; color: var(--muted); border-left: 3px solid var(--red); padding-left: .75rem; margin: 2rem 0 .75rem; }
+    .wp-note:first-child { margin-top: 0; }
+    .wp-title { margin: 0 0 .5rem !important; }
+    .wp-tag { font-size: var(--h3-size); margin: 0 0 1rem; line-height: 1.3; }
+    .wp-hero { display: block; width: 100%; height: auto; margin: 0 0 1rem; }
+    .wp-sample h2 { margin: 1.5rem 0 .75rem; }
+    .wp-run { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1.25rem 0; }
+    .wp-dates { font-weight: 700; margin: 0; }
+    .wp-place { color: var(--muted); margin: 0 0 .75rem; font-size: var(--p2-size); }
+    .wp-details > summary { cursor: pointer; font-weight: 600; padding: .35rem 0; }
+    .wp-practical { padding: .75rem 0 0; }
+    .wp-practical h3 { font-size: var(--p1-size); margin: 1rem 0 .25rem; text-transform: uppercase; letter-spacing: .04em; }
+    .wp-practical p { margin: 0 0 .75rem; }
+    .wp-past { padding: .75rem 0; border-bottom: 1px solid var(--line); }
+    .wp-pastlist { margin: .5rem 0; padding-left: 1.25rem; }
+    .wp-body p { margin: 0 0 1rem; }
+    .wp-contact { margin: 1rem 0; }
+    .wp-credits { font-size: var(--p3-size); color: var(--muted); margin: 0; }
+  </style>
+</Base>

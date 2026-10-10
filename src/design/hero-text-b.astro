@@ -1,0 +1,75 @@
+---
+// Design review page: option B (subtitle band) without the white background. Local only.
+import Base from '../layouts/Base.astro';
+const slides = [
+  { lead: 'I practice the freedom to be', word: 'stupidus' },
+  { lines: ['Stupefied by life, nature, beauty', 'and the mystery of the human condition'] },
+  { lines: ['I celebrate the sublime stupidity of Clowns', 'I long for the crazy wisdom of The Fool'] },
+  { lines: ['Intelligence is limited', 'Stupidity is infinite'] },
+  { lines: ['Clowning is a very serious work on how to be stupid'] },
+  { lines: ['To the delusional quest for a mechanical artificial intelligence', 'I will respond with the daily practice of  embodied natural stupidity'] },
+];
+const options = [
+  { key: 'b1', title: 'B1 · White text on a soft dark fade', text: 'The bottom of the photo darkens gently (a gradient from transparent to black), and the text is plain white. "stupidus" is white too. The most legible and the most cinematic, and it reads clearly on every photo.', note: 'Slightly darkens the lower edge of the photo.' },
+  { key: 'b2', title: 'B2 · White text with a shadow, no fade', text: 'No change to the photo at all. White text with a soft dark shadow around the letters.', note: 'Cleanest look. Legibility depends on the photo behind: good over his dark coat, weaker where the coat meets the pale scarf.' },
+  { key: 'b3', title: 'B3 · Black text with a white outline (sticker style)', text: 'Black italic text with a thick white outline, like a cut-out sticker or a printed label. "stupidus" in dark red with the same white outline.', note: 'Playful and clearly legible on both dark and light areas, with no change to the photo.' },
+  { key: 'b4', title: 'B4 · Text that inverts against the photo', text: 'White text set to "difference", so it turns dark over light areas and light over dark ones, automatically. A graphic, almost print-like effect that suits the black-and-white photo.', note: 'Boldest and most artistic. Risk: over mid-grey areas it can fade, so it is the least reliable for reading.' },
+];
+---
+<Base title="Hero text B review" lang="en" path="/design/hero-text-b/" noindex wide>
+  <h1>Option B without the white background</h1>
+  <p>Four ways to put the subtitle-style text straight on the photo. All loop through the same six beats, along the bottom over his coat.</p>
+  {options.map((o) => (
+    <section class={`opt ${o.key}`}>
+      <h2>{o.title}</h2>
+      <p class="how">{o.text}</p>
+      <p class="why">{o.note}</p>
+      <div class="frame">
+        <img src="/images/hero.jpg" alt="" width="1920" height="1080" />
+        <div class="slides" aria-hidden="true">
+          {slides.map((s, i) => (
+            <div class={`slide ${i === 0 ? 'on' : ''}`}>
+              {s.lead && <p class="line lead">{s.lead}</p>}
+              {s.word && <p class="line word">{s.word}</p>}
+              {s.lines && s.lines.map((l) => <p class="line">{l}</p>)}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+  <script is:inline>
+    document.querySelectorAll('.opt').forEach(function (sec) {
+      var slides = sec.querySelectorAll('.slide'); var i = 0;
+      setInterval(function () { slides[i].classList.remove('on'); i = (i + 1) % slides.length; slides[i].classList.add('on'); }, 4200);
+    });
+  </script>
+  <style>
+    .opt { margin: 2.5rem 0; }
+    .opt h2 { font-size: 1.15rem; margin: 0 0 .4rem; }
+    .how, .why { max-width: 46rem; margin: 0 0 .5rem; }
+    .why { color: var(--muted); font-size: .93rem; }
+    .frame { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #ddd; margin-top: .75rem; container-type: inline-size; }
+    .frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .slides { position: absolute; inset: 0; pointer-events: none; }
+    .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 3.5%; text-align: center; }
+    .slide.on { opacity: 1; }
+    .line { margin: 0; font-style: italic; font-weight: 700; font-size: 2.3cqw; line-height: 1.45; }
+    .line.lead { font-size: 2.6cqw; }
+    .line.word { font-size: 6.5cqw; line-height: 1.05; }
+
+    /* B1: fade + white text */
+    .b1 .frame::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 42%; background: linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,0)); }
+    .b1 .slides { z-index: 2; }
+    .b1 .line { color: #fff; }
+    /* B2: white + shadow */
+    .b2 .line { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 14px rgba(0,0,0,.7); }
+    /* B3: sticker */
+    .b3 .line { color: var(--text); -webkit-text-stroke: .5cqw #fff; paint-order: stroke fill; }
+    .b3 .line.word { color: var(--red-text); -webkit-text-stroke: .9cqw #fff; }
+    /* B4: difference */
+    .b4 .line { color: #fff; mix-blend-mode: difference; }
+    .b4 .slides { mix-blend-mode: normal; }
+    @media (prefers-reduced-motion: reduce) { .slide { transition: none; } }
+  </style>
+</Base>

@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import { t, type Lang } from '../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ui = t(lang);
+---
+<Base title={ui.menu.contact} lang={lang} path="/contact/" section="contact">
+  <h1 class="visually-hidden">{ui.menu.contact}</h1>
+  <h2 class="h3 contact-head contact-first">{ui.form.mailingHeading}</h2>
+  <!-- Placeholder: wired to Mailchimp later. -->
+  <form action="#" method="post" onsubmit="return false">
+    <input type="email" name="email" autocomplete="email" placeholder={ui.form.email} aria-label={ui.form.email} required />
+    <button type="submit" disabled>{ui.form.subscribe}</button>
+  </form>
+
+  <h2 class="h3 contact-head">{ui.form.writeHeading}</h2>
+  <!-- Placeholder: wired to Web3Forms later. -->
+  <form action="#" method="post" onsubmit="return false">
+    <label>{ui.form.firstName}<input type="text" name="first_name" autocomplete="given-name" required /></label>
+    <label>{ui.form.lastName}<input type="text" name="last_name" autocomplete="family-name" required /></label>
+    <label>{ui.form.email}<input type="email" name="email" autocomplete="email" required /></label>
+    <label>{ui.form.country}<input type="text" name="country" autocomplete="country-name" required /></label>
+    <label>{ui.form.message}<textarea name="message" required></textarea></label>
+    <button type="submit" disabled>{ui.form.send}</button>
+  </form>
+
+</Base>

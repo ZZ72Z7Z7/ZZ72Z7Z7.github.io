@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Text from '../components/Text.astro';
+import { postPath } from '../lib/content';
+import { t, href, pick, type Lang } from '../i18n/ui';
+import { formatLongDate, isoDate } from '../lib/dates';
+interface Props { entry: CollectionEntry<'blog'>; lang: Lang }
+const { entry, lang } = Astro.props;
+const ui = t(lang);
+const d = entry.data;
+const it = lang === 'it' && d.body_it?.trim();
+const source = it ? d.body_it : entry.body;
+---
+<Base title={pick(d, 'title', lang).value!} lang={lang} path={postPath(entry)} section="blog">
+  <article>
+    <h1>{pick(d, 'title', lang).value}</h1>
+    <p class="post-meta">
+      <time datetime={isoDate(d.date)}>{formatLongDate(d.date, lang)}</time> · {ui.categories[d.category]}
+    </p>
+    {d.audio && <audio controls src={d.audio}></audio>}
+    <Text source={source} lang={lang} fallback={lang !== 'en' && !it} />
+  </article>
+  <p><a href={href('/blog/', lang)}>← {ui.menu.blog}</a></p>
+</Base>

@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Text from '../components/Text.astro';
+import TopBanner from '../components/TopBanner.astro';
+import { banners } from '../lib/banners';
+import { getPosts, getPage, postPath } from '../lib/content';
+import { t, href, pick, type Lang } from '../i18n/ui';
+import { formatLongDate, isoDate } from '../lib/dates';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ui = t(lang);
+const posts = await getPosts();
+const intro = await getPage('blog-intro', lang);
+// First paragraph of a post (the first block of text, skipping images and bare dates), shortened at 6 lines or 320 characters; poem line breaks are kept.
+const firstParagraph = (p: (typeof posts)[number]) => {
+  const body = (lang === 'it' && p.data.body_it?.trim()) || p.body || '';
+  const blocks = body.split(/\n\s*\n/).map((b) => b.split('\n').map((l) => l.replace(/!\[[^\]]*\]\([^)]*\)|<[^>]+>|[*_#>`]/g, '').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').trim()).filter(Boolean).join('\n')).filter(Boolean);
+  const text = blocks.find((b) => b.length > 15 && !/^\(?[\d-]{4,}/.test(b) && !/^(January|February|March|April|May|June|July|August|September|October|November|December)\b[^\n]{0,20}$/.test(b)) ?? '';
+  const lines = text.split('\n');
+  if (lines.length > 6) return lines.slice(0, 6).join('\n') + '…';   // a long stanza stops at a whole line
+  if (text.length > 320) return text.slice(0, 320).replace(/\s+\S*$/, '') + '…';   // a long paragraph stops at a whole word
+  return text;
+};
+---
+<Base title={ui.menu.blog} lang={lang} path="/blog/" section="blog">
+  <TopBanner banner={banners.blog} slot="hero" />
+  <h1 class="center-title">{ui.menu.blog}</h1>
+  <Text source={intro.entry.body} lang={lang} fallback={intro.fallback} notice={false} />
+  <ul class="post-list">
+    {posts.map((p) => (
+      <li>
+        <p class="post-meta"><time datetime={isoDate(p.data.date)}>{formatLongDate(p.data.date, lang)}</time> · {ui.categories[p.data.category]}</p>
+        <a class="post-title" href={href(postPath(p), lang)}>{pick(p.data, 'title', lang).value}</a>
+        {(() => { const ex = firstParagraph(p); return <p class:list={['post-excerpt', ex.includes('\n') && 'verse']}>{ex}</p>; })()}
+      </li>
+    ))}
+  </ul>
+</Base>

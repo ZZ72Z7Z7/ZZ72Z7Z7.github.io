@@ -1,0 +1,16 @@
+---
+// Globe icon for the language link, drawn to the designer's reference: outline, straight equator,
+// two curved lines of latitude, and four curved meridians (a narrow pair inside a wider pair).
+interface Props { size?: number }
+const { size = 26 } = Astro.props;
+---
+<svg class="globe" viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" focusable="false">
+  <g fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round">
+    <circle cx="12" cy="12" r="9.5" />
+    <path d="M2.5 12h19" />
+    <path d="M4.9 6.2Q12 8.4 19.1 6.2" />
+    <path d="M4.9 17.8Q12 20 19.1 17.8" />
+    <ellipse cx="12" cy="12" rx="2.1" ry="9.5" />
+    <ellipse cx="12" cy="12" rx="5.5" ry="9.5" />
+  </g>
+</svg>

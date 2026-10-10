@@ -1,0 +1,85 @@
+---
+// Design review page: the poem sliding up over the pinned hero photo ("curtain"). Not part of the site: remove before launch.
+// Each demo is a small scrolling window, so you can scroll inside it. Use the buttons to see it at phone width.
+import Base from '../layouts/Base.astro';
+const poem = [
+  ['stupefied by life, nature, beauty', 'and the mystery of the human condition'],
+  ['I celebrate the sublime stupidity of Clowns', 'I long for the crazy wisdom of The Fool'],
+  ['intelligence is limited', 'stupidity is infinite'],
+  ['Clowning is very serious work', 'on how to be stupid'],
+  ['to the delusional quest', 'for a mechanical artificial intelligence', 'I will respond with the daily practice', 'of embodied natural stupidity'],
+];
+const demos = [
+  { id: 'a', title: 'A · Plain curtain', text: 'The photo stays pinned. A white panel with a straight top edge slides up over it. No script, works in every browser.' },
+  { id: 'b', title: 'B · Curtain with a soft edge', text: 'Same, but the panel has rounded top corners and a faint shadow, so it reads as a sheet lifting over the photo. Also no script.' },
+  { id: 'c', title: 'C · Curtain that dims the photo', text: 'Same as A, and as the poem rises the photo slowly darkens and eases in. Uses newer scroll-linked CSS (current Chrome, Edge, Safari); in other browsers it falls back to A.' },
+];
+---
+<Base title="Hero curtain review" lang="en" path="/design/hero-curtain/" noindex>
+  <h1>The poem sliding up over the photo</h1>
+  <p>Three versions of the "curtain" idea. Scroll inside each window. The buttons switch between a desktop-width and a phone-width window (on a phone the photo is only 440px tall, as on the real page, so the effect is shorter).</p>
+  <p><strong>Recommendation:</strong> <strong>B</strong>, or <strong>C</strong> if you like the dimming. A is the safest.</p>
+
+  {demos.map((d) => (
+    <section class={`rv ${d.id}`} data-demo>
+      <div class="rv-head">
+        <h2>{d.title}</h2>
+        <p>{d.text}</p>
+        <div class="rv-btns" role="group" aria-label="Window size">
+          <button type="button" data-size="desktop" aria-pressed="true">Desktop</button>
+          <button type="button" data-size="phone" aria-pressed="false">Phone</button>
+        </div>
+      </div>
+      <div class="frame" tabindex="0" aria-label={`Scrollable demo ${d.id.toUpperCase()}`}>
+        <div class="photo"><img src="/images/hero.jpg" alt="" width="1920" height="1080" /></div>
+        <div class="panel">
+          <div class="poem-s">
+            <p class="lead">I practice the freedom to be</p>
+            <p class="word">stupidus</p>
+            {poem.map((s) => <p>{s.map((l, i) => <Fragment>{i > 0 && <br />}{l}</Fragment>)}</p>)}
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+</Base>
+
+<script is:inline>
+  document.querySelectorAll('[data-demo]').forEach(function (demo) {
+    var frame = demo.querySelector('.frame');
+    demo.querySelectorAll('[data-size]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        demo.querySelectorAll('[data-size]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        frame.classList.toggle('is-phone', b.dataset.size === 'phone');
+        frame.scrollTop = 0;
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  .rv { margin: 3rem 0; }
+  .rv-head h2 { margin: 0 0 .25rem; }
+  .rv-head p { margin: 0 0 .75rem; }
+  .rv-btns { display: flex; gap: .5rem; margin-bottom: 1rem; }
+  .rv-btns button { font: inherit; padding: .4rem 1rem; border: 1px solid #000; background: #fff; color: #000; border-radius: 999px; cursor: pointer; }
+  .rv-btns button[aria-pressed="true"] { background: #000; color: #fff; }
+
+  .rv .frame { --hero-h: 20rem; position: relative; height: 34rem; overflow-y: auto; overflow-x: hidden; border: 1px solid #ddd; margin: 0 auto; width: 100%; background: #fff; }
+  .rv .frame.is-phone { width: 375px; max-width: 100%; height: 40rem; --hero-h: 27.5rem; }
+  .rv .photo { position: sticky; top: 0; height: var(--hero-h); overflow: hidden; z-index: 0; }
+  .rv .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 52% 35%; display: block; }
+  .rv .panel { position: relative; z-index: 1; background: #fff; container-type: inline-size; padding: 5rem 1.25rem 7.5rem; }
+  .rv .panel .poem-s { text-align: center; max-width: 40rem; margin: 0 auto; }
+
+  /* B: soft edge */
+  .rv.b .panel { border-radius: 2rem 2rem 0 0; box-shadow: 0 -10px 30px rgba(0,0,0,.25); }
+
+  /* C: the photo darkens and eases in as the poem rises */
+  @supports (animation-timeline: scroll()) {
+    .rv .frame { scroll-timeline: --rv-scroll block; } /* named, because the photo box itself clips (overflow hidden) and would otherwise count as the nearest scroller */
+    @keyframes rv-dim { to { filter: brightness(.45); transform: scale(1.06); } }
+    .rv.c .photo img { animation: rv-dim linear both; animation-timeline: --rv-scroll; animation-range: 0px var(--hero-h); }
+  }
+  @media (prefers-reduced-motion: reduce) { .rv.c .photo img { animation: none; } }
+</style>

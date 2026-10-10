@@ -1,0 +1,172 @@
+---
+import '@fontsource-variable/figtree/wght.css';
+import '@fontsource-variable/figtree/wght-italic.css';
+import '../styles/global.css';
+import Globe from '../components/Globe.astro';
+import { t, href, LANGS, LANG_NAMES, type Lang } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  lang: Lang;
+  /** English path of this page, e.g. "/workshops/". The page in another language is /<lang> + path. */
+  path: string;
+  /** Which menu item is current. */
+  section?: 'home' | 'about' | 'bio' | 'pedagogy' | 'redNoseClown' | 'roots' | 'helikos' | 'workshops' | 'events' | 'writings' | 'lectures' | 'shows' | 'blog' | 'photo' | 'video' | 'contact';
+  description?: string;
+  wide?: boolean;
+  /** Home page: main has no width limit or padding, the page lays itself out. */
+  bare?: boolean;
+  noindex?: boolean;
+}
+const { title, lang, path, section, description, wide = false, bare = false } = Astro.props;
+// While the site is a demo (NOINDEX=true in the deploy workflow), tell search engines to stay away.
+const noindex = Astro.props.noindex || process.env.NOINDEX === 'true';
+const ui = t(lang);
+const site = Astro.site!.origin;
+const canonical = site + href(path, lang);
+const pageTitle = path === '/' || title === ui.siteName ? ui.siteName : `${title} · ${ui.siteName}`;
+// "About", "Creations" and "Gallery" are not pages: they are submenus.
+const menu = [
+  { key: 'about', children: [
+    { key: 'bio', path: '/giovanni-fusetti/' },
+    { key: 'pedagogy', path: '/the-pedagogy/' },
+    { key: 'redNoseClown', path: '/pedagogy-of-the-red-nose-clown/' },
+    { key: 'roots', path: '/the-roots/' },
+    { key: 'helikos', path: '/helikos-school/' },
+  ] },
+  { key: 'workshops', path: '/workshops/' },
+  { key: 'events', path: '/events/' },
+  { key: 'creations', children: [
+    { key: 'writings', path: '/writings/' },
+    { key: 'lectures', path: '/lectures/' },
+    { key: 'shows', path: '/performances/' },
+    { key: 'blog', path: '/blog/' },
+  ] },
+  { key: 'gallery', children: [
+    { key: 'photo', path: '/photo-galleries/' },
+    { key: 'video', path: '/videos/' },
+  ] },
+  { key: 'contact', path: '/contact/' },
+] as const;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    {description && <meta name="description" content={description} />}
+    {noindex && <meta name="robots" content="noindex" />}
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <slot name="head" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonical} />
+    {LANGS.map((l) => <link rel="alternate" hreflang={l} href={site + href(path, l)} />)}
+    <link rel="alternate" hreflang="x-default" href={site + href(path, 'en')} />
+  </head>
+  <body>
+    <a class="skip" href="#content">{ui.skip}</a>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href={href('/', lang)}>
+          <img class="brand-logo" src="/images/spiral-logo.png" width="288" height="300" alt="" />
+          <span class="brand-name">{ui.siteName}</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label={ui.menuButton}>
+          <span class="bars" aria-hidden="true"></span>
+        </button>
+        <div class="header-right" id="site-menu">
+          <nav class="site-nav" aria-label={ui.menuLabel}>
+            <ul>
+              {menu.map((m) => (
+                'children' in m ? (
+                  <li class="has-sub">
+                    <button type="button" class="sub-toggle" aria-expanded="false" aria-controls={`sub-${m.key}`} class:list={[m.children.some((c) => c.key === section) && 'current']}>
+                      <span class="lbl" data-label={ui.menu[m.key]}>{ui.menu[m.key]}</span>
+                    </button>
+                    <ul class="submenu" id={`sub-${m.key}`}>
+                      {m.children.map((c) => (
+                        <li><a href={href(c.path, lang)} aria-current={section === c.key ? 'page' : undefined}><span class="lbl" data-label={ui.menu[c.key]}>{ui.menu[c.key]}</span></a></li>
+                      ))}
+                    </ul>
+                  </li>
+                ) : (
+                  <li>
+                    <a href={href(m.path, lang)} aria-current={section === m.key ? 'page' : undefined}><span class="lbl" data-label={ui.menu[m.key]}>{ui.menu[m.key]}</span></a>
+                  </li>
+                )
+              ))}
+            </ul>
+          </nav>
+          <div class="lang-menu">
+            <button type="button" class="lang-toggle" aria-expanded="false" aria-controls="lang-list" aria-label={`${ui.language}: ${LANG_NAMES[lang]}`}>
+              <Globe size={22} />
+            </button>
+            <ul class="lang-list" id="lang-list">
+              {LANGS.map((l) => (
+                <li><a href={href(path, l)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>{LANG_NAMES[l]}</a></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <slot name="hero" />
+    <main id="content" class:list={[wide && 'wide', bare && 'bare']}>
+      <slot />
+    </main>
+    <footer class="site-footer"><img class="footer-spiral" src="/images/spiral-logo.png" width="28" height="29" alt="" /><p>©2026 Giovanni Fusetti</p></footer>
+    <script is:inline>
+      // Height of the header (nothing sits above it), so the home photo can fill the rest of the screen. Its own height, not its position: on the home page the header stays fixed while scrolling, and the browser can restore a scrolled position on reload.
+      (function () {
+        var h = document.querySelector('.site-header');
+        function set() { document.documentElement.style.setProperty('--chrome-h', Math.round(h.offsetHeight) + 'px'); }
+        set(); window.addEventListener('resize', set); window.addEventListener('load', set);
+      })();
+    </script>
+    <script is:inline>
+      // Phone menu: the three-bar button opens and closes the menu. Without JavaScript the menu simply stays visible.
+      (function () {
+        var btn = document.querySelector('.menu-toggle');
+        var menu = document.getElementById('site-menu');
+        if (!btn || !menu) return;
+        function set(open) {
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          menu.classList.toggle('open', open);
+          document.documentElement.classList.toggle('menu-open', open);
+        }
+        btn.addEventListener('click', function () { set(btn.getAttribute('aria-expanded') !== 'true'); });
+        window.matchMedia('(min-width: 64rem)').addEventListener('change', function (e) { if (e.matches) set(false); }); // growing the window past the phone layout closes the open menu
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { set(false); btn.focus(); }
+        });
+      })();
+    </script>
+    <script is:inline>
+      // Dropdowns (the Creations and Gallery submenus, and the language menu): hidden until selected. On wide screens the submenus also open on hover
+      // or keyboard focus (plain CSS); every dropdown opens and closes by click or tap, one at a time; Escape or a click elsewhere closes it.
+      (function () {
+        var items = [].slice.call(document.querySelectorAll('.has-sub, .lang-menu')).map(function (item) {
+          return { item: item, tog: item.querySelector('.sub-toggle, .lang-toggle') };
+        }).filter(function (x) { return x.tog; });
+        if (!items.length) return;
+        function set(x, open) { x.item.classList.toggle('open', open); x.tog.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+        items.forEach(function (x) {
+          x.tog.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var willOpen = !x.item.classList.contains('open');
+            items.forEach(function (y) { if (y !== x) set(y, false); });
+            set(x, willOpen);
+          });
+        });
+        document.addEventListener('click', function (e) { items.forEach(function (x) { if (!x.item.contains(e.target)) set(x, false); }); });
+        document.addEventListener('keydown', function (e) {
+          if (e.key !== 'Escape') return;
+          items.forEach(function (x) { if (x.item.classList.contains('open')) { set(x, false); x.tog.focus(); } });
+        });
+      })();
+    </script>
+  </body>
+</html>

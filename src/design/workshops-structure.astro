@@ -1,0 +1,137 @@
+---
+// Design review page: five ways to structure the Workshops page (and, later, Events). Not part of the site: remove before launch.
+import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import { getSchedule } from '../lib/content';
+import { formatRange } from '../lib/dates';
+import { pick, href } from '../i18n/ui';
+const { upcoming } = await getSchedule();
+const rows = await Promise.all(upcoming.map(async (e) => {
+  const d = e.data;
+  const w = d.workshop ? await getEntry(d.workshop) : undefined;
+  return {
+    dates: d.extra_dates ?? formatRange(d.start, d.end, 'en'),
+    place: [[d.city, d.country].filter(Boolean).join(', '), d.venue].filter(Boolean).join(' · '),
+    title: w ? pick(w.data, 'title', 'en').value : d.title,
+    image: d.image ?? w?.data.image,
+    desc: d.description,
+    link: w ? href(`/workshops/${w.id}/`, 'en') : d.external_link,
+  };
+}));
+const variants = [
+  { id: 'v1', name: '1 · Picture beside text ("media object")', text: 'The most common pattern for listings: a thumbnail on the left, the text on the right. Phones stack it.',
+    cms: 'Handles any picture shape and any description length without cropping or uneven rows. A missing picture just leaves the text on its own.',
+    events: 'Events can add a time, venue or ticket link as extra lines in the text column.' },
+  { id: 'v1b', name: '1b · Picture beside text, alternating sides (as on the old page)', text: 'The same as option 1, but the picture swaps sides from one entry to the next: left, right, left, right. Text stays left-aligned. Phones stack it exactly as before.',
+    cms: 'As option 1. The alternation is automatic from the order of the entries, so the client never sets it; adding or removing an entry in the middle flips the sides of everything after it.',
+    events: 'As option 1.' },
+  { id: 'v2', name: '2 · Date rail (agenda)', text: 'Dates and place in a narrow left rail, title, description and link in the middle, small thumbnail on the right. Reads like a diary or programme.',
+    cms: 'Very scannable and tolerant of pictures and text of any size. The rail needs the dates to stay short (they do).',
+    events: 'Best fit for events: date-first is how people look for them.' },
+  { id: 'v3', name: '3 · Card grid (two across)', text: 'Each workshop is a card with the picture on top; two cards per row. Common for portfolios and shops.',
+    cms: 'Needs every picture cropped to one shape (here 4:3), so posters and group photos get trimmed; rows get uneven if descriptions differ in length.',
+    events: 'Works, but extra event details make cards tall.' },
+  { id: 'v4', name: '4 · One column, full-width stack', text: 'Every entry one under the other at the width of the page, in your order. The phone layout used everywhere.',
+    cms: 'The simplest to maintain and the most forgiving. Pictures stay large, which suits posters.',
+    events: 'Fine for events, but long and image-heavy on a wide screen.' },
+  { id: 'v5', name: '5 · Schedule table', text: 'One row per workshop with a column for each field, under a header row. The classic timetable. Phones stack it.',
+    cms: 'Dense and easy to compare, but long descriptions squeeze the columns and the thumbnail becomes tiny.',
+    events: 'Good for many events; weak for picture-led ones.' },
+];
+---
+<Base title="Workshops structure review" lang="en" path="/design/workshops-structure/" noindex wide>
+  <h1>Ways to structure the Workshops page</h1>
+  <p>Option 1b (new) is option 1 with the alternating sides. All options show the same six fields from the real entries: dates, location, title, thumbnail, short description, "More Info →". On phones each one becomes the same single stack, in your order: dates, location, title, thumbnail, short description, More Info. Use the buttons to see each at desktop and phone width.</p>
+  <p><strong>Recommendation:</strong> <strong>1</strong> for the Workshops page, and <strong>2</strong> if you want the Events page to lead with the date. Both are simple, show the picture without cropping it, and survive whatever the client types into the CMS. Option 1 is also the closest to the old site.</p>
+  <div class="ws-btns" role="group" aria-label="Width"><button type="button" data-mode="desktop" aria-pressed="true">Desktop width</button><button type="button" data-mode="phone" aria-pressed="false">Phone width</button></div>
+
+  {variants.map((v) => (
+    <section class="ws-var">
+      <h2>{v.name}</h2>
+      <p>{v.text}</p>
+      <ul class="ws-notes"><li><strong>Client editing:</strong> {v.cms}</li><li><strong>Events page:</strong> {v.events}</li></ul>
+      <div class="ws-frame"><div class={`ws-list ${v.id}`}>
+        {v.id === 'v5' && (
+          <div class="ws-head" aria-hidden="true"><span>Dates</span><span>Location</span><span>Title</span><span>Short description</span><span>Picture</span><span></span></div>
+        )}
+        {rows.map((r) => (
+          <article class="ws-item">
+            <p class="ws-dates">{r.dates}</p>
+            <p class="ws-place">{r.place}</p>
+            <h3 class="ws-title">{r.link ? <a href={r.link}>{r.title}</a> : r.title}</h3>
+            {r.image && <img class="ws-thumb" src={r.image} alt="" loading="lazy" />}
+            <p class="ws-desc">{r.desc}</p>
+            {r.link && <p class="ws-more"><a href={r.link}>More Info →</a></p>}
+          </article>
+        ))}
+      </div></div>
+    </section>
+  ))}
+
+  <script is:inline>
+    document.querySelectorAll('.ws-btns button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.ws-btns button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        document.querySelectorAll('.ws-frame').forEach(function (f) { f.classList.toggle('phone', b.dataset.mode === 'phone'); });
+      });
+    });
+  </script>
+
+  <style is:global>
+    .ws-btns { display: flex; gap: .5rem; margin: 1rem 0 2rem; position: sticky; top: .5rem; z-index: 5; }
+    .ws-btns button { font: inherit; padding: .4rem 1rem; border: 1px solid #000; background: #fff; color: #000; border-radius: 999px; cursor: pointer; }
+    .ws-btns button[aria-pressed="true"] { background: #000; color: #fff; }
+    .ws-var { margin: 3.5rem 0; }
+    .ws-var h2 { margin: 0 0 .5rem; font-size: 1.5rem; }
+    .ws-notes { margin: 0 0 1rem; padding-left: 1.25rem; color: var(--muted); font-size: 1rem; }
+    .ws-frame { container-type: inline-size; border: 1px solid var(--line); padding: 0 1.25rem; margin: 0 auto; width: 100%; max-width: 100%; }
+    .ws-frame.phone { max-width: 375px; padding: 0 1rem; }
+    .ws-list p, .ws-list h3 { margin: 0; }
+    .ws-item { padding: 1.25rem 0; border-top: 1px solid var(--line); display: grid; gap: .25rem 2rem; align-items: start; }
+    .ws-list > .ws-item:first-child { border-top: 0; }
+    .ws-dates { font-weight: 700; grid-area: dates; }
+    .ws-place { color: var(--muted); font-size: 1rem; grid-area: loc; }
+    .ws-title { font-size: 1.5rem; line-height: 1.25; grid-area: title; margin-top: .25rem !important; }
+    .ws-title a { text-decoration: none; }
+    .ws-thumb { grid-area: thumb; display: block; width: 100%; height: auto; margin-top: .75rem; }
+    .ws-desc { grid-area: desc; white-space: pre-line; margin-top: .5rem !important; }
+    .ws-more { grid-area: more; font-weight: 600; margin-top: .5rem !important; }
+    .ws-more a { text-decoration: none; }
+
+    /* the phone stack, used by all five below their breakpoint and by option 4 always */
+    .ws-item { grid-template-columns: 1fr; grid-template-areas: "dates" "loc" "title" "thumb" "desc" "more"; }
+
+    /* 1 picture beside text */
+    @container (min-width: 600px) {
+      .v1 .ws-item { grid-template-columns: 13rem 1fr; grid-template-areas: "thumb dates" "thumb loc" "thumb title" "thumb desc" "thumb more"; grid-template-rows: auto auto auto auto 1fr; }
+      .v1 .ws-thumb { margin-top: 0; grid-row: 1 / -1; }
+      /* 1b the same, with the picture on the right in every second entry */
+      .v1b .ws-item { grid-template-columns: 13rem 1fr; grid-template-areas: "thumb dates" "thumb loc" "thumb title" "thumb desc" "thumb more"; grid-template-rows: auto auto auto auto 1fr; }
+      .v1b .ws-thumb { margin-top: 0; grid-row: 1 / -1; }
+      .v1b .ws-item:nth-child(even) { grid-template-columns: 1fr 13rem; grid-template-areas: "dates thumb" "loc thumb" "title thumb" "desc thumb" "more thumb"; }
+      /* 2 date rail */
+      .v2 .ws-item { grid-template-columns: 11rem 1fr 9rem; grid-template-areas: "dates title thumb" "loc desc thumb" ". more thumb"; }
+      .v2 .ws-title { margin-top: 0 !important; }
+      .v2 .ws-thumb { margin-top: 0; }
+      .v2 .ws-desc { margin-top: .25rem !important; }
+      /* 3 card grid */
+    }
+    @container (min-width: 600px) {
+      .v3 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 1.25rem 0; }
+      .v3 .ws-item { border: 0; padding: 0; grid-template-areas: "thumb" "dates" "loc" "title" "desc" "more"; align-content: start; }
+      .v3 .ws-thumb { margin: 0 0 .75rem; aspect-ratio: 4 / 3; object-fit: cover; }
+    }
+    /* 4 stays as the stack at every width; the picture is capped so posters do not fill a wide screen */
+    .v4 .ws-thumb { max-width: 36rem; }
+    /* 5 table */
+    @container (min-width: 760px) {
+      .v5 .ws-head, .v5 .ws-item { grid-template-columns: 9rem 8rem 1.1fr 1.3fr 6rem 6.5rem; column-gap: 1.25rem; }
+      .v5 .ws-head { display: grid; padding: .75rem 0; font-weight: 700; border-bottom: 2px solid var(--text); font-size: 1rem; }
+      .v5 .ws-item { grid-template-areas: "dates loc title desc thumb more"; align-items: start; }
+      .v5 .ws-title { font-size: 1.15rem; margin-top: 0 !important; }
+      .v5 .ws-thumb { margin-top: 0; }
+      .v5 .ws-desc, .v5 .ws-more { margin-top: 0 !important; font-size: 1rem; }
+    }
+    .ws-head { display: none; }
+  </style>
+</Base>

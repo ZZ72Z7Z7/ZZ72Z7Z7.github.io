@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import EventCard from '../components/EventCard.astro';
+import Text from '../components/Text.astro';
+import { getEvents, getPage } from '../lib/content';
+import { t, type Lang } from '../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ui = t(lang);
+const { upcoming, past } = await getEvents();
+const note = await getPage('events-note', lang);
+---
+<Base title={ui.menu.events} lang={lang} path="/events/" section="events" wide>
+  <h1 id="upcoming" class="center-title">{ui.upcomingEvents}</h1>
+  {upcoming.length ? (
+    <ul class="entries">{upcoming.map((e) => <EventCard entry={e} lang={lang} />)}</ul>
+  ) : (
+    <div class="center-text empty-list"><Text source={note.entry.body} lang={lang} fallback={note.fallback} notice={false} /></div>
+  )}
+
+  <section class="past-band">
+  <h2 id="past" class="page-title center-title">{ui.pastEvents}</h2>
+  <ul class="entries">{past.map((e) => <EventCard entry={e} lang={lang} />)}</ul>
+  </section>
+</Base>

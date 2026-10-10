@@ -1,0 +1,8 @@
+---
+import Page from '../../../views/Page.astro';
+export function getStaticPaths() {
+  return ['the-pedagogic-journey', 'bouffons-gallery', 'melbourne-red-nose-intensive', 'boulder-programs-2004-2018'].map((slug) => ({ params: { slug } }));
+}
+const { slug } = Astro.params;
+---
+<Page lang="en" id={`galleries/${slug}`} path={`/portfolio/${slug}/`} section="photo" wide />

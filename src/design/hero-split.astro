@@ -1,0 +1,79 @@
+---
+// Design review page: split screen, photo on one half and the poem on the other. Not part of the site: remove before launch.
+// Three static variants at the real hero size. No motion.
+import Base from '../layouts/Base.astro';
+
+const stanzas = [
+  ['Stupefied by life, nature, beauty', 'and the mystery of the human condition'],
+  ['I celebrate the sublime stupidity of Clowns', 'I long for the crazy wisdom of The Fool'],
+  ['Intelligence is limited', 'Stupidity is infinite'],
+  ['Clowning is a very serious work on how to be stupid'],
+  ['To the delusional quest for a mechanical artificial intelligence', 'I will respond with the daily practice of embodied natural stupidity'],
+];
+const variants = [
+  { id: 'a', cls: 'sp-light', title: 'A · Photo left, poem right, on white', note: 'Black text on white, like the rest of the site. The calmest of the three.' },
+  { id: 'b', cls: 'sp-dark', title: 'B · Photo left, poem right, on black', note: 'White text on near-black, with the red word. More dramatic, and it matches the photo\'s black and white.' },
+  { id: 'c', cls: 'sp-light sp-flip', title: 'C · Poem left, photo right, on white', note: 'The poem is read first and the photo sits on the right. On phones the photo still comes first.' },
+];
+---
+<Base title="Split screen review" lang="en" path="/design/hero-split/" noindex>
+  <Fragment slot="hero">
+    <div class="rv-intro">
+      <h1>Split screen: photo and poem side by side</h1>
+      <p>Three variants at the real hero size: the photo is cropped to his head and shoulders in one half and the poem fills the other. Nothing overlaps, and nothing moves. On phones and in tall windows the photo comes first and the poem follows below.</p>
+      <p><strong>Recommendation:</strong> <strong>A</strong> if you want the site to stay black on white and calm; <strong>B</strong> if you want the landing page to feel like a stage. I lean to <strong>B</strong>.</p>
+    </div>
+
+    {variants.map((v) => (
+      <Fragment>
+        <div class="rv-label"><strong>{v.title}.</strong> {v.note}</div>
+        <section class={`split ${v.cls}`}>
+          <div class="split-photo"><img src="/images/hero.jpg" alt="" width="1920" height="1080" loading="lazy" /></div>
+          <div class="split-poem">
+            <div class="poem-s">
+              <p class="lead">I practice the freedom to be</p>
+              <p class="word">stupidus</p>
+              {stanzas.map((s) => <p>{s.map((l, i) => <Fragment>{i > 0 && <br />}{l}</Fragment>)}</p>)}
+            </div>
+          </div>
+        </section>
+      </Fragment>
+    ))}
+    <div class="rv-label rv-end">The photo crop is the same in all three (his head and shoulders, centred in the half). Contrast: black on white is 21 : 1; white on near-black is 19.7 : 1; the red "stupidus" is 4.4 : 1 on both near-black and white, fine for large text (3 : 1) but not for small text.</div>
+  </Fragment>
+</Base>
+
+<style is:global>
+  :root { --rv-black: #0b0b0b; }
+  .rv-intro { max-width: var(--measure); margin: 0 auto; padding: 2rem var(--gutter) 1rem; }
+  .rv-label { max-width: var(--measure); margin: 0 auto; padding: 1.5rem var(--gutter); color: var(--muted); }
+  .rv-end { padding-bottom: 4rem; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; height: min(calc(100svh - var(--chrome-h, 7rem)), 56vw); min-height: 38rem; margin: 0; background: #fff; } /* never taller than 56% of the width, so each half stays wide enough to keep him in frame */
+  .split-photo { position: relative; overflow: hidden; background: var(--rv-black); }
+  .split-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+  .split-poem { display: flex; align-items: center; justify-content: center; padding: 3rem clamp(1.5rem, 4vw, 4rem); }
+  .split-flip .split-photo { order: 2; }
+  .split-flip .split-poem { order: 1; }
+
+  .poem-s { text-align: center; width: 100%; max-width: 40rem; }
+  .poem-s p { margin: 0 0 1.5rem; font-size: clamp(.95rem, 1.3vw, 1.375rem); line-height: 1.5; }
+  .poem-s p:last-child { margin-bottom: 0; }
+  .poem-s .lead { margin-bottom: .25rem; }
+  .poem-s .word { color: var(--red); font-weight: 700; font-size: clamp(3rem, 6vw, 5rem); line-height: 1; margin-bottom: 1.75rem; }
+
+  .sp-dark { background: var(--rv-black); }
+  .sp-dark .split-poem { color: #fff; }
+
+  /* phones and narrow windows (under 60rem): photo first, poem below */
+  @media (max-width: 60rem) {
+    .split { display: block; height: auto; min-height: 0; }
+    .split-photo { aspect-ratio: 16 / 10; max-height: 70svh; }
+    .split-poem { padding: 3rem var(--gutter); }
+    .poem-s p { font-size: 1.125rem; }
+  }
+  @media (max-width: 40rem) {
+    .split-photo { aspect-ratio: 3 / 4; max-height: none; }
+    .split-photo img { content: url(/images/hero-portrait.jpg); }
+  }
+</style>

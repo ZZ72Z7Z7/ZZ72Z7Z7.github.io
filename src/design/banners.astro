@@ -1,0 +1,40 @@
+---
+// Design review page (1c Layout: photo banners between text blocks). Not part of the site: remove before launch.
+import Base from '../layouts/Base.astro';
+
+const options = [
+  { id: 'a', title: 'A · Full-bleed', note: 'Edge to edge, like the hero. Strongest break between chapters.', cls: 'banner banner-full', ratio: '21 / 8' },
+  { id: 'b', title: 'B · Wider than the text, inset', note: 'Steps out of the text column but keeps white margins. Uses the site\'s existing wide width (64rem, 1024px).', cls: 'banner', ratio: '21 / 9' },
+  { id: 'c', title: 'C · Same width as the text', note: 'Tidy, but reads as an illustration rather than a banner.', cls: 'bn-text', ratio: '16 / 7' },
+];
+---
+<Base title="Banner review" lang="en" path="/design/banners/" noindex>
+  <h1>1c · Photo banners between text blocks</h1>
+  <p>Each option shows the same text, then a banner, then more text. The photo is the hero image, only as a stand-in. Resize the window to see how each behaves.</p>
+  <p><strong>Recommendation:</strong> keep the hero full-width and use <strong>B</strong> for ordinary banners. Use <strong>A</strong> only for the few moments you want a real chapter break.</p>
+
+  {options.map((o) => (
+    <section class="opt">
+      <h2>{o.title}</h2>
+      <p class="note">{o.note}</p>
+      <p>I practice the freedom to be stupid. Stupefied by life, nature, beauty and the mystery of the human condition, I celebrate the sublime stupidity of Clowns and long for the crazy wisdom of The Fool.</p>
+      <figure class={o.id === 'c' ? 'bn bn-text' : o.cls} style={o.id === 'c' ? `--ratio: ${o.ratio}` : undefined}>
+        <img src="/images/hero.jpg" alt="" width="1920" height="1080" loading="lazy" />
+      </figure>
+      <p>Intelligence is limited. Stupidity is infinite. Clowning is very serious work on how to be stupid. To the delusional quest for a mechanical artificial intelligence I will respond with the daily practice of embodied natural stupidity.</p>
+    </section>
+  ))}
+
+  <h2>A practical point: the old photos are small</h2>
+  <p>The photos carried over from the old site are low resolution (for example 425, 640 and 960 pixels wide). A full-bleed banner needs about 1900 pixels, and option B about 1400. Those old photos would look soft at either size, so banners will need new or larger files from the client.</p>
+</Base>
+
+<style is:global>
+  .opt { margin: 3rem 0 4rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  .opt .note { color: var(--muted); }
+  .bn { margin: 2.5rem 0; }
+  .bn img { display: block; width: 100%; height: 100%; object-fit: cover; aspect-ratio: var(--ratio); }
+  .bn-full { margin-inline: calc(50% - 50vw); width: 100vw; }
+  .bn-wide { width: min(64rem, 100vw - 2rem); margin-inline: calc(50% - min(32rem, 50vw - 1rem)); }
+  .bn-text { width: 100%; }
+</style>

@@ -1,0 +1,125 @@
+---
+// Design review page, round 2: the poem on a transparent background over the pinned hero photo, "stupidus" in red, 3px blur,
+// poem centred in the window at the end of the scroll. Not part of the site: remove before launch.
+import Base from '../layouts/Base.astro';
+const poem = [
+  ['stupefied by life, nature, beauty', 'and the mystery of the human condition'],
+  ['I celebrate the sublime stupidity of Clowns', 'I long for the crazy wisdom of The Fool'],
+  ['intelligence is limited', 'stupidity is infinite'],
+  ['Clowning is very serious work', 'on how to be stupid'],
+  ['to the delusional quest', 'for a mechanical artificial intelligence', 'I will respond with the daily practice', 'of embodied natural stupidity'],
+];
+const demos = [
+  { id: 'a', title: 'A · Veil that travels up with the poem (last round, adjusted)', text: 'A dark, blurred band rises with the text and its top edge is feathered. This is what felt clunky: you can see the band move across the photo.' },
+  { id: 'b', title: 'B · Photo dims and softens in place', text: 'Nothing travels. As you start to scroll, the whole photo darkens (50%), blurs (up to 3px) and eases in about 4%, all in step with your scroll and eased so it starts and ends gently. By the time the first line arrives the photo is ready for it.' },
+  { id: 'c', title: 'C · B, plus each line of the poem drifts up and fades in as it arrives', text: 'Same as B, and each stanza rises about 14px and fades in as its middle reaches the vertical centre of the window (and back out if you scroll up). Near the end of the scroll the trigger line eases down to the bottom edge, because the lowest stanzas sit below the centre once the whole poem is centred. Switched off for people who have asked their device to reduce motion.' },
+];
+---
+<Base title="Hero overlay review" lang="en" path="/design/hero-overlay/" noindex>
+  <h1>The poem over the photo, round 2</h1>
+  <p>Changes: "stupidus" is red, blur is 3px, and at the end of the scroll the whole poem sits centred in the window (if the window is too short for the whole poem, it simply scrolls on, with space above and below). Scroll inside each window; the buttons switch to phone width.</p>
+  <p><strong>Contrast reminder:</strong> white lines on this photo at 50% darkening reach about 4.1 against the 4.5 target in the very brightest spots; "stupidus" in logo red is about 1.1 to 2.0 against the large-type minimum of 3. If you want, a slightly stronger dimming (55%) lifts the white to about 5, and a slightly lighter red would help the word without leaving the logo's colour family. Say if you want either.</p>
+  <p><strong>Recommendation:</strong> <strong>C</strong>. Moving the dimming from a travelling band to the whole photo is what removes the clunky feel, and the staggered lines give the arrival a pace.</p>
+
+  {demos.map((d) => (
+    <section class={`rv ${d.id}`} data-demo>
+      <div class="rv-head">
+        <h2>{d.title}</h2>
+        <p>{d.text}</p>
+        <div class="rv-btns" role="group" aria-label="Window size">
+          <button type="button" data-size="desktop" aria-pressed="true">Desktop</button>
+          <button type="button" data-size="phone" aria-pressed="false">Phone</button>
+        </div>
+      </div>
+      <div class="frame" tabindex="0" aria-label={`Scrollable demo ${d.id.toUpperCase()}`}>
+        <div class="photo"><img src="/images/hero.jpg" alt="" width="1920" height="1080" /><div class="veil"></div></div>
+        <div class="panel">
+          <div class="poem-s">
+            <p class="lead">I practice the freedom to be</p>
+            <p class="word">stupidus</p>
+            {poem.map((s) => <p>{s.map((l, i) => <Fragment>{i > 0 && <br />}{l}</Fragment>)}</p>)}
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+</Base>
+
+<script is:inline>
+  var smooth = function (a, b, x) { var t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  document.querySelectorAll('[data-demo]').forEach(function (demo) {
+    var frame = demo.querySelector('.frame');
+    demo.querySelectorAll('[data-size]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        demo.querySelectorAll('[data-size]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        frame.classList.toggle('is-phone', b.dataset.size === 'phone');
+        frame.scrollTop = 0; update();
+      });
+    });
+    // scroll progress 0 to 1: eased, finished when the poem has risen halfway
+    var queued = false;
+    function update() {
+      queued = false;
+      var p = smooth(0.04, 0.55, frame.scrollTop / frame.clientHeight);
+      frame.style.setProperty('--p', p.toFixed(4));
+    }
+    frame.addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+    // C: each stanza fades in when its middle reaches the vertical centre of the window. Near the end of the scroll the trigger
+    // line eases down to the bottom edge, so stanzas that sit below the centre when the poem is centred still arrive.
+    if (demo.classList.contains('c')) {
+      var lines = frame.querySelectorAll('.poem-s p');
+      frame.classList.add('reveal');
+      var reveal = function () {
+        var fr = frame.getBoundingClientRect(), max = frame.scrollHeight - frame.clientHeight;
+        var s = max > 0 ? smooth(0.7, 1, frame.scrollTop / max) : 1;
+        var line = frame.clientHeight * (0.5 + 0.5 * s);
+        lines.forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          el.classList.toggle('in', (r.top + r.height / 2 - fr.top) <= line);
+        });
+      };
+      frame.addEventListener('scroll', reveal, { passive: true });
+      reveal();
+    }
+  });
+</script>
+
+<style is:global>
+  .rv { margin: 3rem 0; }
+  .rv-head h2 { margin: 0 0 .25rem; }
+  .rv-head p { margin: 0 0 .75rem; }
+  .rv-btns { display: flex; gap: .5rem; margin-bottom: 1rem; }
+  .rv-btns button { font: inherit; padding: .4rem 1rem; border: 1px solid #000; background: #fff; color: #000; border-radius: 999px; cursor: pointer; }
+  .rv-btns button[aria-pressed="true"] { background: #000; color: #fff; }
+
+  .rv .frame { --frame-h: 46rem; --dim: .5; --blur: 3px; --feather: 11rem; --p: 0; position: relative; height: var(--frame-h); overflow-y: auto; overflow-x: hidden; border: 1px solid #ddd; margin: 0 auto; width: 100%; background: #000; }
+  .rv .frame.is-phone { width: 375px; max-width: 100%; --frame-h: 40rem; --feather: 8rem; height: var(--frame-h); }
+  .rv .photo { position: sticky; top: 0; height: var(--frame-h); overflow: hidden; z-index: 0; }
+  .rv .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 52% 35%; display: block; }
+  .rv .veil { position: absolute; inset: 0; pointer-events: none; }
+
+  /* the panel is as tall as the window and centres the poem, so at the end of the scroll the whole poem is centred in the window;
+     if the poem is taller than the window the panel grows and there is space above and below */
+  .rv .panel { position: relative; z-index: 1; container-type: inline-size; min-height: var(--frame-h); box-sizing: border-box; display: grid; align-content: center; padding: 4rem 1.25rem; color: #fff; }
+  /* the type also shrinks in short windows (never below 16px) so the whole poem fits when it can */
+  .rv .panel .poem-s p:not(.word) { font-size: max(1rem, min(1.375rem, calc(100cqw / 19.6), calc((var(--frame-h) - 6rem) / 32))); }
+  .rv .panel .poem-s { text-align: center; max-width: 40rem; margin: 0 auto; text-shadow: 0 1px 10px rgba(0,0,0,.35); }
+  .rv .panel .poem-s .word { color: var(--red); text-shadow: none; }
+
+  /* A: the band that travels up with the poem */
+  .rv.a .panel::before { content: ""; position: absolute; z-index: -1; left: 0; right: 0; bottom: 0; top: calc(-1 * var(--feather));
+    background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,var(--dim)) var(--feather));
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--feather)); mask-image: linear-gradient(to bottom, transparent, #000 var(--feather)); }
+
+  /* B and C: the photo itself dims, softens and eases in, driven by --p (0 to 1, eased, set from the scroll position) */
+  .rv.b .veil, .rv.c .veil { background: #000; opacity: calc(var(--p) * var(--dim)); }
+  .rv.b .photo img, .rv.c .photo img { filter: blur(calc(var(--p) * var(--blur))); transform: scale(calc(1 + var(--p) * .04)); }
+
+  /* C: lines drift up and fade in */
+  @media (prefers-reduced-motion: no-preference) {
+    .rv.c .frame.reveal .poem-s p, .rv.c.frame.reveal .poem-s p { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+    .rv.c .frame.reveal .poem-s p.in { opacity: 1; transform: none; }
+  }
+</style>

@@ -1,0 +1,149 @@
+---
+// Design review page (1a Colour). Not part of the site: remove before launch.
+import Base from '../layouts/Base.astro';
+
+const tokens = [
+  { name: '--text', role: 'All text, black button, demo banner' },
+  { name: '--muted', role: 'Secondary text: dates, places, captions, form notes, IT toggle' },
+  { name: '--line', role: 'Divider lines, header border' },
+  { name: '--bg', role: 'Page background' },
+  { name: '--red', role: 'Logo red. Menu underline, focus ring' },
+  { name: '--red-text', role: 'Darker red where red is small text (link hover, toggle hover)' },
+];
+const candidates = [
+  { name: 'Sunshine yellow', hex: '#ffcf00', use: 'Highlights, tags, the "upcoming" label. Black text on it passes easily.' },
+  { name: 'Clown blue', hex: '#1f4fd8', use: 'Alternate links, a second button colour. White text on it passes.' },
+  { name: 'Warm cream', hex: '#fff6e5', use: 'Soft background panel for notes, the Welcome text or event cards.' },
+];
+---
+<Base title="Colour review" lang="en" path="/design/colour/" noindex wide>
+  <h1>1a · Colour</h1>
+  <p>Black on white, with the red of the spiral logo as the accent. Everything below is live: it reads the site's actual colour values. Contrast needs 4.5 : 1 for normal text and 3 : 1 for large or bold text.</p>
+
+  <h2>Colours now in use</h2>
+  <div class="grid" id="tokens">
+    {tokens.map((t) => (
+      <div class="sw" data-token={t.name}>
+        <div class="chip" style={`background: var(${t.name})`}></div>
+        <p><strong>{t.name}</strong><br /><code class="hex"></code></p>
+        <p class="role">{t.role}</p>
+        <p class="ratios"></p>
+      </div>
+    ))}
+  </div>
+
+  <h2>How red works on white and white on red</h2>
+  <div class="demo">
+    <p class="big-red">Large red text (logo red): <strong>Stupidus</strong></p>
+    <p style="color: var(--red)">Small text in logo red: Past workshops, October 2026</p>
+    <p style="color: var(--red-text)">Small text in darker red: Past workshops, October 2026</p>
+    <p>
+      <span class="btn" style="background: var(--red); color: #fff">White on logo red (not used)</span>
+      <span class="btn" style="background: var(--red-text); color: #fff">White on darker red (superseded: now #b20000)</span>
+      <span class="btn" style="background: var(--text); color: #fff">White on black</span>
+      <span class="btn" style="background: #fff; color: var(--text); border: 2px solid var(--red)">Black on white, red edge</span>
+    </p>
+    <p class="verdict" id="verdict"></p>
+  </div>
+
+  <h2>White text on red: three reds, two sizes</h2>
+  <div class="demo">
+    <p>
+      <span class="btn" style="background:#d40700;color:#fff">Apply · #d40700</span>
+      <span class="btn" style="background:#c20500;color:#fff">Apply · #c20500</span>
+      <span class="btn" style="background:#b20000;color:#fff">Apply · #b20000</span>
+    </p>
+    <p>
+      <span class="btn" style="background:#d40700;color:#fff;font-size:1.125rem">Apply · #d40700</span>
+      <span class="btn" style="background:#c20500;color:#fff;font-size:1.125rem">Apply · #c20500</span>
+      <span class="btn" style="background:#b20000;color:#fff;font-size:1.125rem">Apply · #b20000</span>
+    </p>
+    <p class="note">Contrast with white: #d40700 = 5.5 : 1, #c20500 = 6.3 : 1, #b20000 = 7.3 : 1 (the old site's red).</p>
+  </div>
+
+  <h2>Links, selection, forms and messages (as set now)</h2>
+  <div class="demo">
+    <p>A <a href="#">normal link</a> in running text, then a <a href="#" class="hover">link in its hover state</a>, and a <a href="#" class="visited">visited link</a> (same as normal at present).</p>
+    <p><span class="sel">Selected text looks like this (approved: darker red with white text).</span></p>
+    <p><label>Text field<input type="text" value="Typed text" /></label></p>
+    <p class="msg msg-error">Please enter a valid email address.</p>
+    <p class="msg msg-success">Thank you, your message has been sent.</p>
+    <p class="note">Approved. Messages carry an icon and a word, so they never rely on colour alone.</p>
+  </div>
+
+  <h2>Optional second accent colours (not applied)</h2>
+  <div class="grid">
+    {candidates.map((c) => (
+      <div class="sw" data-hex={c.hex}>
+        <div class="chip" style={`background: ${c.hex}`}></div>
+        <p><strong>{c.name}</strong><br /><code>{c.hex}</code></p>
+        <p class="role">{c.use}</p>
+        <p class="ratios"></p>
+      </div>
+    ))}
+  </div>
+  <div class="demo">
+    <p>
+      <span class="btn" style="background:#ffcf00;color:#111">Upcoming</span>
+      <span class="btn" style="background:#1f4fd8;color:#fff">Apply</span>
+      <span class="btn" style="background:#fff6e5;color:#111;border:1px solid #e8d9b8">Note panel</span>
+    </p>
+  </div>
+
+  <script is:inline>
+    function lum(hex) {
+      var c = hex.replace('#', '');
+      if (c.length === 3) c = c.split('').map(function (x) { return x + x; }).join('');
+      var v = [0, 2, 4].map(function (i) {
+        var s = parseInt(c.substr(i, 2), 16) / 255;
+        return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+    }
+    function ratio(a, b) {
+      var l1 = lum(a), l2 = lum(b);
+      return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+    }
+    function toHex(css) {
+      var t = document.createElement('div'); t.style.color = css; document.body.appendChild(t);
+      var m = getComputedStyle(t).color.match(/\d+/g); document.body.removeChild(t);
+      return '#' + m.slice(0, 3).map(function (n) { return ('0' + (+n).toString(16)).slice(-2); }).join('');
+    }
+    function badge(r) {
+      return r >= 4.5 ? 'passes for all text' : r >= 3 ? 'large or bold text only' : 'fails';
+    }
+    function fill(el, hex) {
+      var w = ratio(hex, '#ffffff'), k = ratio(hex, '#111111');
+      el.innerHTML = 'On white: <strong>' + w.toFixed(1) + ' : 1</strong> (' + badge(w) + ')<br>White on it: <strong>' + w.toFixed(1) + ' : 1</strong><br>Black on it: <strong>' + k.toFixed(1) + ' : 1</strong> (' + badge(k) + ')';
+    }
+    document.querySelectorAll('#tokens .sw').forEach(function (sw) {
+      var v = getComputedStyle(document.documentElement).getPropertyValue(sw.dataset.token).trim();
+      var hex = toHex(v);
+      sw.querySelector('.hex').textContent = hex;
+      fill(sw.querySelector('.ratios'), hex);
+    });
+    document.querySelectorAll('.sw[data-hex]').forEach(function (sw) { fill(sw.querySelector('.ratios'), sw.dataset.hex); });
+    var red = toHex(getComputedStyle(document.documentElement).getPropertyValue('--red'));
+    var dark = toHex(getComputedStyle(document.documentElement).getPropertyValue('--red-text'));
+    document.getElementById('verdict').innerHTML =
+      'Logo red with white text: <strong>' + ratio(red, '#fff').toFixed(1) + ' : 1</strong> (' + badge(ratio(red, '#fff')) + '). ' +
+      'Darker red with white text: <strong>' + ratio(dark, '#fff').toFixed(1) + ' : 1</strong> (' + badge(ratio(dark, '#fff')) + ').';
+  </script>
+
+  <style>
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .sw { border: 1px solid var(--line); padding: .75rem; }
+    .chip { height: 4rem; border: 1px solid var(--line); margin-bottom: .5rem; }
+    .sw p { margin: 0 0 .4rem; font-size: .9rem; }
+    .sw .role { color: var(--muted); }
+    .sw .ratios { font-size: .82rem; }
+    .demo { border: 1px solid var(--line); padding: 1rem 1.25rem; margin-bottom: 2rem; }
+    .demo p { margin: 0 0 .9rem; }
+    .big-red { font-size: 2rem; color: var(--red); font-weight: 700; }
+    .btn { display: inline-block; padding: .55rem 1rem; margin: 0 .5rem .5rem 0; font-weight: 700; }
+    .hover { color: var(--red-text); text-decoration-thickness: 2px; }
+    .visited { color: inherit; }
+    .sel { background: var(--red-text); color: #fff; }
+    .note { color: var(--muted); font-size: .9rem; }
+  </style>
+</Base>

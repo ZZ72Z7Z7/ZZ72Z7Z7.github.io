@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import BlogPost from '../../../../../views/BlogPost.astro';
+import { postParts } from '../../../../../lib/content';
+export async function getStaticPaths() {
+  return (await getCollection('blog')).map((entry) => {
+    const { year, month, day, slug } = postParts(entry);
+    return { params: { year, month, day, slug }, props: { entry } };
+  });
+}
+const { entry } = Astro.props;
+---
+<BlogPost entry={entry} lang="en" />

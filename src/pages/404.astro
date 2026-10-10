@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import { t, LANGS, href } from '../i18n/ui';
+const ui = t('en');
+---
+<Base title={ui.notFoundTitle} lang="en" path="/404/" noindex>
+  <div class="not-found">
+    <h1 class="center-title">{ui.notFoundTitle}</h1>
+    <p>{ui.notFoundText}</p>
+    <p><a class="btn-red" href="/">{ui.backHome}</a></p>
+    {LANGS.filter((l) => l !== 'en').map((l) => <p class="p2 small-note" lang={l}>{t(l).notFoundText} <a href={href('/', l)}>{t(l).backHome}</a></p>)}
+  </div>
+</Base>

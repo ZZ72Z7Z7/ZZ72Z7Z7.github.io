@@ -1,0 +1,103 @@
+---
+// Design review page: the poem together with the hero photo. Not part of the site: remove before launch.
+// Three static options, no motion. Each demo is the real size of the hero (full width, screen height under the header).
+import Base from '../layouts/Base.astro';
+
+const stanzas = [
+  ['Stupefied by life, nature, beauty', 'and the mystery of the human condition'],
+  ['I celebrate the sublime stupidity of Clowns', 'I long for the crazy wisdom of The Fool'],
+  ['Intelligence is limited', 'Stupidity is infinite'],
+  ['Clowning is a very serious work on how to be stupid'],
+  ['To the delusional quest for a mechanical artificial intelligence', 'I will respond with the daily practice of embodied natural stupidity'],
+];
+---
+<Base title="Hero and poem review" lang="en" path="/design/hero-poem/" noindex>
+  <Fragment slot="hero">
+    <div class="rv-intro">
+      <h1>The poem and the hero photo</h1>
+      <p>Three ways to put the poem and the photo together, each at the real hero size, with no motion. Scroll to see all three, and resize the window (or use a phone) to see how each behaves.</p>
+      <p><strong>Recommendation:</strong> <strong>B</strong>. Contrast is guaranteed, his face stays visible, and the photo and poem still feel layered. <strong>A</strong> is the true text-on-photo look and works only on wide screens. <strong>C</strong> is the simplest and most robust.</p>
+    </div>
+
+    <div class="rv-label"><strong>A · Poem beside him.</strong> The photo is pushed to the right and fades into black on the left, where the poem sits. On phones it falls back to photo, then poem below. (Same photo, no new crop needed.)</div>
+    <section class="demo demo-a">
+      <div class="demo-a-photo"><img src="/images/hero.jpg" alt="" width="1920" height="1080" /></div>
+      <div class="demo-a-poem poem-w">
+        <p class="lead">I practice the freedom to be</p>
+        <p class="word">stupidus</p>
+        {stanzas.map((s) => <p>{s.map((l, i) => <Fragment>{i > 0 && <br />}{l}</Fragment>)}</p>)}
+      </div>
+    </section>
+
+    <div class="rv-label"><strong>B · Black panel rising over the bottom of the photo.</strong> The photo is full-screen; the poem sits on black that fades up over its lower part. The poem begins on the first screen and continues as you scroll.</div>
+    <div class="demo-b">
+      <section class="demo demo-b-photo"><img src="/images/hero.jpg" alt="" width="1920" height="1080" /></section>
+      <div class="demo-b-panel poem-w">
+        <p class="lead">I practice the freedom to be</p>
+        <p class="word">stupidus</p>
+        {stanzas.map((s) => <p>{s.map((l, i) => <Fragment>{i > 0 && <br />}{l}</Fragment>)}</p>)}
+      </div>
+    </div>
+
+    <div class="rv-label"><strong>C · Clean photo, then the poem on its own black screen.</strong> No overlap. The photo is exactly as it is now; the poem follows on black.</div>
+    <section class="demo demo-c-photo"><img src="/images/hero.jpg" alt="" width="1920" height="1080" /></section>
+    <section class="demo-c-poem poem-w">
+      <div class="inner">
+        <p class="lead">I practice the freedom to be</p>
+        <p class="word">stupidus</p>
+        {stanzas.map((s) => <p>{s.map((l, i) => <Fragment>{i > 0 && <br />}{l}</Fragment>)}</p>)}
+      </div>
+    </section>
+    <div class="rv-label rv-end">End of options. The red word "stupidus" is the logo red on near-black, large text: about 4.4 : 1, above the 3 : 1 needed for large text (it would not pass for small text). White text on near-black is about 19.7 : 1.</div>
+  </Fragment>
+</Base>
+
+<style is:global>
+  :root { --rv-black: #0b0b0b; }
+  .rv-intro { max-width: var(--measure); margin: 0 auto; padding: 2rem var(--gutter) 1rem; }
+  .rv-label { max-width: var(--measure); margin: 0 auto; padding: 1.5rem var(--gutter); color: var(--muted); }
+  .rv-end { padding-bottom: 4rem; }
+
+  .demo { position: relative; margin: 0; overflow: hidden; height: calc(100svh - var(--chrome-h, 7rem)); min-height: 20rem; background: var(--rv-black); }
+  .demo img { display: block; }
+
+  /* shared poem styling: white on black, "stupidus" in logo red */
+  .poem-w { color: #fff; }
+  .poem-w p { margin: 0 0 1.5rem; font-size: clamp(1rem, 1.55vw, 1.375rem); line-height: 1.5; }
+  .poem-w .lead { margin-bottom: .25rem; }
+  .poem-w .word { color: var(--red); font-weight: 700; font-size: clamp(3rem, 7vw, 5rem); line-height: 1; margin-bottom: 1.75rem; }
+
+  /* A: poem beside him */
+  .demo-a-photo { position: absolute; top: 0; right: 0; bottom: 0; width: 70vw;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%); mask-image: linear-gradient(to right, transparent 0%, #000 45%); }
+  .demo-a-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+  .demo-a-poem { position: absolute; z-index: 1; left: 4vw; top: 50%; transform: translateY(-50%); width: 44vw; text-align: left; }
+  .demo-a-poem p { font-size: clamp(.9rem, 1.3vw, 1.25rem); }
+  .demo-a-poem .word { font-size: clamp(3rem, 6vw, 5rem); }
+  .demo-a-poem .lead { margin-bottom: .25rem; }
+  .demo-a-poem p:last-child { margin-bottom: 0; }
+
+  /* B: panel rising over the photo */
+  .demo-b { position: relative; }
+  .demo-b-photo img, .demo-c-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+  .demo-b-panel { position: relative; z-index: 1; margin-top: calc(-1 * min(24svh, 14rem)); text-align: center;
+    padding: 8rem var(--gutter) 5rem; background: linear-gradient(to bottom, rgba(11,11,11,0) 0, var(--rv-black) 7rem); }
+
+  /* C: separate black screen */
+  .demo-c-poem { background: var(--rv-black); min-height: calc(100svh - var(--chrome-h, 7rem)); display: flex; align-items: center; justify-content: center; text-align: center; padding: 5rem var(--gutter); }
+  .demo-c-poem .inner p:last-child { margin-bottom: 0; }
+
+  /* phones and portrait-shaped windows: photo first (3:4 crop), poem below on black */
+  @media (max-width: 40rem) {
+    .demo { height: auto; min-height: 0; aspect-ratio: 3 / 4; }
+    .demo-b-photo img, .demo-c-photo img { content: url(/images/hero-portrait.jpg); }
+    .demo-b-panel { margin-top: 0; padding-top: 3rem; background: var(--rv-black); }
+    .poem-w p { font-size: 1.125rem; }
+  }
+  @media (max-width: 40rem), (max-aspect-ratio: 5/4) {
+    .demo-a { aspect-ratio: auto; height: auto; }
+    .demo-a-photo { position: relative; width: 100%; aspect-ratio: 16 / 10; max-height: 70svh; -webkit-mask-image: none; mask-image: none; }
+    .demo-a-poem { position: static; transform: none; width: auto; padding: 3rem var(--gutter); text-align: center; }
+    .demo-a-poem p { font-size: 1.125rem; }
+  }
+</style>

@@ -1,0 +1,68 @@
+---
+// Design review page (3 Page types: Home, the poem). Not part of the site: remove before launch.
+// Three static treatments of the same poem, each followed by a banner and the start of About. No motion.
+import Base from '../layouts/Base.astro';
+
+const options = [
+  { id: 'a', title: 'A · Quiet and centred', note: 'The poem as it sits now, calmed down: centred, regular weight, one size, only "stupidus" large and red. Stanzas separated by air.' },
+  { id: 'b', title: 'B · Set as verse, left-aligned', note: 'Left edge in the text column, like a poem on a page. A short red rule opens it. "stupidus" is a large red word on its own line.' },
+  { id: 'c', title: 'C · Large statement', note: 'Big type, left-aligned, in the wider column, like a manifesto. Black throughout with "stupidus" in red. Strongest presence, most scrolling.' },
+];
+---
+<Base title="Poem review" lang="en" path="/design/poem/" noindex>
+  <h1>Home · The poem</h1>
+  <p>Same words in each option, taken from the home page. Each is followed by a banner (the hero photo as a stand-in) and the start of About, so you can judge the sequence poem, banner, About. No animation.</p>
+  <p><strong>Recommendation:</strong> <strong>B</strong>. It reads as a poem, keeps the line breaks he chose, and is calm next to a banner. C is the choice if you want the poem to be the page's loudest moment; A is the safest.</p>
+  <p class="note-small">Not applied in any option: the original is bold italic. I show regular weight to judge layout; say if you want the italic back.</p>
+
+  {options.map((o) => (
+    <section class="opt">
+      <h2>{o.title}</h2>
+      <p class="note">{o.note}</p>
+
+      <div class={`poem poem-${o.id}`}>
+        <p class="lead">I practice the freedom to be</p>
+        <p class="word">stupidus</p>
+        <p>Stupefied by life, nature, beauty<br />and the mystery of the human condition</p>
+        <p>I celebrate the sublime stupidity of Clowns<br />I long for the crazy wisdom of The Fool</p>
+        <p>Intelligence is limited<br />Stupidity is infinite</p>
+        <p>Clowning is a very serious work on how to be stupid</p>
+        <p>To the delusional quest for a mechanical artificial intelligence<br />I will respond with the daily practice of embodied natural stupidity</p>
+      </div>
+
+      <figure class="banner"><img src="/images/hero.jpg" alt="" width="1920" height="1080" loading="lazy" /></figure>
+
+      <p><strong>Artist, Natural Scientist and Pedagogue</strong></p>
+      <p><strong>Giovanni Fusetti</strong></p>
+      <p><strong>is a multi-disciplinary fool</strong></p>
+    </section>
+  ))}
+</Base>
+
+<style is:global>
+  .opt { margin: 3rem 0 4rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  .opt .note { color: var(--muted); }
+  .note-small { color: var(--muted); font-size: .9375rem; }
+
+  .poem p { margin: 0 0 1.75rem; }
+  .poem .word { color: var(--red); font-weight: 700; line-height: 1; }
+
+  /* A: quiet and centred */
+  .poem-a { text-align: center; margin: 3rem 0; }
+  .poem-a p { font-size: 1.25rem; line-height: 1.6; }
+  .poem-a .lead { margin-bottom: .25rem; }
+  .poem-a .word { font-size: clamp(3rem, 12vw, 5rem); margin-bottom: 2rem; }
+
+  /* B: set as verse */
+  .poem-b { margin: 3rem 0; padding-top: 1.5rem; position: relative; }
+  .poem-b::before { content: ""; position: absolute; top: 0; left: 0; width: 3rem; height: 3px; background: var(--red); }
+  .poem-b p { font-size: 1.3125rem; line-height: 1.55; }
+  .poem-b .lead { margin-bottom: .25rem; }
+  .poem-b .word { font-size: clamp(3.25rem, 13vw, 5.5rem); margin-bottom: 2.25rem; }
+
+  /* C: large statement, wider column */
+  .poem-c { margin: 3.5rem 0; width: min(var(--wide), 100vw - 2 * var(--gutter)); margin-inline: calc(50% - min(var(--wide), 100vw - 2 * var(--gutter)) / 2); }
+  .poem-c p { font-size: clamp(1.5rem, 4.2vw, 2.5rem); line-height: 1.25; font-weight: 600; letter-spacing: -.01em; margin-bottom: 2.25rem; }
+  .poem-c .lead { margin-bottom: .25rem; }
+  .poem-c .word { font-size: clamp(4rem, 15vw, 8rem); font-weight: 800; letter-spacing: -.03em; margin-bottom: 2.5rem; }
+</style>

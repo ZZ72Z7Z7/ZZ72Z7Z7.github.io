@@ -1,0 +1,119 @@
+---
+// Design review page, round 3: the poem stays in place (centred) and fades in as the photo dims and softens. Not part of the site: remove before launch.
+import Base from '../layouts/Base.astro';
+const poem = [
+  ['stupefied by life, nature, beauty', 'and the mystery of the human condition'],
+  ['I celebrate the sublime stupidity of Clowns', 'I long for the crazy wisdom of The Fool'],
+  ['intelligence is limited', 'stupidity is infinite'],
+  ['Clowning is very serious work', 'on how to be stupid'],
+  ['to the delusional quest', 'for a mechanical artificial intelligence', 'I will respond with the daily practice', 'of embodied natural stupidity'],
+];
+const demos = [
+  { id: 'd', title: 'D · The whole poem fades in together', text: 'Nothing moves. Scrolling drives one smooth change: the photo darkens (50%), softens (up to 3px blur) and eases in about 4%, and the whole poem fades in with it, in step with your scroll, ending when everything is fully in place.' },
+  { id: 'e', title: 'E · The poem fades in stanza by stanza', text: 'Same tint and blur, but the stanzas arrive one after another, from "I practice the freedom to be" down to the last, while the photo darkens.' },
+];
+---
+<Base title="Hero fade review" lang="en" path="/design/hero-fade/" noindex>
+  <h1>The poem fading in place, round 3</h1>
+  <p>The poem no longer scrolls: the photo and the poem stay put, and your scroll fades the poem in together with the dimming and blur (scroll back and it fades out again). The poem is always centred in the window. If a window is too short for the whole poem, the type and spacing shrink together (down to 78%) and, if it still does not fit, the poem scrolls up gently after it has faded in. Scroll inside each window; the buttons switch to phone width.</p>
+  <p><strong>Recommendation:</strong> <strong>E</strong>, for the pace it gives the poem; <strong>D</strong> if you want it quieter. The contrast notes from round 2 still apply to red on the dimmed photo.</p>
+
+  {demos.map((d) => (
+    <section class={`rv ${d.id}`} data-demo data-mode={d.id}>
+      <div class="rv-head">
+        <h2>{d.title}</h2>
+        <p>{d.text}</p>
+        <div class="rv-btns" role="group" aria-label="Window size">
+          <button type="button" data-size="desktop" aria-pressed="true">Desktop</button>
+          <button type="button" data-size="phone" aria-pressed="false">Phone</button>
+        </div>
+      </div>
+      <div class="frame" tabindex="0" aria-label={`Scrollable demo ${d.id.toUpperCase()}`}>
+        <div class="track">
+          <div class="stage">
+            <img class="pic" src="/images/hero.jpg" alt="" width="1920" height="1080" />
+            <div class="veil"></div>
+            <div class="poem-wrap">
+              <div class="poem-s">
+                <p class="lead">I practice the freedom to be</p>
+                <p class="word">stupidus</p>
+                {poem.map((s) => <p>{s.map((l, i) => <Fragment>{i > 0 && <br />}{l}</Fragment>)}</p>)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+</Base>
+
+<script is:inline>
+  var smooth = function (a, b, x) { var t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  var PAD = 64; // space above and below the poem, px
+  document.querySelectorAll('[data-demo]').forEach(function (demo) {
+    var frame = demo.querySelector('.frame'), track = demo.querySelector('.track'), wrap = demo.querySelector('.poem-wrap');
+    var poem = demo.querySelector('.poem-s'), lines = demo.querySelectorAll('.poem-s p'), staggered = demo.dataset.mode === 'e';
+    var fadeLen = 0, overflow = 0;
+    function measure() {
+      var h = frame.clientHeight, pad = h < 700 ? 40 : PAD;
+      // fit: shrink the whole poem (type and spacing together, to no less than 78%) so it fits the window with a margin above and below
+      frame.style.setProperty('--fit', '1');
+      var natural = poem.offsetHeight;
+      var fit = Math.min(1, Math.max(0.78, (h - 2 * pad) / natural));
+      frame.style.setProperty('--fit', fit.toFixed(3));
+      frame.style.setProperty('--pad', pad + 'px');
+      fadeLen = h * 0.9; // scroll distance over which the photo dims and the poem fades in
+      overflow = Math.max(0, poem.offsetHeight + 2 * pad - h); // how much taller the poem is than the window
+      track.style.height = (h + fadeLen + overflow) + 'px';
+      wrap.classList.toggle('tall', overflow > 0);
+    }
+    function update() {
+      var y = frame.scrollTop, p = smooth(0, 1, y / fadeLen);
+      frame.style.setProperty('--p', p.toFixed(4));
+      var n = lines.length;
+      lines.forEach(function (el, k) {
+        var o = staggered ? smooth(0.12 + k * (0.5 / (n - 1)), 0.42 + k * (0.5 / (n - 1)), p) : smooth(0.25, 0.9, p);
+        el.style.opacity = o.toFixed(3);
+      });
+      poem.style.transform = overflow > 0 ? 'translateY(' + (-Math.min(overflow, Math.max(0, y - fadeLen))).toFixed(1) + 'px)' : '';
+    }
+    demo.querySelectorAll('[data-size]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        demo.querySelectorAll('[data-size]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        frame.classList.toggle('is-phone', b.dataset.size === 'phone');
+        frame.scrollTop = 0; measure(); update();
+      });
+    });
+    frame.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', function () { measure(); update(); });
+    measure(); update();
+  });
+</script>
+
+<style is:global>
+  .rv { margin: 3rem 0; }
+  .rv-head h2 { margin: 0 0 .25rem; }
+  .rv-head p { margin: 0 0 .75rem; }
+  .rv-btns { display: flex; gap: .5rem; margin-bottom: 1rem; }
+  .rv-btns button { font: inherit; padding: .4rem 1rem; border: 1px solid #000; background: #fff; color: #000; border-radius: 999px; cursor: pointer; }
+  .rv-btns button[aria-pressed="true"] { background: #000; color: #fff; }
+
+  .rv .frame { --frame-h: 46rem; --dim: .5; --blur: 3px; --p: 0; position: relative; height: var(--frame-h); overflow-y: auto; overflow-x: hidden; border: 1px solid #ddd; margin: 0 auto; width: 100%; background: #000; }
+  .rv .frame.is-phone { width: 375px; max-width: 100%; --frame-h: 40rem; }
+  .rv .track { position: relative; }
+  .rv .stage { position: sticky; top: 0; height: var(--frame-h); overflow: hidden; }
+  .rv .pic { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 52% 35%; display: block;
+    filter: blur(calc(var(--p) * var(--blur))); transform: scale(calc(1 + var(--p) * .04)); }
+  .rv .veil { position: absolute; inset: 0; background: #000; opacity: calc(var(--p) * var(--dim)); pointer-events: none; }
+
+  /* the poem sits centred in the window; if it is taller than the window it starts at the top margin and scrolls up after it has faded in */
+  .rv .poem-wrap { position: absolute; inset: 0; display: grid; align-content: center; padding: var(--pad, 4rem) 1.25rem; box-sizing: border-box; container-type: inline-size; color: #fff; }
+  .rv .poem-wrap.tall { align-content: start; }
+  .rv .poem-s { text-align: center; max-width: 40rem; margin: 0 auto; text-shadow: 0 1px 10px rgba(0,0,0,.35); }
+  /* type and spacing both scale by --fit (set from the script so that the whole poem fits the window) */
+  .rv .poem-s p:not(.word) { font-size: calc(min(1.375rem, calc(100cqw / 19.6)) * var(--fit, 1)); margin-bottom: 1.5em; }
+  .rv .poem-s p:last-child { margin-bottom: 0; }
+  .rv .poem-s .lead { margin-bottom: .25em; }
+  .rv .poem-s .word { font-size: calc(clamp(3rem, 12vw, 5rem) * var(--fit, 1)); margin-bottom: calc(1.75rem * var(--fit, 1)); }
+  .rv .poem-s .word { color: var(--red); text-shadow: none; }
+</style>

@@ -1,0 +1,68 @@
+---
+// Design review page: the bio photo between the poem and About. Not part of the site: remove before launch.
+import Base from '../layouts/Base.astro';
+import covividio from './candidates/gio_covividio_261007.png';
+import papers from './candidates/gio_papers_1x1_261008.png';
+
+const photos = [
+  { name: 'gio_covividio_261007.png', src: covividio, size: '1024 × 1365, portrait' },
+  { name: 'gio_papers_1x1_261008.png', src: papers, size: '2048 × 2048, square' },
+];
+const options = [
+  { id: 'a', title: 'A · Text-column width', note: 'The photo fills the text column, at its own proportions, then About follows. Simple and strong; a portrait becomes quite tall.' },
+  { id: 'b', title: 'B · Centred, narrower', note: 'About two thirds of the column, centred under the centred poem. A quieter portrait and less scrolling.' },
+  { id: 'c', title: 'C · Photo beside the text', note: 'On wide screens the photo sits on the left and the first lines of About on the right; on phones it stacks above the text. More magazine-like, less minimal.' },
+];
+---
+<Base title="Bio photo review" lang="en" path="/design/banner-photos/" noindex>
+  <h1>Bio photo between the poem and About</h1>
+  <p>Three ways to place a portrait, each shown with both photos, the last poem line above and the start of About below.</p>
+  <p><strong>Recommendation:</strong> <strong>B</strong>. It echoes the centred poem, stays minimal, and does not make the portrait dominate the page. <strong>A</strong> is the choice if you want the photo to be a stronger moment. Note that gio_covividio is 1024px wide: fine for A and B, but not sharp enough if shown larger.</p>
+
+  {options.map((o) => (
+    <section class="opt">
+      <h2>{o.title}</h2>
+      <p class="note">{o.note}</p>
+      {photos.map((p) => (
+        <div class="in-context">
+          <p class="note"><strong>{p.name}</strong> · {p.size}</p>
+          <p class="poem-end">I will respond with the daily practice of embodied natural stupidity</p>
+          {o.id === 'c' ? (
+            <div class="bio-side">
+              <img src={p.src.src} alt="" width={p.src.width} height={p.src.height} loading="lazy" />
+              <div>
+                <p><strong>Artist, Natural Scientist and Pedagogue</strong></p>
+                <p><strong>Giovanni Fusetti</strong></p>
+                <p><strong>is a multi-disciplinary fool</strong></p>
+                <p>Giovanni Fusetti encountered theater while receiving his degree in Agriculture and Ecology at the University of Padova (1985-1989).</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              <figure class={`bio bio-${o.id}`}>
+                <img src={p.src.src} alt="" width={p.src.width} height={p.src.height} loading="lazy" />
+              </figure>
+              <p><strong>Artist, Natural Scientist and Pedagogue</strong></p>
+              <p><strong>Giovanni Fusetti</strong></p>
+              <p><strong>is a multi-disciplinary fool</strong></p>
+            </>
+          )}
+        </div>
+      ))}
+    </section>
+  ))}
+</Base>
+
+<style is:global>
+  .opt { margin: 3rem 0 4rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  .opt .note { color: var(--muted); }
+  .in-context { margin: 2.5rem 0; padding: 1rem 0; border-top: 1px dashed var(--line); }
+  .poem-end { text-align: center; font-size: 1.25rem; margin-bottom: 2rem; }
+  .bio { margin: 0 0 2rem; }
+  .bio img { display: block; width: 100%; height: auto; }
+  .bio-b { width: 66%; margin-inline: auto; }
+  .bio-side { display: grid; gap: 1.5rem; margin-top: 1rem; }
+  .bio-side img { display: block; width: 100%; height: auto; }
+  .bio-side p { margin-top: 0; }
+  @media (min-width: 40rem) { .bio-side { grid-template-columns: 2fr 3fr; align-items: start; } }
+</style>

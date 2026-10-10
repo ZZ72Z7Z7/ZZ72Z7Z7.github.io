@@ -1,0 +1,109 @@
+---
+// Design review page (1b Typography, part 2): sizes, weights, spacing, capitalisation. Local only.
+import Base from '../layouts/Base.astro';
+---
+<Base title="Type scale review" lang="en" path="/design/type-scale/" noindex wide>
+  <h1>1b · Type scale</h1>
+  <p>Figtree is chosen. Change the controls and the sample below updates live. The first value in each list is what the site uses now (the sample menu and title follow the site as of 261009: current page in bold dark red; "Upcoming Workshops" as the page title). Tell me the values you like (or take a screenshot) and I will apply them.</p>
+
+  <form class="ctl" onsubmit="return false">
+    <label>Body text size
+      <select data-var="--body-size">
+        <option value="1.0625rem">17 px (now)</option><option value="1rem">16 px</option><option value="1.125rem">18 px</option><option value="1.1875rem">19 px</option>
+      </select>
+    </label>
+    <label>Line spacing
+      <select data-var="--body-leading">
+        <option value="1.6">1.6 (now)</option><option value="1.5">1.5</option><option value="1.7">1.7</option><option value="1.8">1.8</option>
+      </select>
+    </label>
+    <label>Heading size (page title)
+      <select data-var="--h1-size">
+        <option value="2rem">32 px (now)</option><option value="2.5rem">40 px</option><option value="3rem">48 px</option><option value="1.75rem">28 px</option>
+      </select>
+    </label>
+    <label>Heading weight
+      <select data-var="--h-weight">
+        <option value="700">Bold 700 (now)</option><option value="600">Semibold 600</option><option value="800">Extra bold 800</option><option value="500">Medium 500</option>
+      </select>
+    </label>
+    <label>Menu style
+      <select data-menu>
+        <option value="normal">Sentence case, as now</option><option value="upper">UPPERCASE, small, spaced</option><option value="bold">Sentence case, semibold</option>
+      </select>
+    </label>
+    <label>Menu size
+      <select data-var="--menu-size">
+        <option value="1.0625rem">17 px (now)</option><option value="1rem">16 px</option><option value="0.9375rem">15 px</option><option value="1.125rem">18 px</option>
+      </select>
+    </label>
+    <label>Small text (dates, places, notes)
+      <select data-var="--small-size">
+        <option value="1rem">Same as body (now)</option><option value="0.9375rem">15 px</option><option value="0.875rem">14 px</option>
+      </select>
+    </label>
+    <label>Text column width
+      <select data-var="--col">
+        <option value="44rem">44 rem, about 75 characters (now)</option><option value="38rem">38 rem, narrower</option><option value="50rem">50 rem, wider</option>
+      </select>
+    </label>
+  </form>
+
+  <div class="spec" id="spec">
+    <div class="bar">
+      <span class="name">Giovanni Fusetti</span>
+      <span class="menu" id="menu"><a href="#">About</a><a href="#" aria-current="page">Workshops</a><a href="#">Events</a><a href="#">Creations</a><a href="#">Contact</a></span>
+    </div>
+    <div class="col">
+      <h1>Upcoming Workshops</h1>
+      <p class="dates">November 1 → 28, 2026</p>
+      <p class="small">Padova, Italy · Helikos Studio</p>
+      <p class="etitle">Red Nose Intensive</p>
+      <p>A unique opportunity to train and practice<br />At the essence of Theatre Clown<br />and at the roots of Physical Comedy</p>
+
+      <h3>Running text</h3>
+      <p>Clown is about <strong>comic poetry</strong>: funny and touching, essential and rigorous. Deeply rooted in movement-based theater, this workshop proposes an intensive training in Red Nose Theater Clown, a specific theatrical and poetical genre. <em>There are as many clowns as there are human beings. There is one straight line and infinite ways to wander. Intelligence is limited. Stupidity is infinite.</em></p>
+      <p>Before being a character, the clown is a state of playing, in which everyone has access to the key question: <strong><em>what is so funny about me?</em></strong></p>
+
+      <h3>Poem</h3>
+      <p><em>Rest in joy<br />dearest Joan</em></p>
+      <p>They arrived today<br />on a wooden canoe on the Mad River<br />They suddenly appeared on the crisp water<br />skillfully stirring on the current<br /><br />They left the canoe by the bridge<br />and they are now walking in the streets of Blue Lake</p>
+
+      <p class="small">Il Santo Folle · è una commedia fisica e spirituale · Venerdì 20 Giugno · L’ultimo spettacolo</p>
+    </div>
+  </div>
+
+  <script is:inline>
+    var spec = document.getElementById('spec');
+    var defaults = {};
+    document.querySelectorAll('select[data-var]').forEach(function (s) {
+      spec.style.setProperty(s.dataset.var, s.value);
+      s.addEventListener('change', function () { spec.style.setProperty(s.dataset.var, s.value); });
+    });
+    document.querySelector('select[data-menu]').addEventListener('change', function (e) {
+      document.getElementById('menu').className = 'menu ' + e.target.value;
+    });
+  </script>
+
+  <style>
+    .ctl { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: .9rem 1.25rem; max-width: none; margin-bottom: 2rem; }
+    .ctl label { font-size: .9rem; }
+    .ctl select { font: inherit; padding: .45rem .5rem; border: 1px solid var(--muted); background: var(--bg); color: var(--text); }
+    .spec { border: 1px solid var(--line); padding: 1.5rem; font-size: var(--body-size); line-height: var(--body-leading); }
+    .bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .5rem 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; }
+    .name { font-weight: var(--h-weight); font-size: 1.4rem; }
+    .menu { display: flex; flex-wrap: wrap; gap: .25rem 1.4rem; font-size: var(--menu-size); }
+    .menu a { text-decoration: none; padding: .35rem 0; border-bottom: 3px solid transparent; }
+    .menu a[aria-current] { color: var(--red-text); font-weight: 700; } /* current page: dark red and bold, as on the site now */
+    .menu.upper a { text-transform: uppercase; letter-spacing: .08em; font-size: .85em; font-weight: 600; }
+    .menu.bold a { font-weight: 600; }
+    .col { max-width: var(--col); }
+    .col h1 { font-size: var(--h1-size); font-weight: var(--h-weight); margin: 0 0 1rem; line-height: 1.15; }
+    .col h2 { font-size: calc(var(--h1-size) * .7); font-weight: var(--h-weight); margin: 1.5rem 0 .75rem; line-height: 1.25; }
+    .col h3 { font-size: calc(var(--h1-size) * .58); font-weight: var(--h-weight); margin: 1.75rem 0 .6rem; line-height: 1.25; }
+    .col p { margin: 0 0 1rem; }
+    .dates { font-weight: 700; margin-bottom: 0 !important; }
+    .small { color: var(--muted); font-size: var(--small-size); margin-bottom: 0 !important; }
+    .etitle { font-weight: 700; font-size: 1.15em; margin: .25rem 0 0 !important; }
+  </style>
+</Base>

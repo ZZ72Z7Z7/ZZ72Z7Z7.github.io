@@ -1,0 +1,90 @@
+---
+// Design review page (1d Shapes and details). Local only, never published.
+import Base from '../layouts/Base.astro';
+const shapes = [
+  { id: 'a', title: 'A · Square (now)', note: 'Sharp corners, black buttons, thin grey lines, "+" markers. Calm and editorial; the same corners as the photos and the logo box.' },
+  { id: 'b', title: 'B · Soft', note: 'Corners rounded about 8px on buttons, fields and photos. Friendlier, a little more app-like.' },
+  { id: 'c', title: 'C · Pill', note: 'Buttons are full pills in the red, fields and photos lightly rounded (4px). Echoes the round red nose and the spiral.' },
+  { id: 'd', title: 'D · Red nose', note: 'Like C, plus round details: red dot instead of "+" on the accordions, round photo corners only on small thumbnails, dot ornaments between sections.' },
+];
+const dividers = [
+  { id: 'd1', title: '1 · Thin grey line (now)', note: 'Quiet. Already used between entries.' },
+  { id: 'd2', title: '2 · Short red rule', note: 'A 48px red line, centred. Marks a change of subject without a big gesture.' },
+  { id: 'd3', title: '3 · Three red dots', note: 'The same three dots that sign the poem on the home page. Ties the site together.' },
+  { id: 'd4', title: '4 · Small spiral', note: 'The logo spiral at 28px. The most personality; best used rarely (between page sections, not between list entries).' },
+];
+---
+<Base title="Shapes review" lang="en" path="/design/shapes/" noindex wide>
+  <h1>1d · Shapes and details</h1>
+  <p>Four shape languages, each showing the same parts: buttons, a field, a photo, a list entry and an accordion row. Then four ways to divide sections. Everything here is only a sample; nothing is applied to the site.</p>
+  <p><strong>Recommendation:</strong> <strong>C</strong> for shapes (red pill buttons, 4px corners), with divider <strong>3</strong> (three red dots) between page sections and the thin grey line between list entries. C is a small change from now but gives the buttons the red-nose feel; D is the playful end if you want more.</p>
+
+  <div class="sh-grid">
+    {shapes.map((s) => (
+      <section class={`sh sh-${s.id}`}>
+        <h2>{s.title}</h2>
+        <p class="note">{s.note}</p>
+        <div class="row">
+          <button type="button" class="b-main">Apply</button>
+          <button type="button" class="b-red">Join the mailing list</button>
+          <button type="button" class="b-line">Details</button>
+        </div>
+        <label class="f">Email<input type="text" value="name@example.com" /></label>
+        <div class="entry">
+          <img src="/images/hero.jpg" alt="" class="thumb" />
+          <div>
+            <p class="d">October 19 - 24, 2026</p>
+            <p class="t">The Language of Gestures</p>
+            <p class="m"><a href="#">Details →</a></p>
+          </div>
+        </div>
+        <div class="acc"><span>2026</span><span class="mark"></span></div>
+        <img src="/images/hero.jpg" alt="" class="photo" />
+      </section>
+    ))}
+  </div>
+
+  <h2>Dividers between page sections</h2>
+  <div class="dv-grid">
+    {dividers.map((d) => (
+      <section class="dv">
+        <h3>{d.title}</h3>
+        <p class="note">{d.note}</p>
+        <p>I practice the freedom to be stupid.</p>
+        <div class={`div ${d.id}`}>{d.id === 'd3' ? <span>•</span> : null}{d.id === 'd4' ? <img src="/images/spiral-logo.png" alt="" /> : null}</div>
+        <p>Intelligence is limited. Stupidity is infinite.</p>
+      </section>
+    ))}
+  </div>
+</Base>
+
+<style is:global>
+  .sh-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 2rem; margin: 2rem 0 3rem; }
+  .sh { border: 1px dashed #bbb; padding: 1.25rem; --r: 0px; --rbtn: 0px; }
+  .sh-b { --r: 8px; --rbtn: 8px; } .sh-c { --r: 4px; --rbtn: 999px; } .sh-d { --r: 4px; --rbtn: 999px; }
+  .sh h2 { font-size: 1.25rem; margin: 0 0 .25rem; } .note { color: var(--muted); font-size: .9375rem; margin: 0 0 1rem; }
+  .sh .row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+  .sh button { border-radius: var(--rbtn); padding: .6rem 1.2rem; font: inherit; font-weight: 600; cursor: pointer; }
+  .sh .b-main { background: var(--text); color: var(--bg); border: 1px solid var(--text); }
+  .sh .b-red { background: var(--red-text); color: #fff; border: 1px solid var(--red-text); }
+  .sh-a .b-red, .sh-b .b-red { background: var(--text); border-color: var(--text); }
+  .sh .b-line { background: none; color: var(--text); border: 1px solid var(--text); }
+  .sh-c .b-main, .sh-d .b-main { background: var(--red-text); border-color: var(--red-text); color: #fff; }
+  .sh .f { display: grid; gap: .25rem; font-weight: 600; margin-bottom: 1rem; }
+  .sh .f input { border: 1px solid var(--muted); border-radius: var(--r); padding: .55rem .7rem; font: inherit; width: 100%; }
+  .sh .entry { display: grid; grid-template-columns: 40% 1fr; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 1rem; }
+  .sh .thumb { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r); }
+  .sh-d .thumb { border-radius: 14px; }
+  .sh .entry p { margin: 0; } .sh .d { font-weight: 700; } .sh .t { font-size: 1.25rem; font-weight: 700; } .sh .m { font-weight: 600; margin-top: .5rem; }
+  .sh .acc { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--line); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+  .sh .mark::after { content: "+"; font-weight: 400; }
+  .sh-d .mark::after { content: ""; display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; background: var(--red); }
+  .sh .photo { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r); display: block; }
+  .dv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+  .dv { border: 1px dashed #bbb; padding: 1rem; } .dv h3 { font-size: 1rem; margin: 0 0 .25rem; }
+  .div { margin: 1.5rem 0; text-align: center; }
+  .div.d1 { border-top: 1px solid var(--line); }
+  .div.d2 { width: 48px; height: 3px; background: var(--red); margin-inline: auto; }
+  .div.d3 span { color: var(--red); font-size: 1.5rem; letter-spacing: .6em; margin-right: -.6em; } .div.d3 span::before, .div.d3 span::after { content: "•"; } .div.d3 span::before { margin-right: .6em; } .div.d3 span::after { margin-left: .6em; }
+  .div.d4 img { width: 28px; height: auto; }
+</style>
