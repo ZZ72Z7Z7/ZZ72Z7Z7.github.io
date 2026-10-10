@@ -21,6 +21,15 @@ gallery:
   - src: "/wp-content/uploads/2021/04/bouf.boulder.group_.jpg"
     caption: "*Boulder Bouffon Intensive 2010*, USA"
     caption_it: "*Boulder Bouffon Intensive 2010*, USA"
+  - src: "/wp-content/uploads/2022/04/barn.2016.duo_.jpg"
+    caption: "Bouffon Training at the Celebration Barn Theatre, USA, 2017"
+    caption_it: "Bouffon Training at the Celebration Barn Theatre, USA, 2017"
+  - src: "/wp-content/uploads/2021/04/bouf.pax_.group_.jpg"
+    caption: "Bouffon Performance at *Dell’Arte School , 2007*"
+    caption_it: "Bouffon Performance at *Dell’Arte School , 2007*"
+  - src: "/wp-content/uploads/2021/04/bouf.heli_.ban_.1.jpg"
+    caption: "*Helikos School, 2013*"
+    caption_it: "*Helikos School, 2013*"
   - src: "/wp-content/uploads/2022/04/bouff_mel_group.jpg"
     caption: "*Bouffon Training, Melbourne 2017*"
     caption_it: "*Bouffon Training, Melbourne 2017*"
@@ -100,12 +109,6 @@ body_it: |-
   Lo scopo di questo corso è dare ai partecipanti strumenti teatrali professionali, per giocare e ideare nel genere del Bouffon e del Grottesco. È una formazione fondata sulla generosità, sulla spietatezza poetica e sull’impegno a esplorare stati estremi di eccitazione fisica, follia e gioco.
 
   È richiesta una feroce e giocosa urgenza di recitare!
-
-  **KIMBERLEY TWINER**  
-  **[ktwiner@gmail.com](mailto:ktwiner@gmail.com)**  
-  Tel: 04 68664466
-
-  Ci vediamo a Melbourne!
 program_it: |-
   **Prima Settimana: LA FOLLIA DEL BOUFFON**  
   – Gioco, azione/reazione e divertimento  
@@ -182,8 +185,3 @@ The aim of this course is to give participants professional theatre tools, in or
 
 A fierce and playful urgency to perform is required!
 
-**KIMBERLEY TWINER**  
-**[ktwiner@gmail.com](mailto:ktwiner@gmail.com)**  
-Tel: 04 68664466
-
-See you in Melbourne!
