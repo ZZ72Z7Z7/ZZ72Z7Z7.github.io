@@ -21,7 +21,7 @@ body_it: |-
   ![](/wp-content/uploads/2021/03/zoom.patterns.jpg)
 
   Non insegno teatro fisico on-line. Trovo che non sia un modo praticabile per iniziare nuovi studenti a quest’arte, a questo lavoro, al gioco.  
-  Ho scritto [**un articolo**](/2020/03/31/why/) [](/2020/03/31/why/)per spiegare le ragioni della mia scelta. Potete trovarlo nel [**Blog**](/blog/) di questo sito.  
+  Ho scritto [**un articolo**](/2020/05/31/why/) [](/2020/05/31/why/)per spiegare le ragioni della mia scelta. Potete trovarlo nel [**Blog**](/blog/) di questo sito.  
   <br>
   Non esiste una cosa come il *Teatro Fisico Virtuale*. Esiste la performance on-line, e non mi interessa né ho le competenze per farla, quindi non posso insegnarla. Nelle parole della mia collega e amica Amy Russell, se non c’è *spazio condiviso e tempo condiviso*, NON è teatro. È qualcos’altro. Può essere bellissimo, ma non è teatro. E non è la mia tazza di tè, né il mio bicchiere di vino.  
   <br>
@@ -83,7 +83,7 @@ A surrogate, a memory, a survival raft*
 ![](/wp-content/uploads/2021/03/zoom.patterns.jpg)
 
 I don’t teach physical theater on-line. I find that it is not a viable way to initiate new students to this art, to this work, to play.  
-I have written [**a post**](/2020/03/31/why/) [](/2020/03/31/why/)to unfold the reasons behind my choice. You can find it in the [**Blog**](/blog/) of this website.  
+I have written [**a post**](/2020/05/31/why/) [](/2020/05/31/why/)to unfold the reasons behind my choice. You can find it in the [**Blog**](/blog/) of this website.  
 <br>
 There is no such a thing as *Virtual Physical Theater*. There is on-line performance, and I am not interested nor skilled at it, so I cannot teach it. In the words of my colleague and friend Amy Russell, if there is no *shared space and shared time*, it is NOT theater. It is something else. It can be great, but it is not theater. And it is not my cup of tea, nor my glass of wine.  
 <br>

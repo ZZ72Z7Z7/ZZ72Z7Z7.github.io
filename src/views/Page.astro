@@ -6,7 +6,7 @@ import { banners } from '../lib/banners';
 import Lightbox from '../components/Lightbox.astro';
 import VideoLightbox from '../components/VideoLightbox.astro';
 import { getPage } from '../lib/content';
-import { t, type Lang } from '../i18n/ui';
+import type { Lang } from '../i18n/ui';
 interface Props { id: string; lang: Lang; path: string; section?: any; hero?: boolean; wide?: boolean }
 const { id, lang, path, section, hero = false, wide = false } = Astro.props;
 const { entry, fallback } = await getPage(id, lang);

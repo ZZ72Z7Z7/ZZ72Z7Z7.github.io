@@ -170,15 +170,10 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
 .year-acc[open] > summary::after, .acc[open] > summary::after { content: "\2212"; }
 .year-acc > summary:hover .year-title, .acc > summary:hover .acc-title { color: var(--red-text); }
 .year-title, .acc-title { margin: 0; font-size: var(--h3-size); }
-/* workshop page accordion: Description, Program, Schedule, Location, Tuition, Application */
-.wk-section { margin-top: 2rem; }
-.wk-section > h2 { margin: 0 0 .75rem; }
 .acc-list { margin: 2rem 0; }
 .acc-body { padding: 0 0 25px; }
 .acc-body .prose > :first-child { margin-top: 0; }
 .acc-body .wk-dates { margin-top: 1rem; }
-.acc-sub { margin: 1.5rem 0 .25rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
-.acc-body > .acc-sub:first-child, .acc-body > .wk-dates + .acc-sub { margin-top: 0; }
 @media (max-width: 63.9375rem) { .acc > summary { padding-block: 20px; } .acc-body { padding-bottom: 20px; } }
 .year-acc > .entries { margin: 0; }
 @media (max-width: 63.9375rem) { .year-acc > summary { padding-block: 20px; } }
@@ -187,13 +182,9 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
 /* events */
 .event { padding: var(--space-section) 0; border-top: 1px solid var(--line); }
 .event h3 { margin-top: 0; font-size: var(--h3-size); }
-.event .facts, .entry-details-body .facts { display: grid; grid-template-columns: max-content 1fr; gap: .15rem 1rem; margin: 1rem 0; }
-.event .facts dt, .entry-details-body .facts dt { font-weight: 700; }
-.event .facts dd, .entry-details-body .facts dd { margin: 0; white-space: pre-line; }
-details.past-event { border-top: 1px solid var(--line); padding: .75rem 0; }
-details.past-event:last-of-type { border-bottom: 1px solid var(--line); }
-details.past-event summary { cursor: pointer; }
-details.past-event[open] summary { margin-bottom: 1rem; }
+.event .facts { display: grid; grid-template-columns: max-content 1fr; gap: .15rem 1rem; margin: 1rem 0; }
+.event .facts dt { font-weight: 700; }
+.event .facts dd { margin: 0; white-space: pre-line; }
 
 /* blog */
 .post-list { list-style: none; padding: 0; margin: 0; }
@@ -301,8 +292,8 @@ body { overflow-x: clip; }
   .brand { gap: .65rem; }
   .brand-logo { height: 3rem; }
   .brand-name { font-size: 1.2rem; }
-  .event .facts, .entry-details-body .facts { grid-template-columns: 1fr; }
-  .event .facts dd, .entry-details-body .facts dd { margin-bottom: .5rem; }
+  .event .facts { grid-template-columns: 1fr; }
+  .event .facts dd { margin-bottom: .5rem; }
 }
 
 /* selected text (1a) */
@@ -327,7 +318,9 @@ main.bare { max-width: none; padding: 0; }
 .split-photo picture, .split-photo img { display: block; width: 100%; height: 100%; }
 .split-photo img { position: absolute; inset: auto; top: 0; left: 0; object-fit: cover; object-position: 50.5% 35%; }
 
-.split-poem { container-type: inline-size; scroll-margin-top: 0; padding: var(--space-block) var(--gutter) var(--space-end); }
+.split-poem { container-type: inline-size; scroll-margin-top: 0; padding: var(--space-block) var(--gutter); min-height: 100svh; display: grid; align-content: center; }
+/* plain layout (reduced motion, no scripts): scrolled to the end, the poem sits centred in the window, as in the pinned-fade version; with the header kept in view (below 1024px) the window is that much shorter */
+@media (max-width: 63.9375rem) { .split-poem { min-height: calc(100svh - var(--chrome-h, 4.5rem)); } }
 .split-poem .prose { text-align: center; width: 100%; max-width: 40rem; margin: 0 auto; }
 .split-poem .notice { text-align: left; margin-bottom: 2rem; }
 /* The poem keeps the line breaks he wrote: lines never wrap, the type shrinks to fit instead (22px at most).
@@ -352,7 +345,7 @@ html.fx-home .split-track { position: relative; }
 html.fx-home .split-stage { position: sticky; top: var(--chrome-h, 4.5rem); height: calc(100svh - var(--chrome-h, 4.5rem)); overflow: hidden; background: #000; }
 html.fx-home .split-photo { position: absolute; inset: 0; height: 100%; min-height: 0; }
 html.fx-home .split-soft { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50.5% 35%; opacity: 0; }
-html.fx-home .split-poem { position: absolute; inset: 0; display: grid; align-content: center; padding: var(--pad, 4rem) var(--gutter); box-sizing: border-box; color: #fff; }
+html.fx-home .split-poem { position: absolute; inset: 0; min-height: 0; display: grid; align-content: center; padding: var(--pad, 4rem) var(--gutter); box-sizing: border-box; color: #fff; }
 html.fx-home .split-poem.tall { align-content: start; }
 /* the Italian notice ("this text is in English") sits at the top of the window in white and fades in with the poem, so it does not push the poem off centre */
 html.fx-home .split-poem .notice { position: absolute; top: 1rem; left: var(--gutter); right: var(--gutter); margin: 0; color: #fff; border-color: #fff; opacity: 0; text-align: left; }
@@ -368,19 +361,8 @@ html.fx-home .poem-s .word { font-size: calc(clamp(3rem, 12vw, 5rem) * var(--fit
 .bio-photo { width: 100%; margin: var(--space-block) 0; }
 .bio-photo img { display: block; width: 100%; height: auto; margin: 0; }
 
-/* title and subtitle of the bio text, under the portrait */
-.bio-title { margin: 0 0 1.5rem; line-height: 1.25; text-align: center; }
-.bio-title p { margin: 0; }
-.bio-title .bio-name { font-size: 1.75rem; font-weight: 700; margin-bottom: .35rem; }
-.bio-title .bio-roles { font-size: 1.375rem; font-weight: 400; line-height: 1.4; }
-
 .about-section { text-align: center; --about-gap: 1.875rem; --about-top: 3.75rem; } /* 30px: the space between paragraphs and above and below every photo */
 /* section heading ("THEATRE AS INITIATION"): the 28px bold of the page's type scale (18 / 22 / 28), shrinking a little on phones so it stays on one line; a major break above, close to the graphic or text it introduces */
-/* a small graphic under a heading: centred, not full column width */
-.section-graphic { width: min(100%, 16rem); margin: 0 auto 3rem; }
-.section-graphic img { display: block; width: 100%; height: auto; margin: 0; }
-.about-section .prose > .bio-title:first-child { margin-top: 0; }
-.about-section .bio-title + .bio-photo, .about-section .bio-title + .about-banner { margin-top: 0; }
 
 /* phones: a tall 3:4 crop centred on him (his face is at 50.5% across the photo; 51% keeps his whole figure in view) */
 .about-banner img { object-position: 51% 50%; }
@@ -425,7 +407,6 @@ h1 + .subtitle.entry-sub { font-size: var(--p2-size); font-style: italic; } /* t
   .acc.wk-acc > summary:hover .acc-title { color: inherit; }
   .acc.wk-acc .acc-body { padding: 0; }
 }
-.wk-practical { margin-top: 2rem; }
 .wk-gallery { margin-top: 3rem; }
 .wk-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); }
 .wk-gallery-grid figure { margin: 0; }

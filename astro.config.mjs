@@ -30,7 +30,7 @@ export default defineConfig({
   integrations: [
     designPages,
     sitemap({
-      i18n: { defaultLocale: 'en', locales: { en: 'en', it: 'it', es: 'es', fr: 'fr', de: 'de' } },
+      i18n: { defaultLocale: 'en', locales: { en: 'en', it: 'it' } },
     }),
   ],
 });
