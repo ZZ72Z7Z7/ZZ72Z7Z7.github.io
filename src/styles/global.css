@@ -645,3 +645,5 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
   .entry-card.sched.has-thumb .entry-sub { align-self: center; margin: 0; padding: 1.25rem 0; }
   .entry-card.sched .entry-more { margin: 0; }
 }
+/* Workshops index taglines are P1, italic (designer, 261011); colour stays grey */
+.entry-card.sched .entry-sub { font-size: var(--p1-size); }

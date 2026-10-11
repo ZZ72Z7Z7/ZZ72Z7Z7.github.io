@@ -16,7 +16,7 @@
 
 ## 3 Pages
 - **Home:** photo, then the poem, centred. **About:** banner and first-person bio.
-- **Workshops / Events:** same entry layout (picture left, text right), upcoming first, past below with greyscale thumbnails (colour on hover). Workshops past = year accordions; Events past = one list. Place line is P1 black. Taglines P2 grey italic.
+- **Workshops / Events:** same entry layout (picture left, text right), upcoming first, past below with greyscale thumbnails (colour on hover). Workshops past = year accordions; Events past = one list. Place line is P1 black. Taglines P2 grey italic (Workshops index: P1, grey, italic, 261011).
 - **Workshop and event pages:** title, tagline, dates, place, picture, then sections (open on desktop, accordions on phones). Events: Description, Location, Admission, Tickets.
 - **Application status chip (261011, workshops only, upcoming editions only):** a square white-on-colour chip in capitals: Pending grey, Open green, Waitlist blue, Closed black. On the Workshops list the chip stands alone, between the location and the tagline; the italic line ("Applications open March 1", "Application date TBA", "Applications close April 30") appears only on the workshop page, below the chip. Waitlist and Closed have no line. Open turns Closed by itself after its deadline; the chip disappears when the workshop's dates pass. The DETAILS button on the Workshops list is solid red, capitals, no arrow, at the bottom of the row; phone order: title, dates, location, chip, photo, tagline, button. Workshop pages no longer show a tagline.
 - **Blog:** banner, then each post as a small `date · category` line, bold title, first paragraph.
