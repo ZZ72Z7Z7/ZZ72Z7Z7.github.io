@@ -657,3 +657,16 @@ h1.after-runs { margin-top: 0; }
 .wk-run + .wk-run { margin-top: 1.5rem; }
 /* Workshop titles are all capitals on the Workshops list and on workshop pages (designer, 261011); the text itself is unchanged */
 .entry-card.sched .entry-title, h1.wk-title { text-transform: uppercase; }
+/* Standard picture box on the Workshops and Events lists (designer, 261011): every thumbnail sits in a 4:3 box, so rows are the same height
+   (the picture's height, plus 50px above and below on desktop) unless the text is taller. Landscape pictures fill the box; portrait ones
+   (e.g. the Miro drawing, posters) are shown whole inside it. */
+.entry-card.sched .entry-thumb { object-fit: contain; height: auto; }
+.entry-card.sched .entry-thumb.fit { object-fit: contain; background: #fff; }
+/* UNIVERSAL ROW HEIGHT (designer, 261011): on desktop (1024px and up) every row of the Workshops and Events lists, upcoming and past, is at least 400px
+   (300px of content between 50px of padding; a row grows only when its text needs more room). Pictures are never cropped: a landscape photo shows whole at the column width (top-aligned),
+   a portrait picture is shown whole inside a box 300px tall. The button sits directly beneath the tagline (20px gap), as the chip sits beneath the location; any spare height is left empty at the bottom of the row. Phones and tablets keep their stacked layout. */
+@media (min-width: 64rem) {
+  .entries > .entry-card.sched { min-height: 400px; box-sizing: border-box; grid-template-rows: repeat(7, auto) 1fr; align-content: start; grid-template-areas: "dates" "loc" "chip" "title" "meta" "desc" "more" "."; }
+  .entries > .entry-card.sched.has-thumb { grid-template-areas: "thumb dates" "thumb loc" "thumb chip" "thumb title" "thumb meta" "thumb desc" "thumb more" "thumb ."; } /* the last, flexible row takes the picture's extra height, so the text rows stay tight */
+  .entry-card.sched.has-thumb .entry-thumb { aspect-ratio: auto; height: auto; max-height: 300px; object-fit: contain; align-self: start; }
+}

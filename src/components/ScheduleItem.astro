@@ -5,6 +5,7 @@ import { t, href, pick, type Lang } from '../i18n/ui';
 import { formatRange, cityName } from '../lib/dates';
 import { isPale } from '../lib/pale';
 import { getStatus } from '../lib/status';
+import { isTallImage } from '../lib/imgsize';
 /** card: the Workshops-page layout (thumbnail, dates, place, title, short description, "More Info →"). */
 interface Props { entry: CollectionEntry<'schedule'>; lang: Lang; showTitle?: boolean; card?: boolean; noThumb?: boolean }
 const { entry, lang, showTitle = true, card = false, noThumb = false } = Astro.props;
@@ -32,7 +33,7 @@ const link = workshop ? href(`/workshops/${workshop.id}/`, lang) : d.external_li
     <p class="entry-title">{link ? <a href={link}>{title}</a> : title}</p>
   )}
   {card && status && <p class={`status-chip status-${status.key}`}>{status.label}</p>}
-  {card && image && <img class:list={['entry-thumb', pale && 'framed']} src={image} alt="" loading="lazy" />}
+  {card && image && <img class:list={['entry-thumb', pale && 'framed', image && isTallImage(image) && 'fit']} src={image} alt="" loading="lazy" />}
   </div>
   <div class="entry-right">
   {subtitle && <p class="entry-sub">{subtitle}</p>}
