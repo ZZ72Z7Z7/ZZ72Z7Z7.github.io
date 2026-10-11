@@ -1,0 +1,108 @@
+---
+// Design review page: three ways to separate the status chip from the DETAILS button. Local only, never published.
+import Base from '../layouts/Base.astro';
+const items = [
+  { key: 'open', label: 'Open', dates: 'October 19 - 24, 2026', place: 'Padua, Italy', title: 'The Language of Gestures', tag: 'From Pantomime to Bandes Mimées' },
+  { key: 'waitlist', label: 'Waitlist', dates: 'January 18 - 22, 2027', place: 'Melbourne, Australia', title: 'Famiglia dell’Arte', tag: 'Exploring Family Stories, Roles, Dynamics, Patterns and Scripts through Psychodrama and Physical Theatre' },
+];
+const options = [
+  { id: 'o1', title: '1 · Chip beside the dates', note: 'Status joins the facts at the top (dates, then chip on the same line). The button is the only thing at the bottom. Recommended.' },
+  { id: 'o2', title: '2 · Chip on the photo', note: 'A corner label on the thumbnail. On the workshop page it would sit on the picture too. Hides a corner of the photo.' },
+  { id: 'o4', title: '4 · Outlined chip, kept below the tagline', note: 'Same position as now, but the chip is a thin outlined tag, so the solid red button clearly leads.' },
+];
+---
+<Base title="Status layout demo" lang="en" path="/design/status-layout/" noindex wide>
+  <h1>Chip and button: three arrangements</h1>
+  <p>Each shows two list entries on desktop and one on a phone (375px). Demo only; nothing is applied to the site.</p>
+  <section class="opt o5">
+    <h2>5 · Facts block, then title block (your stack)</h2>
+    <p class="note">Dates, location, chip; a gap; title and tagline; a gap; button. Solid chip as in the current site.</p>
+    <h3 class="lbl">Desktop</h3>
+    <ul class="desk">
+      {items.map((s) => (
+        <li class="card">
+          <div class="ph"><img src="/images/hero.jpg" alt="" class="thumb" /></div>
+          <div class="txt">
+            <p class="dates"><span>{s.dates}</span></p>
+            <p class="place">{s.place}</p>
+            <p class="below"><span class={`chip st-${s.key}`}>{s.label}</span></p>
+            <p class="ttl gapt">{s.title}</p>
+            <p class="tag">{s.tag}</p>
+            <p class="acts"><a href="#" class="b">DETAILS</a></p>
+          </div>
+        </li>
+      ))}
+    </ul>
+    <h3 class="lbl">Phone</h3>
+    <div class="phone">
+      <p class="dates"><span>{items[1].dates}</span></p>
+      <p class="place">{items[1].place}</p>
+      <p class="below"><span class={`chip st-${items[1].key}`}>{items[1].label}</span></p>
+      <p class="ttl gapt">{items[1].title}</p>
+      <p class="tag">{items[1].tag}</p>
+      <div class="ph"><img src="/images/hero.jpg" alt="" class="thumb" /></div>
+      <p class="acts"><a href="#" class="b">DETAILS</a></p>
+    </div>
+  </section>
+  {options.map((o) => (
+    <section class={`opt ${o.id}`}>
+      <h2>{o.title}</h2>
+      <p class="note">{o.note}</p>
+      <h3 class="lbl">Desktop</h3>
+      <ul class="desk">
+        {items.map((s) => (
+          <li class="card">
+            <div class="ph"><img src="/images/hero.jpg" alt="" class="thumb" />{o.id === 'o2' && <span class={`chip st-${s.key}`}>{s.label}</span>}</div>
+            <div class="txt">
+              <p class="dates"><span>{s.dates}</span>{o.id === 'o1' && <span class={`chip st-${s.key}`}>{s.label}</span>}</p>
+              <p class="place">{s.place}</p>
+              <p class="ttl">{s.title}</p>
+              <p class="tag">{s.tag}</p>
+              {o.id === 'o4' && <p class="below"><span class={`chip st-${s.key}`}>{s.label}</span></p>}
+              <p class="acts"><a href="#" class="b">DETAILS</a></p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <h3 class="lbl">Phone</h3>
+      <div class="phone">
+        <p class="dates"><span>{items[1].dates}</span>{o.id === 'o1' && <span class={`chip st-${items[1].key}`}>{items[1].label}</span>}</p>
+        <p class="place">{items[1].place}</p>
+        <p class="ttl">{items[1].title}</p>
+        <p class="tag">{items[1].tag}</p>
+        {o.id === 'o4' && <p class="below"><span class={`chip st-${items[1].key}`}>{items[1].label}</span></p>}
+        <div class="ph"><img src="/images/hero.jpg" alt="" class="thumb" />{o.id === 'o2' && <span class={`chip st-${items[1].key}`}>{items[1].label}</span>}</div>
+        <p class="acts"><a href="#" class="b">DETAILS</a></p>
+      </div>
+    </section>
+  ))}
+</Base>
+
+<style>
+  p { margin: 0; }
+  section.opt { border-top: 1px solid var(--line); margin-top: 2.5rem; padding-top: 1.5rem; }
+  .note { color: var(--muted); max-width: 44rem; }
+  .lbl { font-size: 1rem; margin: 1.25rem 0 .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .desk { display: grid; grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr)); gap: 2rem 1.5rem; list-style: none; padding: 0; margin: 0; }
+  .card { display: grid; grid-template-columns: 40% 1fr; gap: 1.25rem; list-style: none; align-items: stretch; }
+  .ph { position: relative; align-self: start; }
+  .thumb { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+  .txt { display: flex; flex-direction: column; align-items: flex-start; }
+  .phone { width: 375px; max-width: 100%; border: 1px solid var(--line); padding: 20px; }
+  .phone .ph { margin: 1rem 0; }
+  .dates { font-weight: 700; display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .75rem; }
+  .place { font-size: var(--p1-size); }
+  .ttl { font-weight: 700; font-size: 1.5rem; margin-top: .25rem; }
+  .tag { font-style: italic; color: var(--muted); font-size: var(--p1-size); margin-top: .35rem; }
+  .below { margin-top: .6rem; }
+  .gapt { margin-top: 1.5rem; }
+  .acts { margin-top: auto; padding-top: 1.25rem; }
+  .phone .acts { margin-top: 0; padding-top: 0; }
+  .b { display: inline-block; padding: .55rem 1.1rem; font-size: var(--p2-size); font-weight: 600; letter-spacing: .04em; text-decoration: none; background: var(--red-text); color: #fff; }
+  .st-open { --c: #1a6b2f; --tint: #effaf1; }
+  .st-waitlist { --c: #0b5cad; --tint: #eef5fd; }
+  .chip { display: inline-block; padding: .3rem .85rem; background: var(--c); color: #fff; font-size: var(--p3-size); font-weight: 600; line-height: 1.3; text-transform: uppercase; letter-spacing: .04em; }
+  .o1 .chip { padding: .15rem .6rem; }
+  .o2 .chip { position: absolute; top: 0; left: 0; }
+  .o4 .chip { background: var(--tint); color: var(--c); box-shadow: inset 0 0 0 1.5px var(--c); }
+</style>

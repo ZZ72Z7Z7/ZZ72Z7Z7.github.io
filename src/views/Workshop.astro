@@ -72,24 +72,28 @@ const inline = (s?: string) => (s ? md(s).replace(/^<p>|<\/p>\s*$/g, '') : '');
 const place = (d: (typeof runs)[number]['data']) => [cityName(d.city, lang), d.region, d.country].filter(Boolean).join(', ');
 ---
 <Base title={title} lang={lang} path={`/workshops/${id}/`} section="workshops">
-  <h1 class="title-tight">{title}</h1>
-
   {upcoming.length > 0 && (
     <div class="wk-runs">
-      {upcoming.map((e) => (
-        <div class="wk-run">
-          <p class="wk-dates">{e.data.extra_dates ?? formatRange(e.data.start, e.data.end, lang)}</p>
-          {place(e.data) && <p class="wk-place">{place(e.data)}</p>}
-          {getStatus(e.data, lang) && (
-            <div class="wk-status">
-              <p class={`status-chip status-${getStatus(e.data, lang)!.key}`}>{getStatus(e.data, lang)!.label}</p>
-              {getStatus(e.data, lang)!.note && <p class="status-note">{getStatus(e.data, lang)!.note}</p>}
-            </div>
-          )}
-        </div>
-      ))}
+      {upcoming.map((e) => {
+        const st = getStatus(e.data, lang);
+        return (
+          <div class="wk-run">
+            <p class="wk-dates">{e.data.extra_dates ?? formatRange(e.data.start, e.data.end, lang)}</p>
+            {place(e.data) && <p class="wk-place">{place(e.data)}</p>}
+            {st && (
+              <div class="wk-status">
+                <p class={`status-chip status-${st.key}`}>{st.label}</p>
+                {st.note && <p class="status-note">{st.note}</p>}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   )}
+
+  <h1 class:list={['title-tight', upcoming.length > 0 && 'after-runs']}>{title}</h1>
+  {tagline && <p class="subtitle entry-sub">{tagline}</p>}
 
   {image && (
     <figure class="wk-primary">

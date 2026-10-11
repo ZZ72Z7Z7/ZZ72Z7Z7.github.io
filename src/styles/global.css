@@ -611,8 +611,8 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 /* Workshops and Events lists (designer, 261009): the text reads Title, Dates, Location, (teacher line), Tagline, Details. On phones and tablets the picture comes last, as on Lectures. */
 .entry-card.sched { grid-template-areas: "title" "dates" "loc" "meta" "desc" "more"; }
 .entry-card.sched.has-thumb { grid-template-areas: "title" "dates" "loc" "meta" "desc" "more" "thumb"; }
-.entry-card.sched .entry-title { margin-top: 0; }
-.entry-card.sched .entry-dates { margin-top: .25rem; }
+.entry-card.sched .entry-title { margin-top: .25rem; }
+.entry-card.sched .entry-dates { margin-top: 0; }
 @media (min-width: 64rem) {
   .entry-card.sched.has-thumb { grid-template-areas: "thumb title" "thumb dates" "thumb loc" "thumb meta" "thumb desc" "thumb more"; }
 }
@@ -627,6 +627,7 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 .status-waitlist { --chip: #0b5cad; }
 .status-closed { --chip: #111; }
 .entry-card .status-chip { grid-area: chip; justify-self: start; margin-top: .6rem; }
+.entry-card.sched .status-chip + .entry-title, .entry-card.sched .entry-title { margin-top: 1.5rem; } /* 261011: 24px between the facts block (dates, location, chip) and the title */
 .wk-status { margin: .6rem 0 0; display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
 .status-note { margin: 0; font-size: var(--p2-size); font-style: italic; color: var(--muted); }
 .wk-run + .wk-run { margin-top: 1.5rem; }
@@ -635,15 +636,22 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 /* Workshops list entries: DETAILS is a solid red button (capitals, no arrow); stack order set here (designer, 261011).
    Phones and tablets: title, dates, location, teacher line, chip, picture, tagline, button.
    Desktop: picture left; title, dates, location, teacher line, chip, tagline (centred between chip and button), button at the bottom of the row. */
-.entry-card.sched { grid-template-areas: "title" "dates" "loc" "meta" "chip" "desc" "more"; }
-.entry-card.sched.has-thumb { grid-template-areas: "title" "dates" "loc" "meta" "chip" "thumb" "desc" "more"; }
+.entry-card.sched { grid-template-areas: "dates" "loc" "chip" "title" "meta" "desc" "more"; }
+.entry-card.sched.has-thumb { grid-template-areas: "dates" "loc" "chip" "title" "meta" "desc" "thumb" "more"; }
 .entry-card.sched .entry-more { margin: 1rem 0 0; }
 .entry-card.sched .entry-more a { padding: .55rem 1.1rem; margin: 0; background: var(--red-text); color: #fff; font-size: var(--p2-size); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; }
 .entry-card.sched .entry-more a:hover, .entry-card.sched .entry-more a:focus-visible { background: #8a0000; text-decoration: none; }
 @media (min-width: 64rem) {
-  .entry-card.sched.has-thumb { grid-template-areas: "thumb title" "thumb dates" "thumb loc" "thumb meta" "thumb chip" "thumb desc" "thumb more"; grid-template-rows: auto auto auto auto auto 1fr auto; }
-  .entry-card.sched.has-thumb .entry-sub { align-self: center; margin: 0; padding: 1.25rem 0; }
-  .entry-card.sched .entry-more { margin: 0; }
+  .entry-card.sched.has-thumb { grid-template-areas: "thumb dates" "thumb loc" "thumb chip" "thumb title" "thumb meta" "thumb desc" "thumb more"; grid-template-rows: auto auto auto auto auto 1fr auto; }
+  .entry-card.sched .entry-more { margin: 0; padding-top: 1.25rem; } /* 261011: stack is dates, location, chip, title, tagline, button; the button sits at the bottom of the row, at least 20px below the tagline */
+  .entry-card.sched .status-chip { align-self: start; }
 }
 /* Workshops index taglines are P1, italic (designer, 261011); colour stays grey */
 .entry-card.sched .entry-sub { font-size: var(--p1-size); }
+/* Workshop page stack (designer, 261011): dates, location, title, tagline, chip (+ application line), picture */
+h1.after-runs { margin-top: 0; }
+.wk-statuses { margin: 0 0 1.5rem; }
+.wk-statuses .wk-status { margin: 0; }
+.wk-statuses .wk-status + .wk-status { margin-top: 1rem; }
+.wk-runs { margin-bottom: 1.5rem; } /* 261011: 24px between the facts block and the title */
+.wk-run + .wk-run { margin-top: 1.5rem; }
