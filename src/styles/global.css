@@ -395,8 +395,8 @@ html.fx-home .poem-s .word { font-size: calc(clamp(3rem, 12vw, 5rem) * var(--fit
 h1.title-tight { margin-bottom: .5rem; }
 .subtitle { margin-bottom: 1.5rem; }
 h1 + .subtitle.entry-sub { font-size: var(--p2-size); font-style: italic; } /* the tagline under a workshop or event title matches the tagline on the lists: P2, grey, italic (designer, 261009) */
-.wk-runs { margin: 0 0 1.5rem; }
-.wk-run + .wk-run { margin-top: .75rem; }
+.wk-runs { margin: 0 0 1.5rem; } /* 24px between the facts block and the title */
+.wk-run + .wk-run { margin-top: 1.5rem; }
 .wk-dates { font-weight: 700; margin: 0; }
 .wk-place { margin: 0; } /* location on a workshop or event page: P1, black, regular (designer, 261009) */
 .wk-primary { margin: 0 0 2rem; }
@@ -499,7 +499,7 @@ dialog.lightbox::backdrop { background: #000; } /* solid black around the pictur
 @media (prefers-reduced-motion: reduce) { .past-band .entry-thumb { transition: none; } }
 
 /* 1d (261009): pale photos (white or near-white edges, detected at build time in src/lib/pale.ts) get a hairline frame */
-img.framed { border: 1px solid var(--line); }
+img.framed { border: 1px solid var(--line); } /* pale-photo hairline: reserved for galleries only (designer, 261011); no gallery uses it yet, wire it with isPale() in src/lib/pale.ts */
 
 /* footer (designer, 261009): just the copyright line, P2 size, grey */
 .site-footer { text-align: center; padding: 20px var(--gutter) 2.5rem; }
@@ -608,13 +608,27 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 .empty-list a { display: inline-block; margin-top: .5rem; padding: .6rem 1.2rem; background: var(--red-text); border: 1px solid var(--red-text); color: #fff; font-style: normal; font-weight: 600; text-decoration: none; }
 .empty-list a:hover, .empty-list a:focus-visible { background: #8a0000; border-color: #8a0000; color: #fff; }
 
-/* Workshops and Events lists (designer, 261009): the text reads Title, Dates, Location, (teacher line), Tagline, Details. On phones and tablets the picture comes last, as on Lectures. */
-.entry-card.sched { grid-template-areas: "title" "dates" "loc" "meta" "desc" "more"; }
-.entry-card.sched.has-thumb { grid-template-areas: "title" "dates" "loc" "meta" "desc" "more" "thumb"; }
-.entry-card.sched .entry-title { margin-top: .25rem; }
+/* Workshops and Events lists (designer, 261009 to 261011)
+   Stack on every screen: dates, location, status chip, 24px, title, (teacher line), tagline, [picture on phones and tablets], DETAILS button.
+   Desktop (1024px and up): picture left (never cropped, 300px tall at most), text right; every row is at least 400px (50px padding above and below)
+   and grows only when its text needs more room; the button sits 20px under the tagline and any spare height stays empty at the bottom.
+   An empty flexible last grid row takes the picture's extra height, so no text row is stretched. */
+.entry-card.sched { grid-template-areas: "dates" "loc" "chip" "title" "meta" "desc" "more"; }
+.entry-card.sched.has-thumb { grid-template-areas: "dates" "loc" "chip" "title" "meta" "desc" "thumb" "more"; }
 .entry-card.sched .entry-dates { margin-top: 0; }
+.entry-card.sched .entry-title { margin-top: 1.5rem; text-transform: uppercase; } /* titles are all capitals (display only) */
+.entry-card.sched .entry-sub { font-size: var(--p1-size); } /* taglines on these lists are P1, italic, grey */
+.entry-card.sched .entry-thumb { object-fit: contain; height: auto; }
+.entry-card.sched .entry-more { margin: 1rem 0 0; }
+.entry-card.sched .entry-more a { padding: .55rem 1.1rem; margin: 0; background: var(--red-text); color: #fff; font-size: var(--p2-size); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; } /* DETAILS: solid red, capitals, no arrow */
+.entry-card.sched .entry-more a:hover, .entry-card.sched .entry-more a:focus-visible { background: #8a0000; text-decoration: none; }
+.past-band .entry-card.sched .entry-more a { background: #5f5f5f; } /* past entries: grey button (white on #5f5f5f is 6.4:1) */
+.past-band .entry-card.sched .entry-more a:hover, .past-band .entry-card.sched .entry-more a:focus-visible { background: #333; }
 @media (min-width: 64rem) {
-  .entry-card.sched.has-thumb { grid-template-areas: "thumb title" "thumb dates" "thumb loc" "thumb meta" "thumb desc" "thumb more"; }
+  .entries > .entry-card.sched { min-height: 400px; box-sizing: border-box; align-content: start; grid-template-rows: repeat(7, auto) 1fr; grid-template-areas: "dates" "loc" "chip" "title" "meta" "desc" "more" "."; }
+  .entries > .entry-card.sched.has-thumb { grid-template-areas: "thumb dates" "thumb loc" "thumb chip" "thumb title" "thumb meta" "thumb desc" "thumb more" "thumb ."; }
+  .entry-card.sched.has-thumb .entry-thumb { max-height: 300px; align-self: center; } /* the picture is always vertically centred in its row */
+  .entry-card.sched .entry-more { margin: 0; padding-top: 1.25rem; }
 }
 /* phones and tablets (below 1024px): 30px above and below each entry on the Workshops, Events and Lectures lists (designer, 261009) */
 @media (max-width: 63.9375rem) { .entries > .entry-card.sched, .entries.lectures > .entry-card { padding-block: 30px; } }
@@ -626,50 +640,10 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 .status-open { --chip: #1a6b2f; }
 .status-waitlist { --chip: #0b5cad; }
 .status-closed { --chip: #111; }
-.entry-card .status-chip { grid-area: chip; justify-self: start; margin-top: .6rem; }
-.entry-card.sched .status-chip + .entry-title, .entry-card.sched .entry-title { margin-top: 1.5rem; } /* 261011: 24px between the facts block (dates, location, chip) and the title */
+.entry-card .status-chip { grid-area: chip; justify-self: start; align-self: start; margin-top: .6rem; }
 .wk-status { margin: .6rem 0 0; display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
 .status-note { margin: 0; font-size: var(--p2-size); font-style: italic; color: var(--muted); }
-.wk-run + .wk-run { margin-top: 1.5rem; }
-.wk-runs { margin-bottom: 1.75rem; }
 
-/* Workshops list entries: DETAILS is a solid red button (capitals, no arrow); stack order set here (designer, 261011).
-   Phones and tablets: title, dates, location, teacher line, chip, picture, tagline, button.
-   Desktop: picture left; title, dates, location, teacher line, chip, tagline (centred between chip and button), button at the bottom of the row. */
-.entry-card.sched { grid-template-areas: "dates" "loc" "chip" "title" "meta" "desc" "more"; }
-.entry-card.sched.has-thumb { grid-template-areas: "dates" "loc" "chip" "title" "meta" "desc" "thumb" "more"; }
-.entry-card.sched .entry-more { margin: 1rem 0 0; }
-.entry-card.sched .entry-more a { padding: .55rem 1.1rem; margin: 0; background: var(--red-text); color: #fff; font-size: var(--p2-size); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; }
-.entry-card.sched .entry-more a:hover, .entry-card.sched .entry-more a:focus-visible { background: #8a0000; text-decoration: none; }
-@media (min-width: 64rem) {
-  .entry-card.sched.has-thumb { grid-template-areas: "thumb dates" "thumb loc" "thumb chip" "thumb title" "thumb meta" "thumb desc" "thumb more"; grid-template-rows: auto auto auto auto auto 1fr auto; }
-  .entry-card.sched .entry-more { margin: 0; padding-top: 1.25rem; } /* 261011: stack is dates, location, chip, title, tagline, button; the button sits at the bottom of the row, at least 20px below the tagline */
-  .entry-card.sched .status-chip { align-self: start; }
-}
-/* Workshops index taglines are P1, italic (designer, 261011); colour stays grey */
-.entry-card.sched .entry-sub { font-size: var(--p1-size); }
-/* Workshop page stack (designer, 261011): dates, location, title, tagline, chip (+ application line), picture */
+/* Workshop page stack (designer, 261011): dates, location, status chip (+ application line), 24px, title (all capitals), tagline, picture */
+h1.wk-title { text-transform: uppercase; }
 h1.after-runs { margin-top: 0; }
-.wk-statuses { margin: 0 0 1.5rem; }
-.wk-statuses .wk-status { margin: 0; }
-.wk-statuses .wk-status + .wk-status { margin-top: 1rem; }
-.wk-runs { margin-bottom: 1.5rem; } /* 261011: 24px between the facts block and the title */
-.wk-run + .wk-run { margin-top: 1.5rem; }
-/* Workshop titles are all capitals on the Workshops list and on workshop pages (designer, 261011); the text itself is unchanged */
-.entry-card.sched .entry-title, h1.wk-title { text-transform: uppercase; }
-/* Standard picture box on the Workshops and Events lists (designer, 261011): every thumbnail sits in a 4:3 box, so rows are the same height
-   (the picture's height, plus 50px above and below on desktop) unless the text is taller. Landscape pictures fill the box; portrait ones
-   (e.g. the Miro drawing, posters) are shown whole inside it. */
-.entry-card.sched .entry-thumb { object-fit: contain; height: auto; }
-.entry-card.sched .entry-thumb.fit { object-fit: contain; background: #fff; }
-/* UNIVERSAL ROW HEIGHT (designer, 261011): on desktop (1024px and up) every row of the Workshops and Events lists, upcoming and past, is at least 400px
-   (300px of content between 50px of padding; a row grows only when its text needs more room). Pictures are never cropped: a landscape photo shows whole at the column width (top-aligned),
-   a portrait picture is shown whole inside a box 300px tall. The button sits directly beneath the tagline (20px gap), as the chip sits beneath the location; any spare height is left empty at the bottom of the row. Phones and tablets keep their stacked layout. */
-@media (min-width: 64rem) {
-  .entries > .entry-card.sched { min-height: 400px; box-sizing: border-box; grid-template-rows: repeat(7, auto) 1fr; align-content: start; grid-template-areas: "dates" "loc" "chip" "title" "meta" "desc" "more" "."; }
-  .entries > .entry-card.sched.has-thumb { grid-template-areas: "thumb dates" "thumb loc" "thumb chip" "thumb title" "thumb meta" "thumb desc" "thumb more" "thumb ."; } /* the last, flexible row takes the picture's extra height, so the text rows stay tight */
-  .entry-card.sched.has-thumb .entry-thumb { aspect-ratio: auto; height: auto; max-height: 300px; object-fit: contain; align-self: start; }
-}
-/* Past workshops and events: grey DETAILS buttons (designer, 261011); white text on #5f5f5f is 6.4:1 */
-.past-band .entry-card.sched .entry-more a { background: #5f5f5f; }
-.past-band .entry-card.sched .entry-more a:hover, .past-band .entry-card.sched .entry-more a:focus-visible { background: #333; }

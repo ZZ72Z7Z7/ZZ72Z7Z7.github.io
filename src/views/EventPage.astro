@@ -7,7 +7,6 @@ import Base from '../layouts/Base.astro';
 import Text from '../components/Text.astro';
 import { formatDay, formatRange, cityName } from '../lib/dates';
 import { formatTime } from '../lib/content';
-import { isPale } from '../lib/pale';
 import { t, pick, type Lang } from '../i18n/ui';
 interface Props { id: string; lang: Lang }
 const { id, lang } = Astro.props;
@@ -24,7 +23,6 @@ const when = d.end && d.end.getTime() !== d.start.getTime() ? formatRange(d.star
 const time = formatTime(d.time, lang);
 const place = [cityName(d.city, lang), d.country].filter(Boolean).join(', ');
 const where = [d.venue, d.address].filter(Boolean).join('\n');
-const pale = await isPale(d.image);
 const hasBooking = Boolean(d.booking_link || d.booking_email);
 ---
 <Base title={title} lang={lang} path={`/events/${id}/`} section="events">
@@ -40,7 +38,7 @@ const hasBooking = Boolean(d.booking_link || d.booking_email);
 
   {d.image && (
     <figure class="wk-primary">
-      <img class:list={[pale && 'framed']} src={d.image} alt="" />
+      <img src={d.image} alt="" />
     </figure>
   )}
 
