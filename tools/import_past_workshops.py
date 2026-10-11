@@ -285,7 +285,7 @@ def fix_place(e):
     city = re.sub(r"\s+(Aotearoa|GERMANY)$", "", city)
     if pl["city"] and pl["city"].endswith("GERMANY"): pl["country"] = "Germany"
     if city == "Ljubliana": pass                       # his spelling on Helikos; reported, not fixed
-    city = {"Padova": "Padua", "PADOVA": "Padua", "Ljubliana": "Ljubljana"}.get(city, city)   # English name stored; Italian pages show Padova (src/lib/dates.ts)
+    city = {"Padua": "Padova", "PADOVA": "Padova", "Ljubliana": "Ljubljana"}.get(city, city)   # client preference (261011): "Padova" in every language
     pl["city"] = city or None
     v = pl["venue"] or ""
     m = re.fullmatch(r"(Colorado) USA", v)

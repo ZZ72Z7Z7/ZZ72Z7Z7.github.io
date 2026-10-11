@@ -14,6 +14,9 @@
 - **Languages:** English and Italiano only (globe menu). Spanish, French, German removed.
 - **Footer:** spiral and "©2026 Giovanni Fusetti", P2 grey.
 
+## Names
+- **Padova, never Padua, in the Workshops and Events sections, in every language** (the client's preference, 261011). Everywhere else (blog, poems, bio, quotations) the original wording is untouched, including "Padua".
+
 ## 3 Pages
 - **Home:** photo, then the poem, centred. **About:** banner and first-person bio.
 - **Workshops / Events:** same entry layout (picture left, text right), upcoming first, past below with greyscale thumbnails (colour on hover). Workshops past = year accordions; Events past = one list. Place line is P1 black. Taglines P2 grey italic (Workshops index: P1, grey, italic, 261011).

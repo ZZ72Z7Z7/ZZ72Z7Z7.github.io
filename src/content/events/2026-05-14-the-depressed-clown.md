@@ -3,7 +3,7 @@ title: "THE DEPRESSED CLOWN"
 title_it: "IL CLOWN IN DEPRESSIONE"
 start: 2026-05-14
 end: 2026-05-16
-city: "Padua"
+city: "Padova"
 country: "Italy"
 image: "/wp-content/uploads/2026/05/depression_a3_2026.jpg"
 pdfs:

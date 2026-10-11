@@ -74,8 +74,9 @@ export function formatLongDate(d: Date, lang: Lang): string {
 
 export const isoDate = (d: Date) => d.toISOString().slice(0, 10);
 
-/** City names that differ by language. Content stores the English name ("Padua"); Italian pages show "Padova". */
-const CITY_IT: Record<string, string> = { Padua: 'Padova' };
+/** City names that differ by language. None today: the client's preference (261011) is "Padova" in every language, stored as "Padova" in the content.
+ *  Add a { English: 'Italiano' } pair here if another city ever needs it. */
+const CITY_IT: Record<string, string> = {};
 export function cityName(city: string | undefined, lang: Lang): string | undefined {
   return city && lang === 'it' ? CITY_IT[city] ?? city : city;
 }

@@ -5,7 +5,7 @@ subtitle: "A spiritual physical-comedy about a Fool who ended up becoming a Sain
 subtitle_it: "Una commedia fisica e spirituale sulla storia di un Folle che si è ritrovato Santo."
 start: 2026-06-20
 time: "19:30"
-city: "Padua"
+city: "Padova"
 country: "Italy"
 venue: "HELIKOS STUDIO"
 address: "Via Monte Solarolo 16/A, 35141 PADOVA – ITALY"
