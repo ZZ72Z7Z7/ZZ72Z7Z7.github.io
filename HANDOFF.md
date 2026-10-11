@@ -4,7 +4,7 @@ Project: giovannifusetti.com rebuilt as a static Astro site for GitHub Pages. Th
 they are not a programmer, so explain choices in plain language. This file is the working memory of the project:
 the brief says what to build, this says where we are and how we work. Keep it current (see "Closing a session").
 
-Last updated: 11 October 2026, session GIOVANNI_261011 (application status chip built; before that, end of 261009). A one-page summary of all design decisions is `DECISIONS-SUMMARY.md`; Italian drafts needing review are listed in `ITALIAN-REVIEW.md`.
+Last updated: 11 October 2026, end of session GIOVANNI_261011 (application status chip, list and workshop-page redesign, Padova rule). A one-page summary of all design decisions is `DECISIONS-SUMMARY.md`; Italian drafts needing review are listed in `ITALIAN-REVIEW.md`.
 
 ---
 
@@ -13,7 +13,7 @@ Last updated: 11 October 2026, session GIOVANNI_261011 (application status chip 
 ### The designer, before the session
 1. Duplicate the previous build folder in `BUILDS/` and rename it `GIOVANNI_<yymmdd>` (today's date). Never edit an earlier dated folder: each is a backup.
 2. Open Claude Code **in the new folder**, so `CLAUDE.md` loads `BUILD-BRIEF.md` and this file automatically.
-3. First message: "Start up: follow HANDOFF.md section 1."
+3. First message: "startup" (CLAUDE.md tells Claude to follow section 1; the long form "Start up: follow HANDOFF.md section 1." still works).
 
 ### Claude, at the start of every session
 1. Read this whole file, then `BUILD-BRIEF.md` (the brief; the designer's later answers in section 3 below override its defaults).
@@ -239,16 +239,16 @@ A short version of the conventions is also kept in Claude's memory (`giovanni-si
 - **261009** (third session, very long): home poem fade, mobile hero image work, Creations submenu (Writings, Lectures, Shows, Blog), Gallery menu, five languages, type standard (H1-H3, P1-P3), menu rules, 1024px mobile menu, Workshops list layout, standard workshop page with lightbox and mobile accordions, plain-text export of the upcoming pages. Ended with the past-workshops import done (section 4).
 - **261009** (fourth part of the same day, very long; this folder): events page and 4 event pages; designer review of all six design categories in order (1b/1c settings, 1d shapes and details, frame, page types, recurring components, responsive, personality); Photo, Video, Writings, Lectures, Shows pages rebuilt; About dropdown with 4 new text pages; 20 past workshop pages (old edition details cut, schedule and location kept); paragraph breaks; typo fixes; full Italian draft by 11 parallel translators merged; blog subscribe block removed; HANDOFF and DECISIONS-SUMMARY updated.
 
-- **261011**: startup; application status chip designed on review pages (five approaches, narrowed to one) and built (see section 4, "APPLICATION STATUS CHIP"). The 261010 folder had no session-log entry.
+- **261011** (long session): startup; application status chip designed on review pages (five approaches narrowed to one, then the final stack) and built (section 4, "APPLICATION STATUS CHIP"), statuses set for the five upcoming workshops; Workshops and Events lists reworked (new stack on desktop and phone, 400px minimum row height, uncropped photos centred in the row, H2 all-caps titles, red DETAILS button without arrow, grey for past, centred text on phones, no pale-photo outline); workshop page stack (dates, location, chip, title, tagline); code clean-up and review (global.css consolidated; photo size and reading-order fixes); UX design review saved as `DESIGN-REVIEW_261011.pdf`; "Padova" rule for the Workshops and Events sections only (original text elsewhere untouched); demo `docs/` refreshed several times. Not pushed by Claude. The 261010 folder had no log entry.
 
 **TABLED (designer, 261009): vector (SVG) version of the spiral logo.** Needs the original logo file from the client/designer, or an approved trace of the current PNG.
 
 ## 9. Start of next session: checklist
-1. The designer duplicates `BUILDS/GIOVANNI_261009` and names the copy with that day's date (add a letter if it is still 9 October, e.g. `GIOVANNI_261009b`), opens Claude Code in it and says "Start up: follow HANDOFF.md section 1."
-2. At startup, fix `/Users/jzk/Desktop/CLAUDE/GIOVANNI FUSETTI/.claude/launch.json` so its paths point at the new folder (it points at `GIOVANNI_261009` now). Start the preview with `preview_start name "site"` (do not start the dev server by hand: the app's preview button then loses track of it).
+1. The designer duplicates `BUILDS/GIOVANNI_261011` and names the copy with that day's date (add a letter if it is still 11 October, e.g. `GIOVANNI_261011b`), opens Claude Code in it and says "startup"
+2. At startup, fix `/Users/jzk/Desktop/CLAUDE/GIOVANNI FUSETTI/.claude/launch.json` so its paths point at the new folder (it points at `GIOVANNI_261011` now). Start the preview with `preview_start name "site"` (do not start the dev server by hand: the app's preview button then loses track of it).
 3. `npm run build` must pass (131 pages).
 4. Nothing has been pushed or published; no git repository exists; the editor, form wiring, redirects and launch are ON HOLD until the designer says the client has reviewed the design (see "WHAT IS LEFT" in section 4).
-5. What the designer may ask next: client feedback on the design; the Italian review (`ITALIAN-REVIEW.md`); the blog paragraph breaks; the held pages once the client decides; the "noted for later" list (alt text, page descriptions, Red Nose training text for the archive, vector spiral).
+5. What the designer may ask next (from `DESIGN-REVIEW_261011.pdf`: an APPLY or action button beside the chip and reordering the workshop sections so Application comes early; deadline line and a next-step line for Closed and Waitlist; clickable list rows and heading tags for list titles; compact rows for past entries; phone summary line; Gallery label; a Home link to workshops; chip and button wording for Italian review; whether DETAILS stays on Events with the same styling), plus: client feedback on the design; the Italian review (`ITALIAN-REVIEW.md`); the blog paragraph breaks; the held pages once the client decides; the "noted for later" list (alt text, page descriptions, Red Nose training text for the archive, vector spiral).
 6. Reminders: never run `import_demo.py` or `import_workshops.py` (now in `archive/old-import-tools/`) (they overwrite hand-edited pages); never put demo, "not live" or "draft" notices on the site; `src/design/` review pages are local only (never built) and are deleted before launch; typos are never fixed without the designer's word; ask before anything outward-facing; do not touch DNS or the live WordPress site; explain in plain language.
 7. Pipelines that must be re-run in order if the workshop pages are ever rebuilt: `tools/import_past_workshop_pages.py` > `tools/cut_old_edition_details.py --write` > `tools/attach_italian_20_movements.py` > `tools/clean_workshop_leftovers.py` > `tools/split_paragraphs.py --write` > `tools/translation_merge.py`. Every step has a backup folder in `archive/`.
 
