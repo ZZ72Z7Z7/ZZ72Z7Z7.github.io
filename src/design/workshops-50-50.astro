@@ -1,0 +1,23 @@
+---
+// Design review page: Workshops index with 450px rows and a 50/50 photo/text split. Local only, never published.
+import Base from '../layouts/Base.astro';
+import ScheduleItem from '../components/ScheduleItem.astro';
+import { getSchedule } from '../lib/content';
+const { upcoming } = await getSchedule();
+---
+<Base title="Workshops 50/50 mockup" lang="en" path="/design/workshops-50-50/" noindex wide>
+  <h1 class="center-title">Upcoming Workshops</h1>
+  <p class="mock-note">Mockup: rows 450px minimum (350px of content), photo and text split 50/50. The live site is 400px and 40/60. Desktop only (1024px and up). Nothing is applied.</p>
+  <div class="mock">
+    <ul class="entries">{upcoming.map((e) => <ScheduleItem entry={e} lang="en" card />)}</ul>
+  </div>
+</Base>
+
+<style is:global>
+  .mock-note { text-align: center; color: var(--muted); font-size: var(--p3-size); margin: -1.5rem auto 1.5rem; max-width: 44rem; }
+  @media (min-width: 64rem) {
+    .mock .entries > .entry-card.sched { min-height: 450px; }
+    .mock .entries > .entry-card.sched.has-thumb { grid-template-columns: 1fr 1fr; column-gap: 2rem; }
+    .mock .entry-card.sched.has-thumb .entry-thumb { max-height: 350px; }
+  }
+</style>
