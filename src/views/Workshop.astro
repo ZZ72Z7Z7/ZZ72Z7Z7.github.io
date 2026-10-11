@@ -92,7 +92,7 @@ const place = (d: (typeof runs)[number]['data']) => [cityName(d.city, lang), d.r
     </div>
   )}
 
-  <h1 class:list={['title-tight', upcoming.length > 0 && 'after-runs']}>{title}</h1>
+  <h1 class:list={['title-tight', 'wk-title', upcoming.length > 0 && 'after-runs']}>{title}</h1>
   {tagline && <p class="subtitle entry-sub">{tagline}</p>}
 
   {image && (

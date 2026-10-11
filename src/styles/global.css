@@ -655,3 +655,5 @@ h1.after-runs { margin-top: 0; }
 .wk-statuses .wk-status + .wk-status { margin-top: 1rem; }
 .wk-runs { margin-bottom: 1.5rem; } /* 261011: 24px between the facts block and the title */
 .wk-run + .wk-run { margin-top: 1.5rem; }
+/* Workshop titles are all capitals on the Workshops list and on workshop pages (designer, 261011); the text itself is unchanged */
+.entry-card.sched .entry-title, h1.wk-title { text-transform: uppercase; }
