@@ -71,6 +71,10 @@ const schedule = defineCollection({
     collaboration_url: z.string().optional(),
     language_note: z.string().optional(),
     language_note_it: z.string().optional(),
+    // application status chip (261011): shown only while the edition is upcoming; an Open edition turns Closed by itself after applications_close
+    status: z.enum(['pending', 'open', 'waitlist', 'closed']).optional(),
+    applications_open: z.coerce.date().optional(),  // Pending: when applications open (empty = TBA)
+    applications_close: z.coerce.date().optional(), // Open: the application deadline
     external_link: z.string().optional(),
     image: z.string().optional(), // thumbnail shown beside the entry on the Workshops page
     description: z.string().optional(), // short description shown under the title on the Workshops page

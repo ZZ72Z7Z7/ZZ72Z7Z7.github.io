@@ -543,3 +543,6 @@ the-pedagogy.md
 
 ### schedule: past-workshop taglines
 54 short taglines in `description_it` of the past schedule entries (source: `translations/it/schedule/_taglines.tsv`). Two were already Italian or mixed in the English and were handled by hand.
+
+### interface: application status chip (261011)
+Chip words: Prossimamente (Pending), Aperto, Lista d’attesa, Chiuso. Lines on the workshop page: "Candidature aperte dal 1 dicembre 2026", "Data di apertura delle candidature da definire", "Candidature entro il 30 ottobre 2026". All mine, in `src/i18n/ui.ts`; check that "Prossimamente" is the right word for Pending and that "candidature" matches the client's usage.

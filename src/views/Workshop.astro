@@ -11,6 +11,7 @@ import { md } from '../lib/md';
 import { isPale } from '../lib/pale';
 import { isTall } from '../lib/shape';
 import { isTallImage } from '../lib/imgsize';
+import { getStatus } from '../lib/status';
 import Lightbox from '../components/Lightbox.astro';
 import { t, pick, type Lang } from '../i18n/ui';
 interface Props { id: string; lang: Lang }
@@ -72,7 +73,6 @@ const place = (d: (typeof runs)[number]['data']) => [cityName(d.city, lang), d.r
 ---
 <Base title={title} lang={lang} path={`/workshops/${id}/`} section="workshops">
   <h1 class="title-tight">{title}</h1>
-  {tagline && <p class="subtitle entry-sub">{tagline}</p>}
 
   {upcoming.length > 0 && (
     <div class="wk-runs">
@@ -80,6 +80,12 @@ const place = (d: (typeof runs)[number]['data']) => [cityName(d.city, lang), d.r
         <div class="wk-run">
           <p class="wk-dates">{e.data.extra_dates ?? formatRange(e.data.start, e.data.end, lang)}</p>
           {place(e.data) && <p class="wk-place">{place(e.data)}</p>}
+          {getStatus(e.data, lang) && (
+            <div class="wk-status">
+              <p class={`status-chip status-${getStatus(e.data, lang)!.key}`}>{getStatus(e.data, lang)!.label}</p>
+              {getStatus(e.data, lang)!.note && <p class="status-note">{getStatus(e.data, lang)!.note}</p>}
+            </div>
+          )}
         </div>
       ))}
     </div>

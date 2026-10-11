@@ -618,3 +618,30 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 }
 /* phones and tablets (below 1024px): 30px above and below each entry on the Workshops, Events and Lectures lists (designer, 261009) */
 @media (max-width: 63.9375rem) { .entries > .entry-card.sched, .entries.lectures > .entry-card { padding-block: 30px; } }
+
+/* Application status chip (designer, 261011): capitals, square corners, white text. Pending grey, Open green, Waitlist blue, Closed black.
+   On the list the chip stands alone; on the workshop page the italic application line sits below it. */
+.status-chip { display: inline-block; margin: 0; padding: .3rem .85rem; color: #fff; font-size: var(--p3-size); font-weight: 600; line-height: 1.3; text-transform: uppercase; letter-spacing: .04em; background: var(--chip); }
+.status-pending { --chip: #5f5f5f; }
+.status-open { --chip: #1a6b2f; }
+.status-waitlist { --chip: #0b5cad; }
+.status-closed { --chip: #111; }
+.entry-card .status-chip { grid-area: chip; justify-self: start; margin-top: .6rem; }
+.wk-status { margin: .6rem 0 0; display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
+.status-note { margin: 0; font-size: var(--p2-size); font-style: italic; color: var(--muted); }
+.wk-run + .wk-run { margin-top: 1.5rem; }
+.wk-runs { margin-bottom: 1.75rem; }
+
+/* Workshops list entries: DETAILS is a solid red button (capitals, no arrow); stack order set here (designer, 261011).
+   Phones and tablets: title, dates, location, teacher line, chip, picture, tagline, button.
+   Desktop: picture left; title, dates, location, teacher line, chip, tagline (centred between chip and button), button at the bottom of the row. */
+.entry-card.sched { grid-template-areas: "title" "dates" "loc" "meta" "chip" "desc" "more"; }
+.entry-card.sched.has-thumb { grid-template-areas: "title" "dates" "loc" "meta" "chip" "thumb" "desc" "more"; }
+.entry-card.sched .entry-more { margin: 1rem 0 0; }
+.entry-card.sched .entry-more a { padding: .55rem 1.1rem; margin: 0; background: var(--red-text); color: #fff; font-size: var(--p2-size); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; }
+.entry-card.sched .entry-more a:hover, .entry-card.sched .entry-more a:focus-visible { background: #8a0000; text-decoration: none; }
+@media (min-width: 64rem) {
+  .entry-card.sched.has-thumb { grid-template-areas: "thumb title" "thumb dates" "thumb loc" "thumb meta" "thumb chip" "thumb desc" "thumb more"; grid-template-rows: auto auto auto auto auto 1fr auto; }
+  .entry-card.sched.has-thumb .entry-sub { align-self: center; margin: 0; padding: 1.25rem 0; }
+  .entry-card.sched .entry-more { margin: 0; }
+}

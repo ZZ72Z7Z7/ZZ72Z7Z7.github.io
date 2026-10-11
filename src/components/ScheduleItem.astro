@@ -4,6 +4,7 @@ import { getEntry } from 'astro:content';
 import { t, href, pick, type Lang } from '../i18n/ui';
 import { formatRange, cityName } from '../lib/dates';
 import { isPale } from '../lib/pale';
+import { getStatus } from '../lib/status';
 /** card: the Workshops-page layout (thumbnail, dates, place, title, short description, "More Info →"). */
 interface Props { entry: CollectionEntry<'schedule'>; lang: Lang; showTitle?: boolean; card?: boolean; noThumb?: boolean }
 const { entry, lang, showTitle = true, card = false, noThumb = false } = Astro.props;
@@ -20,6 +21,7 @@ const dates = extra ?? formatRange(d.start, d.end, lang);
 const place = [cityName(d.city, lang), d.region, d.country].filter(Boolean).join(', ');
 const venue = d.venue;
 const note = pick(d, 'language_note', lang).value;
+const status = getStatus(d, lang);
 const link = workshop ? href(`/workshops/${workshop.id}/`, lang) : d.external_link;
 ---
 <li class:list={[card && 'entry-card sched', card && image && 'has-thumb']}>
@@ -29,6 +31,7 @@ const link = workshop ? href(`/workshops/${workshop.id}/`, lang) : d.external_li
   {showTitle && title && (
     <p class="entry-title">{link ? <a href={link}>{title}</a> : title}</p>
   )}
+  {card && status && <p class={`status-chip status-${status.key}`}>{status.label}</p>}
   {card && image && <img class:list={['entry-thumb', pale && 'framed']} src={image} alt="" loading="lazy" />}
   </div>
   <div class="entry-right">
@@ -45,6 +48,6 @@ const link = workshop ? href(`/workshops/${workshop.id}/`, lang) : d.external_li
     </p>
   )}
   {!card && d.external_link && workshop && <p class="entry-meta"><a href={d.external_link}>{ui.moreInfo}</a></p>}
-  {card && link && <p class="entry-more"><a href={link}>{ui.moreInfo} →</a></p>}
+  {card && link && <p class="entry-more"><a href={link}>{ui.moreInfo}</a></p>}
   </div>
 </li>

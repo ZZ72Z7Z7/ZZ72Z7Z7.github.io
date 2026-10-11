@@ -1,0 +1,73 @@
+---
+// Design review page: application status badge (approach A, radius 20, blue waitlist). Local only, never published.
+import Base from '../layouts/Base.astro';
+const states = [
+  { key: 'pending', label: 'Pending', text: 'Applications open March 1', dates: 'June 8 - 13, 2027', place: 'Padova, Italy', title: 'The Language of Gestures' },
+  { key: 'pending', label: 'Pending', text: 'Application date TBA', dates: 'June 8 - 13, 2027', place: 'Padova, Italy', title: 'The Language of Gestures' },
+  { key: 'open', label: 'Open', text: 'Applications close April 30', dates: 'July 12 - 17, 2027', place: 'Boulder, Colorado, USA', title: 'Red Nose Intensive' },
+  { key: 'waitlist', label: 'Waitlist', text: 'Applications close April 30', dates: 'August 23 - 28, 2027', place: 'Melbourne, Victoria, Australia', title: 'The Tao of Clown' },
+  { key: 'closed', label: 'Closed', text: '', dates: 'October 4 - 9, 2027', place: 'Ljubljana, Slovenia', title: 'Bouffon Intensive' },
+];
+---
+<Base title="Application status demo" lang="en" path="/design/enrollment-status/" noindex wide>
+  <h1>Application status badge</h1>
+  <p>Demo only; nothing is applied to the site. Solid badge, white text, corners rounded 5px. Pending is grey, Open green, Waitlist blue, Closed red. Pending adds (in italics beside the badge) "Applications open" with the date or TBA; Open adds "Applications close" with the date. Colours on white text: grey <code>#5f5f5f</code> 6.4:1, green <code>#1a6b2f</code> 6.7:1, blue <code>#0b5cad</code> 6.6:1, red <code>#b20000</code> 7.3:1 (all above the 4.5:1 minimum).</p>
+
+  <h2>Workshops index</h2>
+  <p class="note">Beneath the tagline, above "Details →".</p>
+  <ul class="grid">
+    {states.map((s) => (
+      <li class="card">
+        <img src="/images/hero.jpg" alt="" class="thumb" />
+        <div class="txt">
+          <p class="dates">{s.dates}</p>
+          <p class="place">{s.place}</p>
+          <p class="ttl">{s.title}</p>
+          <p class="tag">A short tagline for the workshop</p>
+          <p class={`st-row st-${s.key}`}><span class="st">{s.label}</span>{s.text && <em class="st-note">{s.text}</em>}</p>
+          <p class="more"><a href="#">Details →</a></p>
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  <h2>Details page</h2>
+  <p class="note">Beneath the dates, above the location and image.</p>
+  <div class="grid">
+    {states.map((s) => (
+      <div class="detail">
+        <p class="d-title">{s.title}</p>
+        <p class="tag">A short tagline for the workshop</p>
+        <p class="dates">{s.dates}</p>
+        <p class={`st-row st-${s.key}`}><span class="st">{s.label}</span>{s.text && <em class="st-note">{s.text}</em>}</p>
+        <p class="place">{s.place}</p>
+        <img src="/images/hero.jpg" alt="" class="pic" />
+      </div>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .note { color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1.5rem; list-style: none; padding: 0; margin: 0 0 2rem; }
+  .card { display: grid; grid-template-columns: 40% 1fr; gap: 1rem; align-items: stretch; list-style: none; }
+  .txt { display: flex; flex-direction: column; align-items: flex-start; }
+  .thumb { width: 100%; aspect-ratio: 4/3; object-fit: cover; align-self: start; }
+  .pic { width: 100%; height: 7rem; object-fit: cover; margin-top: .6rem; }
+  .detail { border: 1px solid var(--line); padding: 1rem; }
+  p { margin: 0; }
+  .dates { font-weight: 700; font-size: var(--p2-size); }
+  .place { font-size: var(--p1-size); }
+  .ttl, .d-title { font-weight: 700; font-size: 1.25rem; margin: .15rem 0; }
+  .tag { font-style: italic; color: var(--muted); font-size: var(--p2-size); }
+  .more { margin-top: auto; padding-top: 1.5rem; }
+  .more a { display: inline-block; background: var(--red-text); color: #fff; text-decoration: none; padding: .55rem 1.1rem; font-size: var(--p2-size); font-weight: 600; }
+  .more a:hover { background: #8a0000; }
+  .st-row { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .6rem; margin: .6rem 0; }
+  .st { display: inline-block; padding: .3rem .85rem; border-radius: 5px; color: #fff; background: var(--c); font-size: var(--p3-size); font-weight: 600; line-height: 1.3; text-transform: uppercase; letter-spacing: .04em; }
+  .st-note { font-size: var(--p2-size); color: var(--muted); }
+  .st-pending { --c: #5f5f5f; }
+  .st-open { --c: #1a6b2f; }
+  .st-waitlist { --c: #0b5cad; }
+  .st-closed { --c: #b20000; }
+</style>

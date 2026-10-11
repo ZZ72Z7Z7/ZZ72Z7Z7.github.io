@@ -1,0 +1,107 @@
+---
+// Design review page: status chip + Details button (consolidated demo). Local only, never published.
+import Base from '../layouts/Base.astro';
+const states = [
+  { key: 'pending', label: 'Pending', text: 'Applications open March 1', dates: 'June 8 - 13, 2027', place: 'Padova, Italy', title: 'The Language of Gestures' },
+  { key: 'pending', label: 'Pending', text: 'Application date TBA', dates: 'June 8 - 13, 2027', place: 'Padova, Italy', title: 'The Language of Gestures' },
+  { key: 'open', label: 'Open', text: 'Applications close April 30', dates: 'July 12 - 17, 2027', place: 'Boulder, Colorado, USA', title: 'Red Nose Intensive' },
+  { key: 'waitlist', label: 'Waitlist', text: 'Applications close April 30', dates: 'August 23 - 28, 2027', place: 'Melbourne, Victoria, Australia', title: 'The Tao of Clown' },
+  { key: 'closed', label: 'Closed', text: '', dates: 'October 4 - 9, 2027', place: 'Ljubljana, Slovenia', title: 'Bouffon Intensive' },
+];
+---
+<Base title="Status chip demo" lang="en" path="/design/status-buttons/" noindex wide>
+  <h1>Status chip + Details button</h1>
+  <p>Demo only; nothing is applied to the site. Chips: capitals, white text; Pending grey, Open green, Waitlist blue, Closed black. On the index the chip stands alone; the italic application text appears only on the details page. The red DETAILS button is the same on every entry and sits at the bottom of the row.</p>
+
+  <h2>Index, desktop</h2>
+  <ul class="desk">
+    {states.map((s) => (
+      <li class="card">
+        <img src="/images/hero.jpg" alt="" class="thumb" />
+        <div class="txt">
+          <p class="ttl">{s.title}</p>
+          <p class="dates">{s.dates}</p>
+          <p class="place">{s.place}</p>
+          <p class={`st-row st-${s.key}`}><span class="st">{s.label}</span></p>
+          <p class="tag gap">A short tagline for the workshop</p>
+          <p class="acts"><a href="#" class="b">DETAILS</a></p>
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  <h2>Index, phone (375px)</h2>
+  <div class="phones">
+    {states.map((s) => (
+      <div class="phone">
+        <p class="ttl">{s.title}</p>
+        <p class="dates">{s.dates}</p>
+        <p class="place">{s.place}</p>
+        <p class={`st-row st-${s.key}`}><span class="st">{s.label}</span></p>
+        <img src="/images/hero.jpg" alt="" class="pic" />
+        <p class="tag">A short tagline for the workshop</p>
+        <p class="acts"><a href="#" class="b">DETAILS</a></p>
+      </div>
+    ))}
+  </div>
+
+  <h2>Details page, desktop</h2>
+  <div class="dgrid">
+    {states.map((s) => (
+      <div class="detail">
+        <p class="d-title">{s.title}</p>
+        <p class="tag">A short tagline for the workshop</p>
+        <p class="dates">{s.dates}</p>
+        <p class={`st-row st-${s.key}`}><span class="st">{s.label}</span>{s.text && <em class="st-note">{s.text}</em>}</p>
+        <p class="place">{s.place}</p>
+        <img src="/images/hero.jpg" alt="" class="wide" />
+      </div>
+    ))}
+  </div>
+
+  <h2>Details page, phone (375px)</h2>
+  <div class="phones">
+    {states.map((s) => (
+      <div class="phone">
+        <p class="d-title">{s.title}</p>
+        <p class="tag">A short tagline for the workshop</p>
+        <p class="dates">{s.dates}</p>
+        <p class={`st-row st-${s.key}`}><span class="st">{s.label}</span>{s.text && <em class="st-note">{s.text}</em>}</p>
+        <p class="place">{s.place}</p>
+        <img src="/images/hero.jpg" alt="" class="pic" />
+      </div>
+    ))}
+  </div>
+</Base>
+
+<style>
+  p { margin: 0; }
+  h2 { margin-top: 2.5rem; }
+  .desk { display: grid; grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr)); gap: 2rem 1.5rem; list-style: none; padding: 0; margin: 0; }
+  .card { display: grid; grid-template-columns: 40% 1fr; gap: 1rem; align-items: stretch; list-style: none; }
+  .txt { display: flex; flex-direction: column; align-items: flex-start; }
+  .thumb { width: 100%; aspect-ratio: 4/3; object-fit: cover; align-self: start; }
+  .phones { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+  .phone { width: 375px; max-width: 100%; border: 1px solid var(--line); padding: 20px; }
+  .dgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr)); gap: 1.5rem; }
+  .detail { border: 1px solid var(--line); padding: 1rem; }
+  .pic { width: 100%; aspect-ratio: 4/3; object-fit: cover; margin: .6rem 0; }
+  .wide { width: 100%; height: 8rem; object-fit: cover; margin-top: .6rem; }
+  .dates { font-weight: 700; font-size: var(--p2-size); }
+  .place { font-size: var(--p1-size); }
+  .ttl, .d-title { font-weight: 700; font-size: 1.5rem; margin: .15rem 0; }
+  .tag { font-style: italic; color: var(--muted); font-size: var(--p2-size); }
+  .card .st-row { margin-bottom: 0; }
+  .tag.gap { margin: auto 0; padding: 1.25rem 0; }
+  .st-pending { --c: #5f5f5f; }
+  .st-open { --c: #1a6b2f; }
+  .st-waitlist { --c: #0b5cad; }
+  .st-closed { --c: #111; }
+  .st-row { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .6rem; margin: .6rem 0; }
+  .st { display: inline-block; padding: .3rem .85rem; color: #fff; background: var(--c); font-size: var(--p3-size); font-weight: 600; line-height: 1.3; text-transform: uppercase; letter-spacing: .04em; }
+  .st-note { font-size: var(--p2-size); color: var(--muted); }
+  .acts { margin-top: 0; padding-top: 0; }
+  .phone .acts { margin-top: 0; padding-top: 1rem; }
+  .b { display: inline-block; padding: .55rem 1.1rem; font-size: var(--p2-size); font-weight: 600; letter-spacing: .04em; text-decoration: none; background: var(--red-text); color: #fff; }
+  .b:hover { background: #8a0000; }
+</style>
