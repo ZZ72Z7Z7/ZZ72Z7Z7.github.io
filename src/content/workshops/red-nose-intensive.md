@@ -79,83 +79,61 @@ program: |
   - Perspectives on how to continue the work.
 subtitle_it: "Il Clown Teatrale e l’Essenza della Comicità Fisica"
 body_it: |-
-  *Benvenuti alla Sublime Stupidità dei Clown* !\
-  *Unitevi a noi a Padova, luogo di nascita della Commedia dell’Arte*\
-  *per una nuova edizione di questa formazione fondamentale.*\
-  *Un viaggio dalla nascita del vostro clown unico*\
-  *alla messa in scena del suo mondo poetico.*\
-  *Venite a esplorare l’arte di giocare, ideare e dirigere*\
-  *nella pratica rigorosa del Clown Teatrale del Naso Rosso.*  
+  *Benvenuti alla Sublime Stupidità dei Clown* !
+
+  *Unitevi a noi a Padova, luogo di nascita della Commedia dell’Arte per una nuova edizione di questa formazione fondamentale.*
+
+  *Un viaggio dalla nascita del vostro clown unico alla messa in scena del suo mondo poetico.*
+
+  *Venite a esplorare l’arte di giocare, ideare e dirigere nella pratica rigorosa del Clown Teatrale del Naso Rosso.*
 
   Il clown è **poesia comica** : divertente e toccante, essenziale e rigorosa. È un tuffo nel mistero del riso.
 
-  Profondamente radicato nel teatro di movimento, questo workshop propone una formazione intensiva nel Clown Teatrale del Naso Rosso – un genere teatrale e poetico specifico. La pedagogia si concentra in particolare sull’analisi, l’amplificazione e il gioco del mondo fisico ed emotivo di ogni attore, così come lo rivela il suo corpo nello spazio. Questo **approccio somatico** condurrà alla scoperta di **un clown individuale unico,** con un corpo, un tempo, una voce, un costume, atteggiamenti, emozioni e un universo poetico specifici.  
+  Profondamente radicato nel teatro di movimento, questo workshop propone una formazione intensiva nel Clown Teatrale del Naso Rosso – un genere teatrale e poetico specifico. La pedagogia si concentra in particolare sull’analisi, l’amplificazione e il gioco del mondo fisico ed emotivo di ogni attore, così come lo rivela il suo corpo nello spazio. Questo **approccio somatico** condurrà alla scoperta di **un clown individuale unico,** con un corpo, un tempo, una voce, un costume, atteggiamenti, emozioni e un universo poetico specifici.
 
   <!--more-->
 
-  Il viaggio comincia con l’esplorazione e l’analisi del corpo nello spazio teatrale. In termini di movimento, nessun corpo è neutro – ogni corpo porta con sé temi profondamente espressivi, incarnati nel movimento quotidiano. Dentro il movimento e la presenza fisica di ogni persona c’è una trama di “atteggiamenti non neutri” e di “rumori di fondo” fisici ed emotivi.
+  Il viaggio comincia con l’esplorazione e l’analisi del corpo nello spazio teatrale. In termini di movimento, nessun corpo è neutro – ogni corpo porta con sé temi profondamente espressivi, incarnati nel movimento quotidiano. Dentro il movimento e la presenza fisica di ogni persona c’è una trama di “atteggiamenti non neutri” e di “rumori di fondo” fisici ed emotivi. Se un attore viene osservato con uno sguardo attento al movimento, usando come punto di riferimento lo Stato Neutro, questa trama appare come una struttura di schemi dinamici, o segni su un foglio bianco. Sono “drammatici” nel senso etimologico: contengono *un dramma* – un’azione. L’uso della **più piccola maschera del mondo**, il NASO ROSSO, e l’amplificazione e l’articolazione di questi schemi di movimento così personali, permette all’attore di entrare nello **Stato del Clown**.
 
-  Se un attore viene osservato con uno sguardo attento al movimento, usando come punto di riferimento lo Stato Neutro, questa trama appare come una struttura di schemi dinamici, o segni su un foglio bianco.
+  Prima di essere un personaggio, il clown è uno stato di gioco, in cui ciascuno ha accesso alla domanda chiave: ***che cosa c’è di così buffo in me ?*** Questo stato emerge da un tipo comico unico. Una maschera teatrale profondamente personale e universale allo stesso tempo. Scoprire il proprio clown significa rivelare il proprio personaggio comico unico e trasformarlo in una forma comica universale. Per l’artista di teatro come essere umano poetico, c’è qualcosa di fondamentale nella scoperta del proprio Clown individuale: è crudo, essenziale, personale, emotivo, unico, impegnativo, potenziante, rivelatore ed estremamente gratificante… Porta lo squisito piacere di toccare lo spazio vuoto della comicità completa.
 
-  Sono “drammatici” nel senso etimologico: contengono *un dramma* – un’azione.
+  Come territorio teatrale, il Clown ha un potenziale poetico unico perché permette all’interprete di esplorare e giocare con l’ingenuità e la vulnerabilità del bambino e con il rigore e la tecnica dell’adulto, rivelando così **la poesia del ridicolo**, e una forza poetica e una follia personali e uniche.
 
-  L’uso della **più piccola maschera del mondo**, il NASO ROSSO, e l’amplificazione e l’articolazione di questi schemi di movimento così personali, permette all’attore di entrare nello **Stato del Clown**.
+  Come viaggio personale è un modo estatico di entrare in contatto con la propria umanità unica, e di giocarci in uno spazio di apertura, vulnerabilità e divertimento poetico. **La sublime stupidità** dei clown è la loro apertura costante alla vita e al momento presente, nonostante la loro radicale imperfezione.
 
-  Prima di essere un personaggio, il clown è uno stato di gioco, in cui ciascuno ha accesso alla domanda chiave: ***che cosa c’è di così buffo in me ?***
+  *Ci sono tanti clown quanti sono gli esseri umani.*
 
-  Questo stato emerge da un tipo comico unico. Una maschera teatrale profondamente personale e universale allo stesso tempo.\
+  *C’è una sola linea retta e infiniti modi di vagare.*
+
+  *L’intelligenza è limitata.*
+
+  *La stupidità è infinita.*
+
   <br>
-  Scoprire il proprio clown significa rivelare il proprio personaggio comico unico e trasformarlo in una forma comica universale.\
-  <br>
-  Per l’artista di teatro come essere umano poetico, c’è qualcosa di fondamentale nella scoperta del proprio Clown individuale: è crudo, essenziale, personale, emotivo, unico, impegnativo, potenziante, rivelatore ed estremamente gratificante… Porta l’squisito piacere di toccare lo spazio vuoto della comicità completa.  
 
-  Come territorio teatrale, il Clown ha un potenziale poetico unico perché permette all’interprete di esplorare e giocare con l’ingenuità e la vulnerabilità del bambino e con il rigore e la tecnica dell’adulto, rivelando così **la poesia del ridicolo**, e una forza poetica e una follia personali e uniche.\
-  <br>
-  Come viaggio personale è un modo estatico di entrare in contatto con la propria umanità unica, e di giocarci in uno spazio di apertura, vulnerabilità e divertimento poetico.\
-  <br>
-  **La sublime stupidità** dei clown è la loro apertura costante alla vita e al momento presente, nonostante la loro radicale imperfezione.
+  **LA PEDAGOGIA**
 
-   *Ci sono tanti clown quanti sono gli esseri umani.*\
-  *C’è una sola linea retta e infiniti modi di vagare.*\
-  *L’intelligenza è limitata. La stupidità è infinita.*
-
-  **LA PEDAGOGIA**\
   **Un Approccio Somatico al Clown**
 
-  L’approccio pedagogico integra **la Pedagogia del teatro di movimento di Jacques Lecoq**  con diversi principi e pratiche di consapevolezza fisica ed emotiva. In particolare: la **Gestalt**, l’**Analisi Reichiana, la Bioenergetica**, il **Taoismo** e il **Process Work.** Il risultato è un lavoro artistico ed emotivo profondo, che coinvolge il corpo in una dinamica di gioco, formazione tecnica, consapevolezza e follia performativa.
+  L’approccio pedagogico integra **la Pedagogia del teatro di movimento di Jacques Lecoq** con diversi principi e pratiche di consapevolezza fisica ed emotiva. In particolare: la **Gestalt**, l’**Analisi Reichiana, la Bioenergetica**, il **Taoismo** e il **Process Work.** Il risultato è un lavoro artistico ed emotivo profondo, che coinvolge il corpo in una dinamica di gioco, formazione tecnica, consapevolezza e follia performativa.
 
-  Questo workshop è allo stesso tempo un **processo artistico** e **un processo personale.**\
-  <br>
-  Il **processo personale** all’interno della pedagogia si fonda sulla combinazione di tre principi fondamentali. I primi due provengono dal campo della bioenergetica, espressi per la prima volta in Occidente da Wilhelm Reich e poi esplorati da molti diversi approcci somatici.\
-  <br>
-  Il primo principio afferma che ***ciò che non viene espresso dal corpo resta impresso nel corpo sotto forma di una struttura, o di un “carattere”.***\
-  <br>
-  Il secondo principio afferma che ***l’espressione di tutte le emozioni porta fluidità (flusso) al corpo e questa fluidità porta piacere fisico.***
+  Questo workshop è allo stesso tempo un **processo artistico** e **un processo personale.** Il **processo personale** all’interno della pedagogia si fonda sulla combinazione di tre principi fondamentali. I primi due provengono dal campo della bioenergetica, espressi per la prima volta in Occidente da Wilhelm Reich e poi esplorati da molti diversi approcci somatici:
 
-  Il gioco è una forma particolare di espressione e di trasposizione delle emozioni impresse nel corpo, e un ingrediente fondamentale del gioco *(le jeu)* è il piacere.
+  - Il primo principio afferma che ***ciò che non viene espresso dal corpo resta impresso nel corpo sotto forma di una struttura, o di un “carattere”.***
+  - Il secondo principio afferma che ***l’espressione di tutte le emozioni porta fluidità (flusso) al corpo e questa fluidità porta piacere fisico.*** Il gioco è una forma particolare di espressione e di trasposizione delle emozioni impresse nel corpo, e un ingrediente fondamentale del gioco *(le jeu)* è il piacere.
+  - Il terzo principio riguarda la natura archetipica del teatro come rituale di connessione ed esplorazione dei diversi aspetti della natura umana: ***le parti di noi stessi che non giochiamo, giocheranno noi.***
 
-  Il terzo principio riguarda la natura archetipica del teatro come rituale di connessione ed esplorazione dei diversi aspetti della natura umana: ***le parti di noi stessi che non giochiamo, giocheranno noi.***
+  Come modo per entrare in contatto con le diverse parti del sé e integrarle, viste come un processo, il teatro diventa un potente spazio di conoscenza, consapevolezza ed empowerment personale e collettivo. Attraverso il dispiegarsi giocoso degli schemi emotivi e delle energie impresse nel corpo apparirà un clown, e giocando questa forma con il sostegno rigoroso della tecnica teatrale emergerà un mondo poetico unico, insieme a un processo fondamentale di evoluzione personale. E un divertimento profondo.
 
-  Come modo per entrare in contatto con le diverse parti del sé e integrarle, viste come un processo, il teatro diventa un potente spazio di conoscenza, consapevolezza ed empowerment personale e collettivo. Attraverso il dispiegarsi giocoso degli schemi emotivi e delle energie impresse nel corpo apparirà un clown, e giocando questa forma con il sostegno rigoroso della tecnica teatrale emergerà un mondo poetico unico, insieme a un processo fondamentale di evoluzione personale. E un divertimento profondo.\
-  <br>
   La Via (***Tao***) del clown porta intuizioni potenti e altamente poetiche, che il pubblico testimonia e celebra con il riso, e genera la gioia estatica di essere ciò che siamo in un’esperienza poetica unica di abbandono di ogni intenzione ***(Wu-Wei)***.
 
   **AMMISSIONE**
 
-  Lo scopo di questo corso è offrire ai partecipanti strumenti teatrali professionali e una consapevolezza emotiva e poetica, per giocare e creare all’interno del proprio mondo clown.
+  Lo scopo di questo corso è offrire ai partecipanti strumenti teatrali professionali e una consapevolezza emotiva e poetica, per giocare e creare all’interno del proprio mondo clown. È rivolto a persone con precedenti esperienze di performance (teatro, circo, danza, musica, ecc.) che sentono una forte urgenza poetica di stare in scena, e un forte desiderio di creare arte a partire da uno spazio di ingenuità, apertura emotiva e vulnerabilità. È una formazione basata sulla generosità, il gioco, la co-creazione e l’impegno a trasformare in gioco la propria umanità più autentica. Richiede ai partecipanti una curiosità forte e audace verso la scoperta di sé attraverso il potere curativo dell’umorismo. E un impegno feroce a portare questa scoperta al pubblico in forme teatrali, attraverso la pratica rigorosa della tecnica teatrale nel linguaggio della Comicità Fisica.
 
-  È rivolto a persone con precedenti esperienze di performance (teatro, circo, danza, musica, ecc.) che sentono una forte urgenza poetica di stare in scena, e un forte desiderio di creare arte a partire da uno spazio di ingenuità, apertura emotiva e vulnerabilità.\
-  <br>
-  È una formazione basata sulla generosità, il gioco, la co-creazione e l’impegno a trasformare in gioco la propria umanità più autentica. Richiede ai partecipanti una curiosità forte e audace verso la scoperta di sé attraverso il potere curativo dell’umorismo. E un impegno feroce a portare questa scoperta al pubblico in forme teatrali, attraverso la pratica rigorosa della tecnica teatrale nel linguaggio della Comicità Fisica.\
-  <br>
-  Il lavoro emotivo sarà intenso ed estatico: il corpo rivelerà ciò che ha bisogno di vivere ed esprimere, in una dinamica di amplificazione, gioco, abbandono, intuizioni e trasposizione teatrale. Ombre, archetipi, sintomi fisici, processi del corpo-sogno appariranno e verranno accolti nello spazio alchemico della scena. Tutto nutrirà la sublime poesia umana di ciascun clown.\
-  <br>
-  Se vi interessa solo l’aspetto tecnico/teatrale del clown e della comicità fisica, questo potrebbe non essere il lavoro che cercate.
+  Il lavoro emotivo sarà intenso ed estatico: il corpo rivelerà ciò che ha bisogno di vivere ed esprimere, in una dinamica di amplificazione, gioco, abbandono, intuizioni e trasposizione teatrale. Ombre, archetipi, sintomi fisici, processi del corpo-sogno appariranno e verranno accolti nello spazio alchemico della scena. Tutto nutrirà la sublime poesia umana di ciascun clown. Se vi interessa solo l’aspetto tecnico/teatrale del clown e della comicità fisica, questo potrebbe non essere il lavoro che cercate.\
+  D’altra parte, se vi interessa solo il potere terapeutico o curativo del clown, potreste trovare frustrante il rigore del processo artistico. Se volete entrambi… affrettatevi e iscrivetevi ora ! Non volete perdere questa opportunità !
 
-  D’altra parte, se vi interessa solo il potere terapeutico o curativo del clown, potreste trovare frustrante il rigore del processo artistico.
-
-  Se volete entrambi… affrettatevi e iscrivetevi ora ! Non volete perdere questa opportunità !\
-  <br>
   Leggete **[il documento allegato](/wp-content/uploads/2026/05/the-red-nose-padova-2026.pdf)** di Giovanni, così come la [**BIO**](/giovanni-fusetti/) di Giovanni e la pagina [**LE RADICI**,](/the-roots/) per saperne di più sugli ingredienti del suo approccio al clown e al teatro.
 program_it: |-
   ### Settimana 1: LO “STATO” DEL CLOWN
@@ -175,7 +153,7 @@ program_it: |-
   - La relazione tra clown: gerarchia, padroni e servi, livelli di stupidità
   - Gli Archetipi del Clown da Circo: Augusto, Clown Bianco, Monsieur Loyal
   - La Voce del Clown
-  - Numeri clown e l*e bide (fiasco)*
+  - Numeri clown e *le bide (fiasco)*
   - Spazio e tempo ritmici: entrata, crescendo, sviluppo dei temi, culmine e uscita
   - Le abilità dell’attore al servizio del clown: giocare con la musica, il canto, l’acrobatica, la giocoleria, la danza e abilità insolite o uniche.
 
@@ -193,7 +171,7 @@ program_it: |-
   - Feedback sulla performance e rielaborazione per una seconda e una terza replica.
   - Feedback sull’intero processo e celebrazione finale dei clown e del loro mondo.
   - Prospettive su come proseguire il lavoro.
-image_caption_it: "*Padova, Red Nose Intensive – 202*4"
+image_caption_it: "*Padova, Red Nose Intensive – 2024*"
 translation: "draft"
 ---
 

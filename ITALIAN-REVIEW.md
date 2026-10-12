@@ -553,3 +553,11 @@ Chip words: Prossimamente (Coming soon, the Pending status), Aperto, Lista d’a
 - Dates written “19 - 24 ottobre 2026”; prices written with a comma (€600,00), at the designer’s word.
 - “Early Bird” and “Full Price” kept in English as standing terms; “rules of engagement” = “regole di ingaggio”; “AI” kept.
 - The Italian Travel & Accommodations text was not changed.
+
+## Added 261012: Red Nose Intensive, re-drafted after the designer's English rewrite
+**workshops/red-nose-intensive.md and schedule/2026-11-01-red-nose-intensive.md** (Description, Program caption fix, Schedule & Location, Travel & Accommodations, Tuition, Application). New Italian draft by Claude, not reviewed by a person; the language and travel texts are unchanged.
+- “(Sliding Scale)” rendered “(Scala mobile)”, as elsewhere; “HERE” = “QUI”; “lodging” = “alloggio”; “outside funding or grants” = “finanziamenti o borse esterni”.
+- The English still says ADMISSION, so the Italian keeps AMMISSIONE (Gestures uses REQUIREMENTS / REQUISITI).
+- Fixed my earlier slip “l’squisito” to “lo squisito”; “Numeri clown e *le bide (fiasco)*” italics corrected as in the English.
+- Sentences the designer dropped from the English are also gone from the Italian (“Giovanni selezionerà gli studenti…”, the “Per ulteriori informazioni…” contact lines).
+- Source typos left in the English (“depending of many factors”, “final.celebration”) are carried over in meaning, not copied.
