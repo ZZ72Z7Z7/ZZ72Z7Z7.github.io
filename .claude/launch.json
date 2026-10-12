@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site",
+      "runtimeExecutable": "/Users/jzk/Desktop/CLAUDE/GIOVANNI FUSETTI/BUILDS/.tools/node/bin/node",
+      "runtimeArgs": [
+        "/Users/jzk/Desktop/CLAUDE/GIOVANNI FUSETTI/BUILDS/GIOVANNI_261012/node_modules/astro/bin/astro.mjs",
+        "dev",
+        "--root",
+        "/Users/jzk/Desktop/CLAUDE/GIOVANNI FUSETTI/BUILDS/GIOVANNI_261012",
+        "--port",
+        "4321",
+        "--force"
+      ],
+      "port": 4321
+    }
+  ]
+}

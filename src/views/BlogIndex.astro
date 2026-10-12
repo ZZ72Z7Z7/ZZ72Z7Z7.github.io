@@ -30,7 +30,7 @@ const firstParagraph = (p: (typeof posts)[number]) => {
     {posts.map((p) => (
       <li>
         <p class="post-meta"><time datetime={isoDate(p.data.date)}>{formatLongDate(p.data.date, lang)}</time> · {ui.categories[p.data.category]}</p>
-        <a class="post-title" href={href(postPath(p), lang)}>{pick(p.data, 'title', lang).value}</a>
+        <h2 class="post-heading"><a class="post-title" href={href(postPath(p), lang)}>{pick(p.data, 'title', lang).value}</a></h2>
         {(() => { const ex = firstParagraph(p); return <p class:list={['post-excerpt', ex.includes('\n') && 'verse']}>{ex}</p>; })()}
       </li>
     ))}

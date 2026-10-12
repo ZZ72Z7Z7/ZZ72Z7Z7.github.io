@@ -27,7 +27,7 @@ const empty = await getPage('workshops-empty', lang);
     {archive.map(([year, items]) => (
       <details class="year-acc">
         <summary><h3 class="year-title">{year}</h3></summary>
-        <ul class="entries">{items.map((e) => <ScheduleItem entry={e} lang={lang} card noThumb />)}</ul>
+        <ul class="entries">{items.map((e) => <ScheduleItem entry={e} lang={lang} card noThumb level={4} />)}</ul>
       </details>
     ))}
   </div>

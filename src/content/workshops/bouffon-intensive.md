@@ -73,17 +73,17 @@ subtitle_it: |-
   Un viaggio nel mondo dei Bouffon e del Teatro Grottesco
   dall’emergere dello Stato del Bouffon all’ideazione e alla performance
 body_it: |-
-  *Benvenuti a una nuova edizione del Bouffon Intensive*  
+  *Benvenuti a una nuova edizione del Bouffon Intensive*\
   <br>
-  *Una corsa selvaggia nel mondo del teatro della derisione e del grottesco*  
+  *Una corsa selvaggia nel mondo del teatro della derisione e del grottesco*\
   <br>
-  *Un appello radicale per chiunque desideri sviluppare la propria mente e il proprio corpo satirici*  
-  *e nutrire il proprio mondo poetico*  
-  *con l’irresistibile follia*  
-  *dell’estasi della derisione  
+  *Un appello radicale per chiunque desideri sviluppare la propria mente e il proprio corpo satirici*\
+  *e nutrire il proprio mondo poetico*\
+  *con l’irresistibile follia*\
+  *dell’estasi della derisione\
   <br>
-  I Bouffon ronzano di giubilo  
-  pronti a deridere l’esquisita insania della razza umana*  
+  I Bouffon ronzano di giubilo\
+  pronti a deridere l’esquisita insania della razza umana*\
   <br>
   *È Tempo di Tempi Satirici !*
 
@@ -91,11 +91,11 @@ body_it: |-
 
   **CHI SONO I BOUFFON?**
 
-  La parola ***Bouffon*** deriva da un verbo latino: *buffare, soffiare*, gonfiare le guance d’aria, deformarsi, gonfiarsi per provocare il riso. Sembra essere una pratica umana antichissima. In effetti, i bouffon sono discendenti diretti dei **Satiri** del Dramma Satiresco dell’Antica Grecia, il cui compito era bilanciare lo Spazio Tragico attraverso la derisione e il gioco grottesco. La parola “Bouffons” in sé viene dal francese ed è entrata nel linguaggio teatrale inglese attraverso il lavoro di **Jacques Lecoq**.   
+  La parola ***Bouffon*** deriva da un verbo latino: *buffare, soffiare*, gonfiare le guance d’aria, deformarsi, gonfiarsi per provocare il riso. Sembra essere una pratica umana antichissima. In effetti, i bouffon sono discendenti diretti dei **Satiri** del Dramma Satiresco dell’Antica Grecia, il cui compito era bilanciare lo Spazio Tragico attraverso la derisione e il gioco grottesco. La parola “Bouffons” in sé viene dal francese ed è entrata nel linguaggio teatrale inglese attraverso il lavoro di **Jacques Lecoq**.\
   <br>
-  L’essenza del Bouffon sta nella **dinamica della DERISIONE.** Il DERISORE è un ruolo specifico, presente in tutte le società umane. I Bouffon rappresentano elementi della loro società in modo amplificato, distorto o esagerato, provocando così risate e indignazione. La loro Derisione non ha un’agenda in sé, perché i Bouffon non hanno opinioni e non proteggono nessuna parte dalla loro derisione. Deridono semplicemente tutto e tutti. Il loro scopo è divertirsi giocando a essere umani e per questo usano tutto ciò che trovano, con ferocia estatica e giubilo. Questo è il loro potere: vedono e giocano con tutto, si nutrono delle dinamiche umane per giocarci.  
+  L’essenza del Bouffon sta nella **dinamica della DERISIONE.** Il DERISORE è un ruolo specifico, presente in tutte le società umane. I Bouffon rappresentano elementi della loro società in modo amplificato, distorto o esagerato, provocando così risate e indignazione. La loro Derisione non ha un’agenda in sé, perché i Bouffon non hanno opinioni e non proteggono nessuna parte dalla loro derisione. Deridono semplicemente tutto e tutti. Il loro scopo è divertirsi giocando a essere umani e per questo usano tutto ciò che trovano, con ferocia estatica e giubilo. Questo è il loro potere: vedono e giocano con tutto, si nutrono delle dinamiche umane per giocarci.\
   <br>
-  I Bouffon non toccano mai temi individuali o privati, affrontano invece grandi dinamiche e ruoli collettivi –  che coinvolgono la complessità sociale e la vera essenza della società e della cultura. Politica, religione, economia, potere, denaro e finanza, morale, guerra e militari, scienza,  genere e razza, ecologia, famiglia, educazione e scuola, istituzioni culturali…  
+  I Bouffon non toccano mai temi individuali o privati, affrontano invece grandi dinamiche e ruoli collettivi –  che coinvolgono la complessità sociale e la vera essenza della società e della cultura. Politica, religione, economia, potere, denaro e finanza, morale, guerra e militari, scienza,  genere e razza, ecologia, famiglia, educazione e scuola, istituzioni culturali…\
   <br>
   Se i Bouffon non hanno un’agenda dietro la loro derisione ma solo l’estasi del gioco, gli artisti che stanno dietro di loro ce l’hanno. La satira è un modo molto potente di affrontare questioni sociali e politiche. A volte è l’unico genere teatrale in grado di contenere pienamente i paradossi selvaggi, spesso grotteschi e tragici, del comportamento umano individuale e collettivo.
 
@@ -103,8 +103,8 @@ body_it: |-
 
   Tutti nel pubblico vengono scombussolati da un pezzo di Bouffon, che può essere spesso un po’ difficile o persino insopportabile. Non sono i Bouffon a essere insopportabili ma la verità che rivelano sull’umanità, ciò che è nascosto, ciò che sta sotto, dall’altra parte, il **grottesco** della società umana (grottesco viene dal greco *cryptos* =  nascosto). 
 
-  *Il pubblico ride del Clown.  
-  Il Bouffon ride del pubblico.*  
+  *Il pubblico ride del Clown.\
+  Il Bouffon ride del pubblico.*\
   Jacques Lecoq
 
   **AMMISSIONE**
@@ -152,17 +152,17 @@ program_it: |-
 translation: "draft"
 ---
 
-*Welcome to a new edition of the Bouffon Intensive*  
+*Welcome to a new edition of the Bouffon Intensive*\
 <br>
-*A wild ride in the world of mocking and grotesque theatre*  
+*A wild ride in the world of mocking and grotesque theatre*\
 <br>
-*A radical call for anyone who wishes to develop their satirical mind and body*  
-*and feed their poetic world*  
-*with the irresistible folly*  
-*of the ecstasy of mocking  
+*A radical call for anyone who wishes to develop their satirical mind and body*\
+*and feed their poetic world*\
+*with the irresistible folly*\
+*of the ecstasy of mocking\
 <br>
-The Bouffons are buzzing with jubilation  
-ready to mock the exquisite insanity of human race*  
+The Bouffons are buzzing with jubilation\
+ready to mock the exquisite insanity of human race*\
 <br>
 *It’s Time for Satyric Timing !*
 
@@ -172,9 +172,9 @@ ready to mock the exquisite insanity of human race*
 
 The word ***Bouffon*** comes from a latin verb: *buffare, to puff*, to fill the cheeks with air, to deform oneself, to swell in  order to provoke laughter. It appears to be a very old human practice. In fact, bouffons are direct descendants of the **Satyrs** from Ancient Greek Satyric Drama, whose task was to balance the Tragic Space through mockery and grotesque play. The actual word “Bouffons” comes from French and it entered English theatrical language through the work of **Jacques Lecoq**.   
 <br>
-The essence of the Bouffon is in **the dynamic of MOCKING.** The MOCKER is a specific role, existing in all human societies. Bouffons represent elements of their society in an amplified, distorted or exaggerated way, thereby provoking laughter and outrage. Their Mockery doesn’t have an agenda in itself, because the Bouffons don’t have opinions, and they don’t protect any side from their mocking. They just mock everything and everybody. Their purpose is to have fun playing at being humans and therefore they use everything they find, with  ferocious ecstasy and jubilation. This is their power: they see and play with everything, they feed on human dynamics in order to play with it.  
+The essence of the Bouffon is in **the dynamic of MOCKING.** The MOCKER is a specific role, existing in all human societies. Bouffons represent elements of their society in an amplified, distorted or exaggerated way, thereby provoking laughter and outrage. Their Mockery doesn’t have an agenda in itself, because the Bouffons don’t have opinions, and they don’t protect any side from their mocking. They just mock everything and everybody. Their purpose is to have fun playing at being humans and therefore they use everything they find, with  ferocious ecstasy and jubilation. This is their power: they see and play with everything, they feed on human dynamics in order to play with it.\
 <br>
-Bouffons never touch on individual or private themes, instead they take on big collective dynamics and roles –  involving the social complexity and  the very essence of society and culture. Politics, religion, economy, power, money and finances, morality, war and the military, science,  gender and race, ecology, family, education and school, cultural institutions…  
+Bouffons never touch on individual or private themes, instead they take on big collective dynamics and roles –  involving the social complexity and  the very essence of society and culture. Politics, religion, economy, power, money and finances, morality, war and the military, science,  gender and race, ecology, family, education and school, cultural institutions…\
 <br>
 If the Bouffons don’t have an agenda behind their mockery but just the ecstasy of play, the artists behind them do. Satire is a very powerful way to address societal and political issues. Sometimes it is the only theatrical genre who can fully hold the wild and often grotesque and tragic paradoxes of the individual and collective human behavior.
 
@@ -182,8 +182,8 @@ For Bouffon work to be possible, we need to be very well and precisely informed 
 
 Everybody in the audience gets scrambled by a Bouffon piece, which can be often a bit difficult and or even unbearable. It’s not the  Bouffons who are unbearable but the truth that they reveal about  humanity, what is hidden, what lies underneath, on the other side, the **grotesque** of human society (grotesque comes from greek *cryptos* =  hidden). 
 
-*The audience laughs at the Clown.  
-The Bouffon laughs at the audience.*  
+*The audience laughs at the Clown.\
+The Bouffon laughs at the audience.*\
 Jacques Lecoq
 
 **ADMISSION**

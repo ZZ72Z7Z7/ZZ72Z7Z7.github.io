@@ -5,8 +5,9 @@ import { formatDay, formatRange, cityName } from '../lib/dates';
 import { formatTime } from '../lib/content';
 import { imageSize } from '../lib/imgsize';
 /** card: the Events-page layout, same as the Workshops cards (thumbnail left, text right); "Details →" opens the event's own page. */
-interface Props { entry: CollectionEntry<'events'>; lang: Lang }
-const { entry, lang } = Astro.props;
+interface Props { entry: CollectionEntry<'events'>; lang: Lang; level?: 2 | 3 }
+const { entry, lang, level = 2 } = Astro.props;
+const Heading = `h${level}`;
 const ui = t(lang);
 const d = entry.data;
 const title = pick(d, 'title', lang).value!;
@@ -21,7 +22,7 @@ const place = [cityName(d.city, lang), d.country].filter(Boolean).join(', ');
   <div class="entry-left">
     <p class="entry-dates">{when}{time && ` · ${time}`}</p>
     {(place || d.venue) && <p class="entry-place">{[place, d.venue].filter(Boolean).join(' · ')}</p>}
-    <p class="entry-title"><a href={link}>{title}</a></p>
+    <Heading class="entry-title"><a href={link}>{title}</a></Heading>
     {d.image && <img class="entry-thumb" src={d.image} alt="" width={size?.w} height={size?.h} loading="lazy" />}
   </div>
   <div class="entry-right">

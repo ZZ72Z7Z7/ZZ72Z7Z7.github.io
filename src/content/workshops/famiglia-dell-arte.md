@@ -17,12 +17,12 @@ gallery:
     caption: "(5)"
     caption_it: "(5)"
 credits: |
-  ***PHOTO CREDITS***  
+  ***PHOTO CREDITS***\
   <br>
-  Picture n.1: Joan Miró***, Surrealist family with star*** (1970)  
-  Picture n.2: Joan Miró, ***Painting*** (1933)  
-  Picture n.3: Joan Miró, ***Woman and bird at night*** (1947)  
-  Picture n.4: Joan Miró, ***Woman dreaming of escape*** (1945)  
+  Picture n.1: Joan Miró***, Surrealist family with star*** (1970)\
+  Picture n.2: Joan Miró, ***Painting*** (1933)\
+  Picture n.3: Joan Miró, ***Woman and bird at night*** (1947)\
+  Picture n.4: Joan Miró, ***Woman dreaming of escape*** (1945)\
   Picture n.5: Joan Miró, ***Personnages et oiseau dans la nuit*** (1944)
 subtitle_it: |-
   Esplorare storie, ruoli, dinamiche, schemi e copioni di famiglia
@@ -30,17 +30,17 @@ subtitle_it: |-
 body_it: |-
   **UN GIOCOSO VIAGGIO DI SVILUPPO PERSONALE**
 
-  Benvenuti in un gruppo di sviluppo personale giocoso e fortemente esperienziale, in cui l’*Approccio Psicodrammatico* e il *Teatro Fisico* danzeranno insieme per offrire un’esperienza unica di consapevolezza emotiva e di spontaneità incarnata.  
+  Benvenuti in un gruppo di sviluppo personale giocoso e fortemente esperienziale, in cui l’*Approccio Psicodrammatico* e il *Teatro Fisico* danzeranno insieme per offrire un’esperienza unica di consapevolezza emotiva e di spontaneità incarnata.\
   <br>
   Il focus del gruppo sarà l’esplorazione della Famiglia come campo di ruoli, dinamiche e schemi relazionali.
 
   <!--more-->
 
-  La famiglia d’origine è il terreno fondante del nostro sviluppo psicologico, un campo di dispiegamento ancestrale in cui spesso troviamo l’origine di molti dei nostri schemi psicologici di fondo. La famiglia, nella sua inevitabile intensità intima, è un campo di grande potenza e di grandi paradossi: amore e ferita, nutrimento e offesa, sostegno e conflitti, appartenenza e individuazione. Emozioni di ogni genere scorrono sotto il tetto di famiglia e la profonda natura creativa di questa meravigliosa configurazione umana danza sempre con la possibilità di grandi crepacuori. Può offrire risorse e sostegno per tutta la vita, oppure delusioni senza fine e dolorose accettazioni, così come la possibilità di guarigione, riparazione e trasformazione.  
+  La famiglia d’origine è il terreno fondante del nostro sviluppo psicologico, un campo di dispiegamento ancestrale in cui spesso troviamo l’origine di molti dei nostri schemi psicologici di fondo. La famiglia, nella sua inevitabile intensità intima, è un campo di grande potenza e di grandi paradossi: amore e ferita, nutrimento e offesa, sostegno e conflitti, appartenenza e individuazione. Emozioni di ogni genere scorrono sotto il tetto di famiglia e la profonda natura creativa di questa meravigliosa configurazione umana danza sempre con la possibilità di grandi crepacuori. Può offrire risorse e sostegno per tutta la vita, oppure delusioni senza fine e dolorose accettazioni, così come la possibilità di guarigione, riparazione e trasformazione.\
   <br>
-  Una famiglia nasce da individui con personalità specifiche e dà vita e nutrimento ad altre personalità, profondamente intrecciate e intessute le une con le altre. A volte in una riproduzione fedelissima, a volte in feroce opposizione, molto spesso in entrambe.  
+  Una famiglia nasce da individui con personalità specifiche e dà vita e nutrimento ad altre personalità, profondamente intrecciate e intessute le une con le altre. A volte in una riproduzione fedelissima, a volte in feroce opposizione, molto spesso in entrambe.\
   <br>
-  Una famiglia è anche una micro manifestazione della società, in cui sono in gioco culture, valori e ruoli archetipici specifici. E sullo sfondo c’è la storia del mondo con i suoi eventi collettivi, e il profondo mistero e lo stupore della condizione umana. La storia di ogni singola famiglia è un frammento della storia della famiglia umana!  
+  Una famiglia è anche una micro manifestazione della società, in cui sono in gioco culture, valori e ruoli archetipici specifici. E sullo sfondo c’è la storia del mondo con i suoi eventi collettivi, e il profondo mistero e lo stupore della condizione umana. La storia di ogni singola famiglia è un frammento della storia della famiglia umana!\
   <br>
   Il workshop propone un viaggio per esplorare come le dinamiche familiari si manifestano nella vita di un individuo. La famiglia d’origine, la famiglia attuale, la famiglia futura che una persona può desiderare di creare.
 
@@ -69,7 +69,7 @@ body_it: |-
 
   Se venite dal campo delle arti teatrali, potete aspettarvi di praticare un processo terapeutico costantemente alimentato dalle dinamiche e dalle tecniche del teatro fisico e del gioco incarnato.
 
-  Se venite dal campo psicologico, potete aspettarvi di esplorare processi emotivi e ferite attraverso giochi ed esercizi teatrali e la creazione di personaggi, in una pratica di movimento collettivo, in improvvisazione e all’interno di una rievocazione psicodrammatica.  
+  Se venite dal campo psicologico, potete aspettarvi di esplorare processi emotivi e ferite attraverso giochi ed esercizi teatrali e la creazione di personaggi, in una pratica di movimento collettivo, in improvvisazione e all’interno di una rievocazione psicodrammatica.\
   <br>
   Sono richiesti una curiosità feroce e giocosa per la follia e la bellezza umane, e un impegno appassionato nell’esplorare in modo artistico la propria vita emotiva.
 
@@ -97,29 +97,29 @@ body_it: |-
 
   Per ulteriori informazioni su Giovanni visitate la pagina della **[BIOGRAFIA](/giovanni-fusetti/)** di questo sito.
 credits_it: |-
-  ***CREDITI FOTOGRAFICI***  
+  ***CREDITI FOTOGRAFICI***\
   <br>
-  Immagine n.1: Joan Miró***, Surrealist family with star*** (1970)  
-  Immagine n.2: Joan Miró, ***Painting*** (1933)  
-  Immagine n.3: Joan Miró, ***Woman and bird at night*** (1947)  
-  Immagine n.4: Joan Miró, ***Woman dreaming of escape*** (1945)  
+  Immagine n.1: Joan Miró***, Surrealist family with star*** (1970)\
+  Immagine n.2: Joan Miró, ***Painting*** (1933)\
+  Immagine n.3: Joan Miró, ***Woman and bird at night*** (1947)\
+  Immagine n.4: Joan Miró, ***Woman dreaming of escape*** (1945)\
   Immagine n.5: Joan Miró, ***Personnages et oiseau dans la nuit*** (1944)
 translation: "draft"
 ---
 
 **A PLAYFUL JOURNEY OF PERSONAL DEVELOPMENT**
 
-Welcome to a highly experiential and playful group of personal development in which the *Psychodrama Approach* and *Physical Theatre* will dance together to provide a unique experience of emotional awareness and embodied spontaneity.  
+Welcome to a highly experiential and playful group of personal development in which the *Psychodrama Approach* and *Physical Theatre* will dance together to provide a unique experience of emotional awareness and embodied spontaneity.\
 <br>
 The focus of the group will be on the exploration of the Family as a field of roles, dynamics and relational patterns.
 
 <!--more-->
 
-The Family of origin is the founding ground of our psychological development, a field of ancestral unfolding in which we often find the origin of many of our core psychological patterns. The family, in its inevitable intimate intensity, is a field of great power and great paradoxes: love and hurt, nurturing and wounding, support and conflicts, belonging and individuation. Emotions of all kinds flow under the family roof and the deep creative nature of this wonderful human configuration always dances with the potential for great heartbreaks. It can provide lifelong resources and support or endless disappointments and painful acceptance, as well as the possibility of healing, reparation and transformation.  
+The Family of origin is the founding ground of our psychological development, a field of ancestral unfolding in which we often find the origin of many of our core psychological patterns. The family, in its inevitable intimate intensity, is a field of great power and great paradoxes: love and hurt, nurturing and wounding, support and conflicts, belonging and individuation. Emotions of all kinds flow under the family roof and the deep creative nature of this wonderful human configuration always dances with the potential for great heartbreaks. It can provide lifelong resources and support or endless disappointments and painful acceptance, as well as the possibility of healing, reparation and transformation.\
 <br>
-A family is started by individuals with specific personalities and gives birth and nurtures other personalities, deeply entangled and intertwined with each other. Sometimes in very faithful reproduction, sometimes in fierce opposition, very often in both.  
+A family is started by individuals with specific personalities and gives birth and nurtures other personalities, deeply entangled and intertwined with each other. Sometimes in very faithful reproduction, sometimes in fierce opposition, very often in both.\
 <br>
-A family is also a micro manifestation of the society, in which specific cultures, values, and archetypal roles are in play. And in the background there is the world history with its collective events, and the deep mystery and awe of human condition. The story of each individual family is a piece of the story of the human family!  
+A family is also a micro manifestation of the society, in which specific cultures, values, and archetypal roles are in play. And in the background there is the world history with its collective events, and the deep mystery and awe of human condition. The story of each individual family is a piece of the story of the human family!\
 <br>
 The workshop proposes a journey exploring how the family dynamics manifest in the life of an individual. The family of origin, the current family, the future family that a person can wish to create.
 
@@ -148,7 +148,7 @@ This workshop is specifically designed for anyone interested in exploring their 
 
 If you are coming from the field of theatre arts, you can expect to practice a therapeutic process constantly fed by the dynamics and techniques of physical theatre and embodied play.
 
-If you are coming from the psychological field you can expect to explore emotional processes and wounds through theatrical games and exercises and the creation of characters, in collective movement practice,improvisation and within a psychodramatic re-enactment.  
+If you are coming from the psychological field you can expect to explore emotional processes and wounds through theatrical games and exercises and the creation of characters, in collective movement practice,improvisation and within a psychodramatic re-enactment.\
 <br>
 A fierce and playful curiosity about human folly and beauty is required, as well as a passionate engagement to the exploration of one’s own emotional life in an artistic way.
 

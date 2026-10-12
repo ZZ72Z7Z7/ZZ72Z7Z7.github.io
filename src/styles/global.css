@@ -155,7 +155,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
     grid-template-areas: "thumb dates" "thumb loc" "thumb title" "thumb meta" "thumb desc" "thumb more"; grid-template-rows: auto auto auto auto auto 1fr; }
   .entry-card.has-thumb .entry-thumb { margin: 0; grid-row: 1 / -1; }
 }
-.entry-title { font-size: var(--h3-size); font-weight: 700; margin: .25rem 0 0; }
+.entry-title { font-size: var(--h3-size); font-weight: 700; line-height: inherit; margin: .25rem 0 0; } /* a heading in the page code, a paragraph to the eye (designer, 261012) */
 .entry-title a { text-decoration: none; }
 .entry-title a:hover { text-decoration: underline; }
 .entry-sub { margin: 0; white-space: pre-line; }
@@ -190,6 +190,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
 .post-list { list-style: none; padding: 0; margin: 0; }
 .post-list li { padding: 1.5rem 0; border-top: 1px solid var(--line); }
 .post-list li:last-child { border-bottom: 1px solid var(--line); }
+.post-list .post-heading { margin: 0; font-size: inherit; line-height: inherit; font-weight: inherit; } /* a heading in the page code only; the link inside carries the look */
 .post-list .post-meta { margin: 0; color: var(--muted); font-size: var(--p2-size); }
 .post-list .post-title { display: inline-block; margin-top: .25rem; font-size: var(--h3-size); font-weight: 700; line-height: 1.25; text-decoration: none; }
 .post-list .post-title:hover { text-decoration: underline; }
@@ -430,8 +431,10 @@ h1 + .subtitle.entry-sub { font-size: var(--p2-size); font-style: italic; } /* t
 .wk-slideshow .wk-credits { margin-top: 1.25rem; }
 .wk-acc .acc-body li { line-height: 1.4; }
 .wk-acc .prose ul:not(.entries):not(.post-list):not(.cats) > li::before { top: calc((1lh - 1.22em) / 2 + .64em - .25rem); } /* centres the dot on the text of the first line (Figtree: ascent .94em, descent .28em, middle of the lowercase letters about .3em above the baseline) */
-.wk-program .prose h3 { margin-top: 32px; margin-bottom: 16px; } /* Week subheadings are H3: one more line of space above each, after the previous week's list (designer, 261010) */
-.wk-program .acc-body .prose > h3:first-child { margin-top: 1.8rem; } /* one more line between PROGRAM and Week 1 */
+.wk-program { margin-top: 2.5rem; } /* the Program is a subsection of the Description, just before ADMISSION (designer, 261012) */
+.wk-program-title { margin: 0 0 var(--space-p); text-transform: uppercase; } /* one paragraph gap under the PROGRAM heading (designer, 261012) */
+.wk-program .prose h4 { font-size: var(--h3-size); line-height: 1.25; margin: 32px 0 16px; } /* Week subheadings keep the H3 look (they are h4 in the code, under the Program's h3): one more line of space above each, after the previous week's list (designer, 261010) */
+.wk-program .prose > h4:first-child { margin-top: 1.8rem; } /* one more line between PROGRAM and Week 1 */
 .wk-acc .acc-body li + li { margin-top: 10px; } /* bullets on workshop pages (the Program first, then every list in a section): tighter lines inside a point (1.4), gap between points kept at the earlier look (designer, 261010) */
 .wk-language { margin-top: 1.5rem; }
 .wk-language .wk-dates { margin-top: 0; }
@@ -635,6 +638,7 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 @media (min-width: 64rem) {
   .entries > .entry-card.sched { min-height: 400px; box-sizing: border-box; align-content: start; grid-template-rows: repeat(7, auto) 1fr; grid-template-areas: "dates" "loc" "chip" "title" "meta" "desc" "more" "."; }
   .entries > .entry-card.sched.has-thumb { grid-template-areas: "thumb dates" "thumb loc" "thumb chip" "thumb title" "thumb meta" "thumb desc" "thumb more" "thumb ."; }
+  .year-acc .entries > .entry-card.sched { min-height: 0; padding-block: 24px; } /* past workshops have no picture: compact rows, 24px as on the other text-only lists (designer, 261012; Events keep 400px) */
   .entry-card.sched.has-thumb .entry-thumb { max-height: 300px; align-self: center; } /* the picture is always vertically centred in its row */
   .entry-card.sched .entry-more { margin: 0; padding-top: 1.25rem; }
 }

@@ -6,8 +6,9 @@ import { formatRange, cityName } from '../lib/dates';
 import { getStatus } from '../lib/status';
 import { imageSize } from '../lib/imgsize';
 /** card: the Workshops-page layout (thumbnail, dates, place, title, short description, "More Info →"). */
-interface Props { entry: CollectionEntry<'schedule'>; lang: Lang; showTitle?: boolean; card?: boolean; noThumb?: boolean }
-const { entry, lang, showTitle = true, card = false, noThumb = false } = Astro.props;
+interface Props { entry: CollectionEntry<'schedule'>; lang: Lang; showTitle?: boolean; card?: boolean; noThumb?: boolean; level?: 2 | 3 | 4 }
+const { entry, lang, showTitle = true, card = false, noThumb = false, level = 2 } = Astro.props;
+const Heading = `h${level}`; // the title is a heading one level below its list's heading, so screen readers can jump from title to title
 const ui = t(lang);
 const d = entry.data;
 const workshop = d.workshop ? await getEntry(d.workshop) : undefined;
@@ -29,7 +30,7 @@ const link = workshop ? href(`/workshops/${workshop.id}/`, lang) : d.external_li
   <p class="entry-dates">{dates}</p>
   {(place || venue) && <p class="entry-place">{[place, venue].filter(Boolean).join(' · ')}</p>}
   {showTitle && title && (
-    <p class="entry-title">{link ? <a href={link}>{title}</a> : title}</p>
+    <Heading class="entry-title">{link ? <a href={link}>{title}</a> : title}</Heading>
   )}
   {(d.taught_with || d.collaboration_name || note) && (
     <p class="entry-meta">

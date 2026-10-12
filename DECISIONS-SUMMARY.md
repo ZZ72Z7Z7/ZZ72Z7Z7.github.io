@@ -41,6 +41,14 @@
 - **Italian:** a full draft by Claude is merged and marked as a draft; it needs human review (`ITALIAN-REVIEW.md`).
 - **Typos fixed:** Bioenergetics, Troisième, Internationale, $20.00, Giovanni, Flu, Brunswick, Aldrovandi and others.
 
+## Added 12 October 2026
+- Workshops list: no Apply button on the list rows; "Open" plus DETAILS is enough. Past workshop rows are compact (no 400px minimum); Events keep 400px.
+- All list titles are real headings in the page code (no visual change).
+- Workshop page sections: Description (with the Program as a subsection just before ADMISSION / REQUIREMENTS), Schedule & Location, Travel & Accommodations, Tuition, Application; the Gallery sits outside the accordion. Application stays last.
+- Italian prices use a comma (€600,00). English prices keep the point.
+- Texts rewritten from the designer's pasted wording: The Language of Gestures (English and a new Italian draft) and Red Nose Intensive (English only; its Italian is out of date).
+- Rule: no text is changed, added or removed without a specific request; changes wait for approval when they affect several pages.
+
 ## On hold until the client has reviewed the design
 The editor and its four forms, Web3Forms and Mailchimp wiring, the 70 redirects and final checks, the client handover note, and launch.
 

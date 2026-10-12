@@ -546,3 +546,10 @@ the-pedagogy.md
 
 ### interface: application status chip (261011)
 Chip words: Prossimamente (Coming soon, the Pending status), Aperto, Lista d’attesa, Chiuso. Lines on the workshop page: "Candidature aperte dal 1 dicembre 2026", "Data di apertura delle candidature da definire", "Candidature entro il 30 ottobre 2026". All mine, in `src/i18n/ui.ts`; check that "Prossimamente" is the right word for Pending and that "candidature" matches the client's usage.
+
+## Added 261012: The Language of Gestures, re-drafted after the designer's English rewrite
+**workshops/language-of-gestures.md and schedule/2026-10-19-the-language-of-gestures.md** (Description, Program, REQUISITI, Schedule & Location, Tuition, Application). New Italian draft by Claude, not reviewed by a person.
+- “REQUIREMENTS” = “REQUISITI”; the language line now closes the requirements without its own LINGUA label.
+- Dates written “19 - 24 ottobre 2026”; prices written with a comma (€600,00), at the designer’s word.
+- “Early Bird” and “Full Price” kept in English as standing terms; “rules of engagement” = “regole di ingaggio”; “AI” kept.
+- The Italian Travel & Accommodations text was not changed.

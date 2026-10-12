@@ -1,7 +1,7 @@
 ---
 // The standard individual workshop page (designer, 261009):
 //   title, tagline, dates, location (city, state/province, country), primary image, then the sections
-//   Description, Program (where there is one), Schedule, Location, Tuition, Application (each written per edition, in its schedule entry) and Gallery.
+//   Description (the Program, where there is one, is a subsection just before ADMISSION (or REQUIREMENTS)), Schedule & Location, Travel & Accommodations, Tuition, Application (each written per edition, in its schedule entry) and Gallery (the gallery is not part of the accordion).
 //   On desktop every section is open on load; on phones and tablets (below 1024px) each section is an accordion row (all closed until selected).
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
@@ -32,11 +32,10 @@ const [html, htmlMore] = md(source).split(/<!--\s*more\s*-->/);
 const sectioned = upcoming.length > 0;
 const accSections = sections_for();
 function sections_for() {
-  // four separate sections, each written per edition
+  // four sections, each written per edition (designer, 261012: Schedule and Location are one section)
   const groups = [
-    { heading: ui.locationHeading, keys: ['location_details'] },
-    { heading: ui.scheduleHeading, keys: ['schedule'] },
-    { heading: ui.travelAccommodationsHeading, keys: ['travel', 'accommodation'] },
+    { heading: ui.scheduleLocationHeading, keys: ['schedule', 'location_details'] },
+    { heading: ui.travelAccommodationsHeading, keys: ['accommodation', 'travel'] },
     { heading: ui.tuitionHeading, keys: ['tuition'] },
     { heading: ui.applicationsHeading, keys: ['applications'] },
   ];
@@ -58,7 +57,16 @@ const languageItems = upcoming.map((e) => {
   const text = (lang === 'it' && d.language_it?.trim() ? d.language_it : d.language) as string | undefined;
   return text?.trim() ? { dates: e.data.extra_dates ?? formatRange(e.data.start, e.data.end, lang), html: md(text) } : undefined;
 }).filter(Boolean) as { dates: string; html: string }[];
-const programHtml = md(lang === 'it' && w.program_it?.trim() ? w.program_it : w.program);
+const programHtml = md(lang === 'it' && w.program_it?.trim() ? w.program_it : w.program).replace(/<(\/?)h3/g, '<$1h4'); // the Program is a subsection (h3) of the Description, so its week headings drop to h4
+// The Program goes into the Description just before the ADMISSION paragraph (at the end if a text has none).
+const programBlock = programHtml.trim() ? `<section class="wk-program"><h3 class="wk-program-title">${ui.programHeading}</h3><div class="prose">${programHtml}</div></section>` : '';
+const admission = /<p>\s*<(?:strong|b)>\s*(?:ADMISSION|AMMISSIONE|REQUIREMENTS|REQUISITI)\b/i;
+const insertProgram = (h: string | undefined) => (h && programBlock && admission.test(h) ? h.replace(admission, (m) => programBlock + m) : h);
+const programInHtml = !!programBlock && admission.test(html ?? '');
+const programInMore = !!programBlock && !programInHtml && admission.test(htmlMore ?? '');
+const descHtml = insertProgram(html) ?? '';
+const descMore = insertProgram(htmlMore);
+const programAtEnd = !!programBlock && !programInHtml && !programInMore; // no ADMISSION line: the Program closes the Description
 const image = w.image ?? upcoming.find((r) => r.data.image)?.data.image;
 const imageTall = !!image && isTallImage(image);
 const tall = new Set((await Promise.all((w.gallery ?? []).map(async (g) => ((await isTall(g.src)) ? g.src : '')))).filter(Boolean));
@@ -108,11 +116,11 @@ const place = (d: (typeof runs)[number]['data']) => [cityName(d.city, lang), d.r
           <summary><h2 class="acc-title">{ui.descriptionHeading}</h2></summary>
           <div class="acc-body">
             {fallback && <p class="notice" lang={lang}>{ui.englishNotice}</p>}
-            <div class="prose" set:html={html} />
+            <div class="prose" set:html={descHtml} />
             {htmlMore?.trim() && (
               <details class="read-more">
                 <summary><span class="rm-more">{ui.readMore}</span><span class="rm-less">{ui.readLess}</span></summary>
-                <div class="prose" set:html={htmlMore} />
+                <div class="prose" set:html={descMore} />
                 {languageItems.map((it) => (
                   <div class="wk-language">
                     {languageItems.length > 1 && <p class="wk-dates">{it.dates}</p>}
@@ -127,13 +135,8 @@ const place = (d: (typeof runs)[number]['data']) => [cityName(d.city, lang), d.r
                 <div class="prose" set:html={it.html} />
               </div>
             ))}
+            {programAtEnd && <div set:html={programBlock} />}
           </div>
-        </details>
-      )}
-      {programHtml && (
-        <details class="acc wk-acc wk-program" open lang={fallback ? 'en' : undefined}>
-          <summary><h2 class="acc-title">{ui.programHeading}</h2></summary>
-          <div class="acc-body"><div class="prose" set:html={programHtml} /></div>
         </details>
       )}
       <div class="wk-panel">
