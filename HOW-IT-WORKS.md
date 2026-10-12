@@ -28,7 +28,7 @@ day at 03:30 UTC, so entries move to "past" by themselves. To test another date:
 `SITE_TODAY=2026-08-01 npm run build`.
 
 ## Application status
-Each upcoming workshop edition (a file in `src/content/schedule/`) can show a status chip. Add `status:` (`pending`, `open`, `waitlist` or `closed`) and, if wanted, `applications_open: 2027-03-01` (Pending) or `applications_close: 2027-04-30` (Open). The site writes the wording itself in both languages. A Pending edition with an opening date turns Open on that date; after the close date an Open edition shows Closed automatically; after the workshop's own dates the chip goes away. With no `status` there is no chip.
+Each upcoming workshop edition (a file in `src/content/schedule/`) can show a status chip. Add `status:` (`pending` (shown as "Coming soon"), `open`, `waitlist` or `closed`) and, if wanted, `applications_open: 2027-03-01` (Pending) or `applications_close: 2027-04-30` (Open). The site writes the wording itself in both languages. A Pending edition with an opening date turns Open on that date; after the close date an Open edition shows Closed automatically; after the workshop's own dates the chip goes away. With no `status` there is no chip.
 
 ## Publishing
 Push from GitHub Desktop. GitHub then builds the site and publishes it on GitHub Pages

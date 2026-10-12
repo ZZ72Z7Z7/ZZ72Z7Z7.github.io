@@ -1,0 +1,69 @@
+---
+// Design review page: all four status chips with the real list and workshop-page markup. Local only, never published.
+import Base from '../layouts/Base.astro';
+const states = [
+  { key: 'open', label: 'Open', note: 'Applications close April 30, 2027', dates: 'July 12 - 17, 2027', place: 'Boulder, Colorado, USA', title: 'Red Nose Intensive', tag: 'Theatrical Clown and the Essence of Physical Comedy' },
+  { key: 'pending', label: 'Coming soon', note: 'Applications open March 1, 2027', dates: 'June 8 - 13, 2027', place: 'Padova, Italy', title: 'The Language of Gestures', tag: 'From Pantomime to Bandes Mimées' },
+  { key: 'waitlist', label: 'Waitlist', note: '', dates: 'August 23 - 28, 2027', place: 'Melbourne, Victoria, Australia', title: 'The Tao of Clown', tag: 'A journey into the heart of the clown' },
+  { key: 'closed', label: 'Closed', note: '', dates: 'October 4 - 9, 2027', place: 'Ljubljana, Slovenia', title: 'Bouffon Intensive', tag: 'A journey into the world of Bouffons and Grotesque Theatre' },
+];
+---
+<Base title="Status states demo" lang="en" path="/design/status-states/" noindex wide>
+  <h1 class="center-title">All four chip states</h1>
+  <p class="st-note-top">Demo with sample data, using the real list and workshop-page styling. Nothing is applied. Pending also shows "Application date TBA" when there is no opening date.</p>
+  <p class="st-toggle">Open chip: <button type="button" data-open="blue" aria-pressed="true">Blue (current)</button> <button type="button" data-open="green" aria-pressed="false">Green</button> <span id="st-contrast"></span></p>
+  <h2 class="st-h">Workshops list</h2>
+  <ul class="entries">
+    {states.map((s) => (
+      <li class="entry-card sched has-thumb">
+        <div class="entry-left">
+          <p class="entry-dates">{s.dates}</p>
+          <p class="entry-place">{s.place}</p>
+          <p class="entry-title"><a href="#">{s.title}</a></p>
+          <p class={`status-chip status-${s.key}`}>{s.label}</p>
+          <img class="entry-thumb" src="/images/hero.jpg" alt="" width="1600" height="1067" />
+        </div>
+        <div class="entry-right">
+          <p class="entry-sub">{s.tag}</p>
+          <p class="entry-more"><a href="#">Details</a></p>
+        </div>
+      </li>
+    ))}
+  </ul>
+  <h2 class="st-h">Workshop page (top of page)</h2>
+  <div class="st-pages">
+    {states.map((s) => (
+      <div class="st-page">
+        <div class="wk-runs"><div class="wk-run">
+          <p class="wk-dates">{s.dates}</p>
+          <p class="wk-place">{s.place}</p>
+          <div class="wk-status"><p class={`status-chip status-${s.key}`}>{s.label}</p>{s.note && <p class="status-note">{s.note}</p>}</div>
+        </div></div>
+        <h1 class="title-tight wk-title after-runs">{s.title}</h1>
+        <p class="subtitle entry-sub">{s.tag}</p>
+      </div>
+    ))}
+  </div>
+</Base>
+<script>
+  const root = document.documentElement;
+  document.querySelectorAll<HTMLButtonElement>('.st-toggle button').forEach((b) => b.addEventListener('click', () => {
+    root.dataset.openColour = b.dataset.open;
+    document.querySelectorAll('.st-toggle button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    const el = document.getElementById('st-contrast');
+    if (el) el.textContent = b.dataset.open === 'green' ? 'Green #1a6b2f: white text 6.7:1' : 'Blue #0b5cad: white text 6.6:1';
+  }));
+</script>
+
+<style is:global>
+  html[data-open-colour='blue'] .status-open { --chip: #0b5cad; }
+  .st-toggle { text-align: center; font-size: var(--p2-size); }
+  .st-toggle button { font: inherit; padding: .3rem .8rem; border: 1px solid #111; background: #fff; color: #111; cursor: pointer; }
+  .st-toggle button[aria-pressed='true'] { background: #111; color: #fff; }
+  #st-contrast { color: var(--muted); margin-left: .75rem; }
+  .st-note-top { text-align: center; color: var(--muted); font-size: var(--p3-size); margin: -1.5rem auto 1.5rem; max-width: 44rem; }
+  .st-h { text-align: center; margin: 2rem 0 1rem; }
+  .st-pages { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 2rem; }
+  .st-page { border: 1px solid var(--line); padding: 1.25rem; }
+  .st-page h1 { font-size: 1.75rem; }
+</style>
