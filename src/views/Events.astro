@@ -11,15 +11,15 @@ const { upcoming, past } = await getEvents();
 const note = await getPage('events-note', lang);
 ---
 <Base title={ui.menu.events} lang={lang} path="/events/" section="events" wide>
-  <h1 id="upcoming" class="center-title">{ui.upcomingEvents}</h1>
+  <h1 id="upcoming" class="center-title index-title">{ui.upcomingEvents}</h1>
   {upcoming.length ? (
     <ul class="entries">{upcoming.map((e) => <EventCard entry={e} lang={lang} />)}</ul>
   ) : (
-    <div class="center-text empty-list"><Text source={note.entry.body} lang={lang} fallback={note.fallback} notice={false} /></div>
+    <div class="center-text empty-list no-rule"><Text source={note.entry.body} lang={lang} fallback={note.fallback} notice={false} /></div>
   )}
 
   <section class="past-band">
-  <h2 id="past" class="page-title center-title">{ui.pastEvents}</h2>
+  <h2 id="past" class="page-title center-title index-title">{ui.pastEvents}</h2>
   <ul class="entries">{past.map((e) => <EventCard entry={e} lang={lang} level={3} />)}</ul>
   </section>
 </Base>

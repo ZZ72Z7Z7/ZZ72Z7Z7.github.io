@@ -24,7 +24,7 @@ const firstParagraph = (p: (typeof posts)[number]) => {
 ---
 <Base title={ui.menu.blog} lang={lang} path="/blog/" section="blog">
   <TopBanner banner={banners.blog} slot="hero" />
-  <h1 class="center-title">{ui.menu.blog}</h1>
+  <h1 class="center-title index-title">{ui.menu.blog}</h1>
   <Text source={intro.entry.body} lang={lang} fallback={intro.fallback} notice={false} />
   <ul class="post-list">
     {posts.map((p) => (

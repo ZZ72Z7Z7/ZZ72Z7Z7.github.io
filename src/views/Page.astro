@@ -41,7 +41,7 @@ const banner = banners[id];
     </section>
   ) : (
     <>
-      <h1 class={isAbout || untitled ? 'visually-hidden' : 'center-title'}>{entry.data.title}</h1>
+      <h1 class={isAbout || untitled ? 'visually-hidden' : ['writings', 'lectures', 'shows'].includes(id) ? 'center-title index-title' : 'center-title'}>{entry.data.title}</h1>
       <div class={isAbout ? 'about-section' : untitled ? 'untitled-top' : undefined}>
         <Text source={source} lang={lang} fallback={fallback} />
       </div>

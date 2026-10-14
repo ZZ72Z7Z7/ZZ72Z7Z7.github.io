@@ -1,0 +1,59 @@
+---
+// Design review page: red site header designs. Local only, never built.
+// Each frame loads the real Workshops page at desktop width and injects the option's CSS into it.
+import Base from '../layouts/Base.astro';
+const onRed = `
+.site-header .brand, .site-header .brand-name, .site-header .site-nav a, .site-header .sub-toggle, .site-header .lang-toggle, .site-header .lang-toggle * { color: #fff !important; }
+.site-header .site-nav a[aria-current], .site-header .sub-toggle.current { text-decoration: underline 2px; text-underline-offset: .45em; }
+.site-header .lang-toggle svg { filter: brightness(0) invert(1); }
+.site-header .bars, .site-header .bars::before, .site-header .bars::after { background: #fff !important; }
+.site-header .brand-logo { filter: brightness(0) invert(1); }
+`;
+const options = [
+  { id: 'now', name: 'Now · white header', text: 'For comparison.', css: '' },
+  { id: '1', name: '1 · Dark red header, white spiral', text: 'The whole header is the dark red of the titles and buttons (#b20000); logo, name, menu and globe turn white; the current page is underlined. White on this red is 7:1, comfortable for the small menu text.', css: '.site-header { background: #b20000; }' + onRed },
+  { id: '2', name: '2 · Logo-red header, white spiral', text: 'The brighter red sampled from the spiral (#f00800). Livelier and closer to the logo, but white on it is only 4:1: fine for the name, weak for the small menu text.', css: '.site-header { background: #f00800; }' + onRed },
+  { id: '3', name: '3 · Dark red header, red spiral on a white disc', text: 'Dark red header with white text; the spiral keeps its own red colours on a white round badge, so the logo stays recognisable.', css: '.site-header { background: #b20000; }' + onRed + '.site-header .brand-logo { filter: none; background: #fff; border-radius: 50%; padding: 5px; box-sizing: content-box; }' },
+  { id: '4', name: '4 · Deep red header, white spiral', text: 'A darker, more serious red (#8a0000, the button hover colour). 10:1 contrast; the calmest of the full red headers.', css: '.site-header { background: #8a0000; }' + onRed },
+  { id: '5', name: '5 · White header with a red strip above', text: 'Header stays white with the red spiral; a thin dark-red strip (10px) runs across the very top of every page. The quietest way to bring red into the header.', css: '.site-header { border-top: 10px solid #b20000; }' },
+  { id: '6', name: '6 · White header, red base line', text: 'Header stays white; a 4px dark-red line runs along its bottom edge.', css: '.site-header { border-bottom: 4px solid #b20000; }' },
+  { id: '7', name: '7 · White header, thin logo-red line (1px)', text: 'Header stays white; a 1px bright logo-red line (#f00800), the same thickness as the earlier grey line, runs along its bottom edge. Full window width.', css: '.site-header { border-bottom: 1px solid #f00800; }' },
+  { id: '8', name: '8 · Same line, text column width', text: 'The 1px logo-red line stops at the left and right edge of the text column (the same edges as the logo and the list below) instead of running to the window edges.', css: '.site-header .wrap { position: relative; } .site-header .wrap::after { content: ""; position: absolute; left: var(--gutter); right: var(--gutter); bottom: 0; height: 1px; background: #f00800; }' },
+];
+---
+<Base title="Red header review" lang="en" path="/design/header-red/" noindex wide>
+  <h1>Red site header</h1>
+  <p>Each frame shows the real Workshops page at desktop width with the option applied (scaled to fit). Nothing here is applied to the site.</p>
+  <p><strong>Recommendation:</strong> <strong>1</strong> for a full red header (best contrast, matches titles and buttons); <strong>5</strong> if you want only a hint of red. One thing to decide with 1 to 4: the home page and the banners sit flush under the header, so a red header will meet the photos directly.</p>
+  {options.map((o) => (
+    <section class="hr-var">
+      <h2>{o.name}</h2>
+      <p>{o.text}</p>
+      <div class="hr-wrap"><iframe class="hr-frame" src="/workshops/" title={o.name} data-css={o.css} loading="eager"></iframe></div>
+    </section>
+  ))}
+</Base>
+<style is:global>
+  .hr-var { margin: 2.5rem 0; }
+  .hr-wrap { margin-top: 1rem; border: 1px dashed #bbb; overflow: hidden; }
+  .hr-frame { width: 1100px; height: 420px; border: 0; display: block; transform-origin: 0 0; }
+</style>
+<script>
+  const fit = () => document.querySelectorAll<HTMLElement>('.hr-wrap').forEach((w) => {
+    const f = w.querySelector<HTMLElement>('.hr-frame')!;
+    const k = Math.min(1, (w.clientWidth) / 1100);
+    f.style.transform = `scale(${k})`;
+    w.style.height = `${420 * k}px`;
+  });
+  fit();
+  addEventListener('resize', fit);
+  document.querySelectorAll<HTMLIFrameElement>('.hr-frame').forEach((f) => {
+    f.addEventListener('load', () => {
+      const css = f.dataset.css, doc = f.contentDocument;
+      if (!css || !doc) return;
+      const s = doc.createElement('style');
+      s.textContent = css;
+      doc.head.appendChild(s);
+    });
+  });
+</script>

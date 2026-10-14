@@ -1,0 +1,89 @@
+---
+// Design review page: ways to treat the page title on the index pages. Local only, never built.
+import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import { getSchedule } from '../lib/content';
+import { formatRange } from '../lib/dates';
+import { pick } from '../i18n/ui';
+const { upcoming } = await getSchedule();
+const rows = (await Promise.all(upcoming.slice(0, 3).map(async (e) => {
+  const d = e.data;
+  const w = d.workshop ? await getEntry(d.workshop) : undefined;
+  return {
+    dates: d.extra_dates ?? formatRange(d.start, d.end, 'en'),
+    place: [d.city, d.region, d.country].filter(Boolean).join(', '),
+    title: w ? pick(w.data, 'title', 'en').value : d.title,
+    image: d.image ?? w?.data.image,
+    sub: w ? pick(w.data, 'subtitle', 'en').value : '',
+  };
+}))).filter((r) => r.image);
+const writings = [
+  ['The Pedagogy of the Poetic Body', 'A dialogue between Suzy Willson and Giovanni Fusetti (2000)'],
+  ['The Art of Clowning: on the use of clown in the world', 'Giovanni Fusetti, interviewed by Matty Miller, 2006.'],
+  ['The Paradox of Physical Theatre', 'Unpublished article (2007)'],
+];
+const options = [
+  { id: 't0', name: 'Now · centred, red capitals', text: 'The current treatment, for comparison.', note: '' },
+  { id: 't1', name: '1 · Aligned with the content', text: 'The title moves to the left and lines up with the picture and text inside the shaded rows. Title and list share one edge.', note: '' },
+  { id: 't2', name: '2 · Title and rule as one header', text: 'Left-aligned, with a thin red rule across the full list width directly beneath; the first row starts right under the rule, so the title belongs to the list.', note: '' },
+  { id: 't3', name: '3 · Header with a note on the right', text: 'As 2, with a small grey note at the right end (here a made-up "3 workshops" count; in the real site it would be a count or the mailing-list link, extra wording you have not asked for).', note: '3 workshops' },
+  { id: 't4', name: '4 · Smaller and quieter', text: 'Left-aligned, 32px (H2 size) with a little letter spacing, so it reads as a label rather than a shout. Shown with a thin grey rule.', note: '' },
+  { id: 't5', name: '5 · Black title, short red bar', text: 'The title is black; the only red is a short bar under it. Left-aligned, no full-width rule.', note: '' },
+  { id: 't6', name: 'Recommended · 1 + 2 + 4 together', text: 'Left-aligned to the content, 32px with letter spacing, red title, thin red rule across the list width, list directly beneath.', note: '' },
+];
+---
+<Base title="Title treatments review" lang="en" path="/design/title-treatments/" noindex wide>
+  <h1>Page title treatments</h1>
+  <p>Each mockup uses the real Workshops list (zebra as now) and a short Writings list. Only the title area differs. Nothing here is applied to the site.</p>
+
+  {options.map((o) => (
+    <section class="tt-var">
+      <h2>{o.name}</h2>
+      <p>{o.text}</p>
+      <div class={`tt-frame ${o.id}`}>
+        <div class="tt-head"><span class="tt-title">Upcoming Workshops</span>{o.note && <span class="tt-note">{o.note}</span>}</div>
+        <ul class="entries">
+          {rows.slice(0, 2).map((r) => (
+            <li class="entry-card has-thumb">
+              <div class="entry-left"><h3 class="entry-title">{r.title}</h3><img class="entry-thumb" src={r.image} alt="" loading="lazy" /></div>
+              <div class="entry-right"><p class="entry-dates">{r.dates}</p><p class="entry-place">{r.place}</p>{r.sub && <p class="entry-sub">{r.sub}</p>}</div>
+            </li>
+          ))}
+        </ul>
+        <div class="tt-head tt-head2"><span class="tt-title">Writings</span></div>
+        <ul class="entries compact">
+          {writings.map(([t, s]) => (
+            <li class="entry-card"><h3 class="entry-title">{t}</h3><p class="entry-sub">{s}</p></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+</Base>
+
+<style is:global>
+  .tt-var { margin: 3rem 0; }
+  .tt-frame { border: 1px dashed #bbb; padding: 1.5rem; margin-top: 1rem; }
+  .tt-frame .entries { margin: 0; }
+  .tt-head { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 40px; }
+  .tt-head2 { margin-top: 3rem; }
+  .tt-title { font-size: var(--h1-size); font-weight: 700; line-height: 1.25; text-transform: uppercase; color: var(--red-text); }
+  .tt-note { font-size: var(--p2-size); color: var(--muted); }
+
+  .t0 .tt-head { justify-content: center; }
+
+  .t1 .tt-head, .t2 .tt-head, .t3 .tt-head, .t4 .tt-head, .t5 .tt-head, .t6 .tt-head { padding-inline: 1rem; }
+  @media (min-width: 64rem) { .t1 .tt-head, .t2 .tt-head, .t3 .tt-head, .t4 .tt-head, .t5 .tt-head, .t6 .tt-head { padding-inline: 1.5rem; } }
+
+  .t2 .tt-head, .t3 .tt-head { margin-bottom: 0; padding-bottom: .5rem; border-bottom: 2px solid var(--red-text); }
+  .t2 .tt-head2, .t3 .tt-head2 { margin-top: 3rem; }
+
+  .t4 .tt-title { font-size: var(--h2-size); letter-spacing: .06em; }
+  .t4 .tt-head { margin-bottom: 0; padding-bottom: .5rem; border-bottom: 1px solid var(--line); }
+
+  .t5 .tt-title { color: #111; }
+  .t5 .tt-title::after { content: ""; display: block; width: 4rem; height: 4px; background: var(--red); margin-top: .5rem; }
+
+  .t6 .tt-title { font-size: var(--h2-size); letter-spacing: .06em; }
+  .t6 .tt-head { margin-bottom: 0; padding-bottom: .5rem; border-bottom: 2px solid var(--red-text); }
+</style>

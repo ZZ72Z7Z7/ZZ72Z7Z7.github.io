@@ -6,10 +6,10 @@
   --line: #ddd;
   --bg: #fff;
   /* Reds. --red is sampled from the spiral logo (4.4:1 on white: logo, rules, focus ring, large type).
-     --red-text is the darker red, the old site's #b20000 (7.3:1): small red text, link hover,
+     --red-text is the darker red, #db0500, two thirds of the way from the old site's #b20000 to the logo red (5.2:1 on white, chosen 261013): small red text, link hover,
      selected text, and any button with white text. */
   --red: #f00800;
-  --red-text: #b20000;
+  --red-text: #db0500;
   /* Messages in forms (reviewed in 1a). Always shown with an icon and a word, never colour alone. */
   --error: #b00500;
   --error-bg: #fff1f0;
@@ -18,14 +18,14 @@
   /* type (1b, chosen 261009) */
   /* THE TYPE STANDARD (decided 261009): three headings and three paragraph styles, desktop size first; phones step down (see the phone block).
      Use the variables below, or the classes .h1 .h2 .h3 .p1 .p2 .p3, which any element can take. There is no H4 and no P4. */
-  --h1-size: 2.5rem;       /* H1  40px bold: page titles */
+  --h1-size: 2.5rem;       /* H1  40px bold: page titles (the index titles are set smaller: .index-title) */
   --h2-size: 2rem;         /* H2  32px bold: section headings */
   --h3-size: 1.5rem;       /* H3  24px bold: item titles (workshop and event titles) */
   --p1-size: 1.125rem;     /* P1  18px: body text */
   --p2-size: 1rem;         /* P2  16px: places, notes, dates in lists, list details */
   --p3-size: .875rem;      /* P3  14px: notices, captions, form hints */
   --body-size: var(--p1-size);
-  --menu-size: 1.0625rem;  /* 17px: menu items AND the language menu, see the rule below (the phone menu sets its own, larger sizes) */
+  --menu-size: 1rem;  /* 16px: menu items AND the language menu, all capitals (designer, 261013; was 17px sentence case, then 15px); see the rule below (the phone menu sets its own, larger sizes) */
   --menu-gap: 1.75rem;     /* 28px: space between menu items, and between the last item and the globe */
   --measure: 44rem;
   --wide: 64rem;
@@ -72,20 +72,20 @@ main.wide { max-width: var(--wide); }
 .header-right { display: flex; align-items: center; flex-wrap: nowrap; gap: .5rem var(--menu-gap); }
 /* RULE: the language menu (the names in its dropdown) always mirrors the menu items' text settings (size, case, letter spacing, weight). Change them here, once, for both.
    Chosen 261009: 18px, sentence-style capitals (About, Workshops...), regular weight 400; the current page is semibold 600 and dark red. */
-.site-nav a, .site-nav .sub-toggle, .lang-list a { font-size: var(--menu-size); font-weight: 400; }
+.site-nav a, .site-nav .sub-toggle, .lang-list a { font-size: var(--menu-size); font-weight: 400; text-transform: uppercase; letter-spacing: .04em; }
 .site-nav ul { display: flex; flex-wrap: nowrap; gap: .25rem var(--menu-gap); list-style: none; margin: 0; padding: 0; }
 .site-nav a { text-decoration: none; padding: .35rem 0; border-bottom: 3px solid transparent; }
-.site-nav a:hover { color: var(--red-text); } /* hover: the colour changes, nothing is underlined (the current page keeps its red underline) */
-.site-nav a[aria-current="page"] { color: var(--red-text); font-weight: 600; } /* the current page: dark red text, no underline */
+.site-nav a:hover { color: var(--red); } /* hover: the colour changes, nothing is underlined (the current page keeps its red underline) */
+.site-nav a[aria-current="page"] { font-weight: 700; } /* the current page: bold only, no colour (designer, 261013); hover stays red */
 /* Creations submenu: a list that drops down under the word (hover, keyboard focus, click or tap) */
 .site-nav .has-sub { position: relative; }
 .site-nav .sub-toggle { display: inline-block; font-family: inherit; line-height: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; }
 /* (no padding or border: the menu has no underlines, and an inline-block button with the same line height sits on the same baseline as the links at any size) */
-.site-nav .sub-toggle:hover { color: var(--red-text); }
-.site-nav .sub-toggle.current { color: var(--red-text); font-weight: 600; }
+.site-nav .sub-toggle:hover { color: var(--red); }
+.site-nav .sub-toggle.current { font-weight: 700; }
 /* each label reserves the width of its own semibold (current page) version (an invisible bold copy), so making the current page bold never moves the other items */
 .site-nav .lbl { display: inline-flex; flex-direction: column; align-items: center; }
-.site-nav .lbl::after { content: attr(data-label); font-weight: 600; height: 0; overflow: hidden; visibility: hidden; white-space: nowrap; }
+.site-nav .lbl::after { content: attr(data-label); font-weight: 700; height: 0; overflow: hidden; visibility: hidden; white-space: nowrap; }
 .site-nav .submenu .lbl { align-items: flex-start; }
 .site-nav .submenu { display: none; position: absolute; z-index: 40; top: 100%; left: -1rem; flex-direction: column; flex-wrap: nowrap; gap: 0; min-width: 11rem;
   margin: 0; padding: .5rem 1rem; background: var(--bg, #fff); border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
@@ -93,14 +93,14 @@ main.wide { max-width: var(--wide); }
 .site-nav .submenu a { display: block; padding: .45rem 0; white-space: nowrap; }
 /* Language menu: the globe is the button; the list under it shows the current language (dark red) and the other languages, each in its own language */
 .lang-menu { position: relative; display: flex; align-items: center; }
-.lang-toggle { display: inline-flex; align-items: center; background: none; border: 0; padding: .25rem; margin: -.25rem; color: var(--red-text); cursor: pointer; }
-.lang-toggle:hover { color: #7a0000; } /* hover: colour only, no underline */
+.lang-toggle { display: inline-flex; align-items: center; background: none; border: 0; padding: .25rem; margin: -.25rem; color: var(--red); cursor: pointer; }
+.lang-toggle:hover { color: #970300; } /* hover: colour only, no underline */
 .lang-list { display: none; position: absolute; z-index: 40; top: 100%; right: -.5rem; min-width: 9.5rem; margin: .25rem 0 0; padding: .5rem 1rem; list-style: none;
   background: var(--bg, #fff); border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
 .lang-menu:hover .lang-list, .lang-menu:has(:focus-visible) .lang-list, .lang-menu.open .lang-list { display: block; }
 .lang-list a { display: block; padding: .45rem 0; text-decoration: none; white-space: nowrap; }
-.lang-list a:hover { color: var(--red-text); }
-.lang-list a[aria-current] { color: var(--red-text); font-weight: 600; }
+.lang-list a:hover { color: var(--red); }
+.lang-list a[aria-current] { font-weight: 700; }
 
 /* content */
 h1, h2, h3 { line-height: 1.25; margin: var(--space-section) 0 .75rem; }
@@ -108,6 +108,7 @@ h1 { font-size: var(--h1-size); margin-top: 0; margin-bottom: calc(var(--page-to
 h2 { font-size: var(--h2-size); }
 h3 { font-size: var(--h3-size); }
 .center-title { text-align: center; }
+.index-title { --h1-size: 2rem; text-transform: uppercase; letter-spacing: .06em; color: var(--red-text); } /* only the titles of the index pages (Workshops, Events, Writings, Lectures, Shows): 32px capitals with light letter spacing (designer, 261013); detail pages keep the standard H1 */
 .center-text { text-align: center; }
 .page-title { font-size: var(--h1-size); margin-bottom: calc(var(--space-section) + .18 * var(--h1-size)); } /* an h2 that looks like the page title (h1) */
 .h1, .h2, .h3 { font-weight: 700; line-height: 1.25; }
@@ -206,7 +207,7 @@ label { display: grid; gap: .25rem; font-weight: 600; }
 input, textarea { font: inherit; padding: .55rem .6rem; border: 1px solid var(--muted); border-radius: 2px; background: var(--bg); color: var(--text); width: 100%; }
 textarea { min-height: 9rem; }
 form button, .btn-red { font: inherit; font-weight: 600; padding: .6rem 1.2rem; border: 1px solid var(--red-text); background: var(--red-text); color: #fff; cursor: pointer; justify-self: start; } /* 1d (261009): square corners, red buttons with white text */
-form button:hover:not(:disabled), .btn-red:hover:not(:disabled) { background: #8a0000; border-color: #8a0000; }
+form button:hover:not(:disabled), .btn-red:hover:not(:disabled) { background: #a90400; border-color: #a90400; }
 .form-note { color: var(--muted); font-size: var(--p3-size); margin: 0; }
 
 
@@ -288,7 +289,6 @@ body { overflow-x: clip; }
   .site-nav .submenu a { font-size: 1.25rem; color: var(--muted); padding: .5rem 0; }
   .lang-list a { font-size: 1.25rem; padding: .5rem 0; }
   .lang-toggle svg { width: 30px; height: 30px; }
-  .site-nav .submenu a[aria-current="page"] { color: var(--red-text); }
 }
 
 @media (max-width: 40rem) {
@@ -389,7 +389,7 @@ html.fx-home .poem-s .word { font-size: calc(clamp(3rem, 12vw, 5rem) * var(--fit
 .about-section .about-sign .sign-roles { font-size: 1.1em; }
 .about-section .about-sign .dots { color: var(--red); font-size: 2.5em; line-height: 1; letter-spacing: .5em; text-indent: .5em; margin: .39rem 0 .77rem; }
 /* About page text: centred on desktop, left-aligned on phones (the name block included) */
-@media (max-width: 40rem) { .about-section { text-align: left; } .about-section .about-sign .dots { text-indent: 0; margin-left: -.11em; } }
+@media (max-width: 40rem) { .about-section { text-align: left; } .about-section .about-sign { text-align: center; } } /* the name block is centred on phones too (designer, 261013); the paragraphs stay left-aligned */
 .about-section .prose > :last-child { margin-bottom: 0; }
 
 /* standard workshop page (designer, 261009) */
@@ -493,11 +493,11 @@ dialog.lightbox::backdrop { background: #000; } /* solid black around the pictur
 
 /* Past vs upcoming (designer, 261009): the whole past section sits on a full-width pale band (a clear break when paging down), and past entries are slightly muted. */
 .past-band { width: 100vw; margin-inline: calc(50% - 50vw);
-  margin-top: var(--space-block); margin-bottom: calc(-1 * var(--space-end)); padding: var(--space-block) calc(50vw - 50%) var(--space-end); }
+  margin-top: var(--space-block); margin-bottom: calc(-1 * var(--space-end)); padding: 0 calc(50vw - 50%) var(--space-end); }
 .past-band .page-title { margin-top: 0; }
 .past-band .entry-thumb { filter: grayscale(1); transition: filter .2s, opacity .2s; }
 .past-band .entry-card:hover .entry-thumb, .past-band .entry-card:focus-within .entry-thumb { filter: none; opacity: 1; }
-.past-band .entry-dates, .past-band .entry-title a, .past-band .year-title { color: #444; }
+.past-band .entry-dates, .past-band .entry-title a, .past-band .year-title { color: #222; }
 .past-band .entry-title a:hover { color: var(--red-text); }
 @media (prefers-reduced-motion: reduce) { .past-band .entry-thumb { transition: none; } }
 
@@ -508,7 +508,7 @@ img.framed { border: 1px solid var(--line); } /* pale-photo hairline: reserved f
 .site-footer { text-align: center; padding: 20px var(--gutter) 2.5rem; }
 .site-footer p { margin: 0; color: var(--muted); font-size: var(--p2-size); }
 .wk-pre { white-space: pre-line; margin: 0; }
-.contact-first { margin-top: 0; }
+.contact-first { margin-top: var(--page-top); } /* 80px from the header to the first block, the same as the untitled Photo and Video pages (designer, 261013) */
 /* Contact (designer, 261009): headings and forms centred, headings no wider than the forms (30rem) */
 .contact-head { max-width: 30rem; margin-inline: auto; text-align: center; }
 main form { margin-inline: auto; }
@@ -550,7 +550,7 @@ input::placeholder, textarea::placeholder { color: #767676; opacity: 1; } /* fai
 .entry-body > :last-child { margin-bottom: 0; }
 .entry-body .entry-figure { margin: 0 0 var(--space-p); }
 .entry-body .entry-figure img { display: block; width: 100%; height: auto; }
-.entry-body a { overflow-wrap: anywhere; }
+.entry-body .entry-figure img.tall { width: auto; max-width: 100%; height: auto; margin-inline: auto; } /* portrait pictures keep their proportions: the width follows the height cap set for "tall" pictures (fix 261013: the 100% width above stretched the Covivido photo) */.entry-body a { overflow-wrap: anywhere; }
 .prose ul.entries + h2 { margin-top: var(--space-block); } /* Writings: more space before the next language section */
 /* 404 page (designer, 261009): centred, a red button back home, a small line in Italian */
 .not-found { text-align: center; padding-top: var(--space-block); }
@@ -574,9 +574,9 @@ a.btn-red:hover { color: #fff; text-decoration: none; }
 @keyframes logo-spin { to { transform: rotate(-360deg); } }
 */
 .footer-spiral { display: block; width: 35px; height: auto; margin: 0 auto .75rem; }
-.prose ul:not(.entries):not(.post-list):not(.cats), .acc-body ul { list-style: none; padding-left: 0; }
-.prose ul:not(.entries):not(.post-list):not(.cats) > li, .acc-body ul > li { position: relative; padding-left: 1.25rem; }
-.prose ul:not(.entries):not(.post-list):not(.cats) > li::before, .acc-body ul > li::before { content: ""; position: absolute; left: .1rem; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--red); }
+.prose ul:not(.entries):not(.post-list):not(.cats):not(.show-links), .acc-body ul { list-style: none; padding-left: 0; }
+.prose ul:not(.entries):not(.post-list):not(.cats):not(.show-links) > li, .acc-body ul > li { position: relative; padding-left: 1.25rem; }
+.prose ul:not(.entries):not(.post-list):not(.cats):not(.show-links) > li::before, .acc-body ul > li::before { content: ""; position: absolute; left: .1rem; top: .62em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--red); }
 a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site name turns the logo red, matching the spiral (designer, 261009); 25px bold text, so 4.0:1 on white is enough */
 /* Photo Galleries page (261009): four equal 4:3 thumbnails, 2 x 2 on desktop, one column below 1024px; titles centred under the pictures */
 .gallery-tiles { display: grid; grid-template-columns: 1fr; gap: 2.5rem 2rem; margin: 0; }
@@ -609,7 +609,7 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 .empty-list { border-top: 1px solid var(--line); padding-top: 1.5rem; margin-bottom: var(--space-block); }
 /* The mailing-list link in the empty states is a red button like the form buttons (designer, 261009) */
 .empty-list a { display: inline-block; margin-top: .5rem; padding: .6rem 1.2rem; background: var(--red-text); border: 1px solid var(--red-text); color: #fff; font-style: normal; font-weight: 600; text-decoration: none; }
-.empty-list a:hover, .empty-list a:focus-visible { background: #8a0000; border-color: #8a0000; color: #fff; }
+.empty-list a:hover, .empty-list a:focus-visible { background: #a90400; border-color: #a90400; color: #fff; }
 
 /* Workshops and Events lists (designer, 261009 to 261011)
    Stack on every screen: dates, location, status chip, 24px, title, (teacher line), tagline, [picture on phones and tablets], DETAILS button.
@@ -624,7 +624,7 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 .entry-card.sched .entry-thumb { object-fit: contain; height: auto; }
 .entry-card.sched .entry-more { margin: 1rem 0 0; }
 .entry-card.sched .entry-more a { padding: .55rem 1.1rem; margin: 0; background: var(--red-text); color: #fff; font-size: var(--p2-size); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; } /* DETAILS: solid red, capitals, no arrow */
-.entry-card.sched .entry-more a:hover, .entry-card.sched .entry-more a:focus-visible { background: #8a0000; text-decoration: none; }
+.entry-card.sched .entry-more a:hover, .entry-card.sched .entry-more a:focus-visible { background: #a90400; text-decoration: none; }
 .past-band .entry-card.sched .entry-more a { background: #5f5f5f; } /* past entries: grey button (white on #5f5f5f is 6.4:1) */
 .past-band .entry-card.sched .entry-more a:hover, .past-band .entry-card.sched .entry-more a:focus-visible { background: #333; }
 /* phone spacing (designer, 261011: looser): 20px above the title and the chip, 24px above the picture, 20px above the tagline, 24px above the button */
@@ -661,3 +661,87 @@ a.brand:hover, a.brand:focus-visible { color: var(--red); } /* hover: the site n
 /* Workshop page stack (designer, 261011): dates, location, status chip (+ application line), 24px, title (all capitals), tagline, picture */
 h1.wk-title { text-transform: uppercase; }
 h1.after-runs { margin-top: 0; }
+
+/* Index lists (designer, 261013): no dividing lines; the entries alternate very light grey and white, the first one always grey */
+.entries > li { border: 0; padding-inline: 1rem; background: #fff; }
+.entries > li:nth-child(odd) { background: #f6f6f6; }
+@media (min-width: 64rem) { .entries > li { padding-inline: 1.5rem; } }
+.entries .entry-sub { color: #333; } /* taglines on the grey zebra rows: darker than the old muted grey (designer, 261013; 11:1 on #f6f6f6) */
+
+/* Event detail page (designer, 261013): mirrors the Events index entry: title, tagline, date and time, venue, city, photo, button */
+h1.ev-title { font-size: var(--h2-size); line-height: 1.25; text-transform: uppercase; margin-bottom: .5rem; }
+h1.ev-title + .subtitle.entry-sub { font-size: var(--p1-size); margin-bottom: 1.5rem; }
+.ev-title ~ .wk-primary { margin-top: 1.5rem; margin-bottom: 0; }
+.wk-runs + .wk-primary { margin-top: 1.5rem; }
+
+/* Events (designer, 261013), index and detail pages, all centred: title, tagline, date, time, venue, city, photo, button */
+.entry-card .entry-time { grid-area: time; margin: 0; }
+.entry-card .entry-venue { grid-area: venue; margin: 0; }
+.entries > .entry-card.sched.ev, .entries > .entry-card.sched.ev.has-thumb { text-align: center; justify-items: center; min-height: 0; grid-template-columns: 1fr; grid-template-rows: none;
+  grid-template-areas: "title" "desc" "dates" "time" "venue" "loc" "more"; }
+.entries > .entry-card.sched.ev.has-thumb { grid-template-areas: "title" "desc" "thumb" "dates" "time" "venue" "loc" "more"; }
+.entry-card.ev .entry-title { margin-top: 0; }
+.entry-card.ev .entry-sub { margin-top: .5rem; }
+.entry-card.ev .entry-dates { margin-top: 1.5rem; }
+.entry-card.ev.has-thumb .entry-thumb { grid-row: auto; align-self: auto; width: auto; max-width: min(100%, 32rem); max-height: 24rem; margin: 1.5rem auto 0; }
+.entry-card.ev .entry-more { margin: 0; padding-top: 1.5rem; }
+/* Events index on desktop (designer, 261013): the 40/60 layout again, photo in the left column and the text, in the same order, left-aligned on the right; phones and tablets keep the centred stack above */
+@media (min-width: 64rem) {
+  .entries > .entry-card.sched.ev { text-align: left; justify-items: stretch; min-height: 400px; box-sizing: border-box; grid-template-rows: repeat(7, auto) 1fr;
+    grid-template-areas: "title" "desc" "dates" "time" "venue" "loc" "more" "."; }
+  .entries > .entry-card.sched.ev.has-thumb { text-align: left; justify-items: stretch; min-height: 400px; grid-template-columns: 40fr 60fr; column-gap: 2rem; grid-template-rows: repeat(7, auto) 1fr;
+    grid-template-areas: "thumb title" "thumb desc" "thumb dates" "thumb time" "thumb venue" "thumb loc" "thumb more" "thumb ."; }
+  .entry-card.ev.has-thumb .entry-thumb { grid-row: 1 / -1; align-self: center; width: 100%; max-width: none; max-height: 300px; margin: 0; object-fit: contain; }
+}
+h1.ev-title { font-size: var(--h2-size); line-height: 1.25; text-transform: uppercase; text-align: center; margin-bottom: .5rem; }
+h1.ev-title + .subtitle.entry-sub { font-size: var(--p1-size); text-align: center; margin-bottom: 1.5rem; }
+.ev-facts { text-align: center; }
+.ev-photo { margin: 0; }
+.ev-facts { margin: 1.5rem 0 2.5rem; }
+.ev-photo img { width: auto; max-width: min(100%, 32rem); max-height: 24rem; margin: 0 auto; }
+.empty-list.no-rule { border-top: 0; } /* Events index: no grey hairline above the empty-list note (designer, 261013) */
+.contact-email { text-align: center; margin: .75rem 0 0; } /* plain mailto link in place of the contact form (designer, 261013) */
+
+/* Full menu (1024px and up; designer, 261013): the items are spread evenly between the site name and the language globe: equal space before the first item, between items and after the last one; --menu-gap stays as the minimum gap */
+@media (min-width: 64rem) {
+  .site-header .header-right { flex: 1 1 auto; }
+  .site-header .site-nav { flex: 1 1 auto; }
+  .site-header .site-nav > ul { justify-content: space-evenly; }
+}
+
+/* Shows page (designer, 261013): header lines as on the Events list; MORE + opens Credits, Description, Media, Links under it */
+.show-more { grid-area: more; margin-top: 1.25rem; }
+.show-more > summary { display: inline-flex; align-items: center; gap: .5rem; padding: .55rem 0; cursor: pointer; list-style: none; font-size: var(--p2-size); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--red-text); }
+.show-more > summary::-webkit-details-marker { display: none; }
+.show-more > summary::after { content: "+"; font-size: var(--h3-size); line-height: 1; font-weight: 400; }
+.show-more[open] > summary::after { content: "\2212"; }
+.show-more > summary:hover, .show-more > summary:focus-visible { color: var(--text); }
+.show-more:not([open]) .sm-less, .show-more[open] .sm-more { display: none; }
+.show-body { text-align: left; margin-top: .75rem; }
+.show-body > * + * { margin-top: 1.5rem; }
+.show-body p { margin: 0 0 var(--space-p); }
+.show-credits p { margin: 0 0 .75rem; }
+.show-credits .credit-year { font-weight: 700; margin: 0 0 .15rem; }
+.show-body :last-child > :last-child, .show-body > :last-child { margin-bottom: 0; }
+.show-links { list-style: none; margin: 0; padding: 0; }
+.show-links > li { margin: 0 0 .4rem; padding: 0; overflow-wrap: anywhere; }
+.show-links > li::before { content: none; }
+.show-media > .show-figure + .show-links { margin-top: 1rem; }
+.show-figure { margin: 0; }
+.show-figure img { display: block; width: 100%; height: auto; margin: 0; }
+.show-figure img.tall { width: auto; max-width: 100%; margin-inline: auto; } /* portrait pictures keep their proportions (capped height, centred) */
+@media (min-width: 64rem) { .entry-card.show:has(.show-more[open]) .entry-thumb { align-self: start; } } /* an open entry is tall: the photo stays at the top */
+
+/* Shows (designer, 261013): above READ MORE: date, place, title, tagline, credits; READ MORE opens Description, Media, Links */
+.entry-card .show-credits { grid-area: credits; margin-top: 1.25rem; text-align: left; }
+.entries > .entry-card.sched.ev.show.has-thumb { grid-template-areas: "dates" "loc" "title" "desc" "thumb" "credits" "more"; }
+.entry-card.show .entry-dates { margin-top: 0; }
+.entry-card.ev.show .entry-title { margin-top: 1.25rem; }
+.entry-card.show.has-thumb .entry-thumb { margin-top: 1.5rem; }
+@media (min-width: 64rem) {
+  .entries > .entry-card.sched.ev.show.has-thumb { grid-template-rows: repeat(6, auto) 1fr;
+    grid-template-areas: "thumb dates" "thumb loc" "thumb title" "thumb desc" "thumb credits" "thumb more" "thumb ."; }
+  .entry-card.ev.show.has-thumb .entry-thumb { margin: 0; }
+}
+.entry-card.ev.show .entry-title { margin-top: 0; } /* no date or place line on the Shows index (designer, 261013; they are kept in each entry's data-date and data-place attributes) */
+@media (max-width: 63.9375rem) { .entry-card.ev.show .entry-title { margin-top: 1.5rem; } } /* phones and tablets: 24px between the photo and the title (designer, 261013) */

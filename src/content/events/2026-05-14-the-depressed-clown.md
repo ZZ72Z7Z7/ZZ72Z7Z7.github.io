@@ -13,10 +13,13 @@ pdfs:
   - label: "Note di Regia di Giovanni Fusetti (In Italiano)"
     label_it: "Note di Regia di Giovanni Fusetti (In Italiano)"
     file: "/wp-content/uploads/2026/05/note-diregia.pdf"
+subtitle: |-
+  with
+  KNUT OSTRADAL & GIOVANNI FUSETTI
+subtitle_it: |-
+  con
+  KNUT OSTRADAL & GIOVANNI FUSETTI
 body_it: |-
-  con  
-  **KNUT OSTRADAL & GIOVANNI FUSETTI**
-
   Un clown e dieci burattini  
   in un viaggio nella terra oscura della depressione e al di là.  
   Tratto dalla storia vera dell’autore  
@@ -44,9 +47,6 @@ body_it: |-
   Burattinaio: **GIOVANNI FUSETTI**
 translation: "draft"
 ---
-
-with  
-**KNUT OSTRADAL & GIOVANNI FUSETTI**
 
 *A clown and ten puppets  
 in the journey to the dark land of depression and beyond  

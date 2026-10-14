@@ -1,0 +1,40 @@
+---
+// Design review page: the dark red candidates side by side. Local only, never built.
+import Base from '../layouts/Base.astro';
+const reds = [
+  { hex: '#b20000', name: 'Old dark red', ratio: '7.3:1' },
+  { hex: '#d10400', name: 'Midpoint', ratio: '5.6:1' },
+  { hex: '#db0500', name: '#db0500 (applied now)', ratio: '5.2:1' },
+  { hex: '#f00800', name: 'Logo red', ratio: '4.4:1' },
+];
+---
+<Base title="Red comparison" lang="en" path="/design/red-compare/" noindex wide>
+  <h1>Red comparison</h1>
+  <p>Each column shows the same title, button, menu link and text link in one red. Nothing here is applied to the site, apart from #db0500, which is live now.</p>
+  <div class="rc-grid">
+    {reds.map((r) => (
+      <section class="rc-col" style={`--c:${r.hex}`}>
+        <div class="rc-swatch"></div>
+        <h2 class="rc-name">{r.name}</h2>
+        <p class="rc-hex">{r.hex} · white on it {r.ratio}</p>
+        <p class="rc-title">UPCOMING WORKSHOPS</p>
+        <p class="rc-panel"><span class="rc-btn">DETAILS</span> <span class="rc-btn">Read more +</span></p>
+        <p class="rc-menu"><span>ABOUT</span> <span class="rc-hover">WORKSHOPS</span></p>
+        <p><a class="rc-link" href="#">A text link on hover</a></p>
+      </section>
+    ))}
+  </div>
+</Base>
+<style is:global>
+  .rc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; margin-top: 2rem; }
+  .rc-col { background: #f6f6f6; padding: 1rem; }
+  .rc-swatch { height: 5rem; background: var(--c); }
+  .rc-name { font-size: 1.1rem; margin: .75rem 0 0; }
+  .rc-hex { font-size: .9rem; margin: .1rem 0 1rem; }
+  .rc-title { color: var(--c); font-size: 1.5rem; font-weight: 700; letter-spacing: .06em; margin: 0 0 1rem; }
+  .rc-panel { margin: 0 0 1rem; display: flex; gap: .5rem; flex-wrap: wrap; }
+  .rc-btn { background: var(--c); color: #fff; padding: .55rem 1.1rem; font-weight: 600; font-size: .9rem; letter-spacing: .04em; text-transform: uppercase; }
+  .rc-menu span { font-size: .9rem; letter-spacing: .04em; margin-right: 1rem; }
+  .rc-menu .rc-hover { color: #f00800; font-weight: 700; }
+  .rc-link { color: var(--c); }
+</style>

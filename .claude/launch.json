@@ -5,10 +5,10 @@
       "name": "site",
       "runtimeExecutable": "/Users/jzk/Desktop/CLAUDE/GIOVANNI FUSETTI/BUILDS/.tools/node/bin/node",
       "runtimeArgs": [
-        "/Users/jzk/Desktop/CLAUDE/GIOVANNI FUSETTI/BUILDS/GIOVANNI_261012/node_modules/astro/bin/astro.mjs",
+        "/Users/jzk/Desktop/CLAUDE/GIOVANNI FUSETTI/BUILDS/GIOVANNI_261013/node_modules/astro/bin/astro.mjs",
         "dev",
         "--root",
-        "/Users/jzk/Desktop/CLAUDE/GIOVANNI FUSETTI/BUILDS/GIOVANNI_261012",
+        "/Users/jzk/Desktop/CLAUDE/GIOVANNI FUSETTI/BUILDS/GIOVANNI_261013",
         "--port",
         "4321",
         "--force"

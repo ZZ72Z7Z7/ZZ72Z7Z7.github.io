@@ -1,0 +1,126 @@
+---
+// Design review page: subtle ways to separate the page title from the list, and one entry from the next, on the index pages. Local only, never built.
+import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import { getSchedule } from '../lib/content';
+import { formatRange } from '../lib/dates';
+import { pick } from '../i18n/ui';
+const { upcoming } = await getSchedule();
+const rows = (await Promise.all(upcoming.slice(0, 3).map(async (e) => {
+  const d = e.data;
+  const w = d.workshop ? await getEntry(d.workshop) : undefined;
+  return {
+    dates: d.extra_dates ?? formatRange(d.start, d.end, 'en'),
+    place: [d.city, d.region, d.country].filter(Boolean).join(', '),
+    title: w ? pick(w.data, 'title', 'en').value : d.title,
+    image: d.image ?? w?.data.image,
+    sub: w ? pick(w.data, 'subtitle', 'en').value : '',
+  };
+}))).filter((r) => r.image);
+const writings = [
+  ['The Pedagogy of the Poetic Body', 'A dialogue between Suzy Willson and Giovanni Fusetti (2000)'],
+  ['The Art of Clowning: on the use of clown in the world', 'Giovanni Fusetti, interviewed by Matty Miller, 2006.'],
+  ['The Paradox of Physical Theatre', 'Unpublished article (2007)'],
+];
+const options = [
+  { id: 'o1', name: '1 · Red bar under the title, light dividers kept',
+    text: 'A short thick red bar sits under the page title as a signature mark. Entries keep the thin grey lines, with a little more air. The quietest change; the title is set apart by the bar alone.' },
+  { id: 'o2', name: '2 · Heavy black rule under the title, hairlines between entries',
+    text: 'A 3px black rule runs the full width under the title and the list starts below it. The jump in weight (heavy rule for the page, hairline for the entries) makes two clear levels.' },
+  { id: 'o3', name: '3 · Entries on pale grey panels',
+    text: 'Each entry is a very pale grey panel (#f6f6f6) with a gap between panels instead of lines. Strongest separation between entries while staying monochrome; the title stays on plain white.' },
+  { id: 'o4', name: '4 · Red tick on every entry, title on a line',
+    text: 'A 4px red bar runs down the left edge of each entry (and the title sits over one thin red line). Entries stay on white with grey dividers; the red repeats the logo colour in small doses.' },
+  { id: 'o5', name: '5 · Alternate shading (zebra) with a pale title band',
+    text: 'The title sits on a full-width pale grey band; entries alternate white and pale grey, with no lines. Reads like a timetable; works for text-only lists too.' },
+  { id: 'o5b', name: '5b · Pale pink title band, pink zebra',
+    text: 'As 5, but everything grey becomes a very pale pink: title band #fbe4e2, every second entry #fdf3f2. Warm and close to the logo red without shouting.' },
+  { id: 'o5c', name: '5c · Pink title band, grey zebra',
+    text: 'The title band is pale pink (#fbe4e2) while the alternate entries stay neutral grey (#f6f6f6). The colour marks only the page title; the list stays quiet.' },
+  { id: 'o5d', name: '5d · Grey title band, pink zebra',
+    text: 'The reverse: a neutral grey title band (#eee) with the alternate entries in pale pink (#fdf3f2). The colour appears only in the list.' },
+  { id: 'o5e', name: '5e · Deeper pink title band with dark red title, pale pink zebra',
+    text: 'A stronger pink band (#f6cfcb) with the title in dark red (#b20000, 5:1 contrast), and entries alternating white and very pale pink (#fdf3f2). The most colour of the 5 family; the title reads as a header, not just a band.' },
+  { id: 'o5f', name: '5f · Pink title band, pink zebra with a red line under the band',
+    text: 'As 5b with a 3px red line closing the title band. The red line gives the page title a firm edge and ties to the red DETAILS buttons below.' },
+  { id: 'o6', name: '6 · Red title band, white-on-red, light dividers kept',
+    text: 'The version shown earlier: the title is white on dark red across the list width. Entries unchanged apart from a little more space under the band. The loudest title treatment.' },
+];
+---
+<Base title="Index separation review" lang="en" path="/design/index-separation/" noindex wide>
+  <h1>Clearer separation on the index pages</h1>
+  <p>Each option shows the same three things: the page title, two Workshops-style entries with pictures, and three text-only entries as on Writings and Lectures. All use the site's real list code; only the styling around it differs. Nothing here is applied to the site.</p>
+  <p><strong>Recommendation:</strong> <strong>2</strong> if you want it subtle (one rule creates two clear levels: page and entry) and <strong>3</strong> if entries should be told apart more strongly. Both stay black, white and grey, work on every list including text-only ones, and need no extra fields from the client. 4 adds a small amount of the logo red; 5 and 6 are the boldest.</p>
+
+  {options.map((o) => (
+    <section class="sep-var">
+      <h2>{o.name}</h2>
+      <p>{o.text}</p>
+      <div class={`sep-frame ${o.id}`}>
+        <h2 class="page-title center-title sep-title">Upcoming Workshops</h2>
+        <ul class="entries">
+          {rows.map((r) => (
+            <li class="entry-card has-thumb">
+              <div class="entry-left"><h3 class="entry-title">{r.title}</h3><img class="entry-thumb" src={r.image} alt="" loading="lazy" /></div>
+              <div class="entry-right"><p class="entry-dates">{r.dates}</p><p class="entry-place">{r.place}</p>{r.sub && <p class="entry-sub">{r.sub}</p>}</div>
+            </li>
+          ))}
+        </ul>
+        <h2 class="page-title center-title sep-title sep-title2">Writings</h2>
+        <ul class="entries compact">
+          {writings.map(([t, s]) => (
+            <li class="entry-card"><h3 class="entry-title">{t}</h3><p class="entry-sub">{s}</p></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+</Base>
+
+<style is:global>
+  .sep-var { margin: 3rem 0; }
+  .sep-frame { border: 1px dashed #bbb; padding: 1.5rem; margin-top: 1rem; }
+  .sep-frame .page-title { margin-top: 0; }
+  .sep-frame .sep-title2 { margin-top: 3rem; }
+  .sep-frame .entries { margin-bottom: 0; }
+
+  /* 1 red bar */
+  .o1 .sep-title::after { content: ""; display: block; width: 4rem; height: 4px; background: var(--red); margin: .6em auto 0; }
+  .o1 .entries { margin-top: 1rem; }
+
+  /* 2 heavy rule */
+  .o2 .sep-title { margin-bottom: 0; padding-bottom: 1.1rem; border-bottom: 3px solid #111; }
+  .o2 .entries > li:first-child { border-top: 0; }
+
+  /* 3 pale panels */
+  .o3 .entries > li { background: #f6f6f6; border: 0; padding-inline: 1.5rem; margin-bottom: .75rem; }
+  .o3 .entries > li:last-child { border: 0; }
+  .o3 .entries.compact > li { padding-block: 20px; }
+
+  /* 4 red tick */
+  .o4 .sep-title { padding-bottom: 1rem; margin-bottom: 0; border-bottom: 1px solid var(--red); }
+  .o4 .entries > li { border-top: 1px solid var(--line); border-left: 4px solid var(--red); padding-left: 1.5rem; }
+  .o4 .entries > li:first-child { border-top: 0; }
+
+  /* 5 zebra */
+  .o5 .sep-title { background: #eee; padding: .55em 1rem; margin-bottom: 0; }
+  .o5 .entries > li { border: 0; padding-inline: 1.5rem; }
+  .o5 .entries > li:nth-child(even) { background: #f6f6f6; }
+  .o5 .entries > li:nth-child(odd) { background: #fff; }
+  .o5 .entries { border-bottom: 1px solid var(--line); }
+
+  /* 5 family: shared structure, colours set per option */
+  .o5b .sep-title, .o5c .sep-title, .o5d .sep-title, .o5e .sep-title, .o5f .sep-title { padding: .55em 1rem; margin-bottom: 0; }
+  .o5b .entries > li, .o5c .entries > li, .o5d .entries > li, .o5e .entries > li, .o5f .entries > li { border: 0; padding-inline: 1.5rem; background: #fff; }
+  .o5b .entries, .o5c .entries, .o5d .entries, .o5e .entries, .o5f .entries { border-bottom: 1px solid var(--line); }
+  .o5b .sep-title, .o5f .sep-title, .o5c .sep-title { background: #fbe4e2; }
+  .o5b .entries > li:nth-child(even), .o5d .entries > li:nth-child(even), .o5e .entries > li:nth-child(even), .o5f .entries > li:nth-child(even) { background: #fdf3f2; }
+  .o5c .entries > li:nth-child(even) { background: #f6f6f6; }
+  .o5d .sep-title { background: #eee; }
+  .o5e .sep-title { background: #f6cfcb; color: #b20000; }
+  .o5f .sep-title { border-bottom: 3px solid var(--red); }
+
+  /* 6 red band */
+  .o6 .sep-title { background: var(--red-text); color: #fff; padding: .5em 1rem; margin-bottom: 0; }
+  .o6 .entries > li:first-child { border-top: 0; }
+</style>

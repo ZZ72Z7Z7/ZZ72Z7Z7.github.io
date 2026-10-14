@@ -18,15 +18,17 @@ const time = formatTime(d.time, lang);
 const size = d.image ? imageSize(d.image) : null;
 const place = [cityName(d.city, lang), d.country].filter(Boolean).join(', ');
 ---
-<li class:list={['entry-card sched', d.image && 'has-thumb']}>
+<li class:list={['entry-card sched ev', d.image && 'has-thumb']}>
   <div class="entry-left">
-    <p class="entry-dates">{when}{time && ` · ${time}`}</p>
-    {(place || d.venue) && <p class="entry-place">{[place, d.venue].filter(Boolean).join(' · ')}</p>}
     <Heading class="entry-title"><a href={link}>{title}</a></Heading>
+    {subtitle && <p class="entry-sub">{subtitle}</p>}
     {d.image && <img class="entry-thumb" src={d.image} alt="" width={size?.w} height={size?.h} loading="lazy" />}
+    <p class="entry-dates">{when}</p>
+    {time && <p class="entry-time">{time}</p>}
+    {d.venue && <p class="entry-venue">{d.venue}</p>}
+    {place && <p class="entry-place">{place}</p>}
   </div>
   <div class="entry-right">
-    {subtitle && <p class="entry-sub">{subtitle}</p>}
     <p class="entry-more"><a href={link}>{ui.moreInfo}</a></p>
   </div>
 </li>

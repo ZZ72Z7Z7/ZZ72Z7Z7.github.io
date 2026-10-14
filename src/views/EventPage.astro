@@ -26,21 +26,21 @@ const where = [d.venue, d.address].filter(Boolean).join('\n');
 const hasBooking = Boolean(d.booking_link || d.booking_email);
 ---
 <Base title={title} lang={lang} path={`/events/${id}/`} section="events">
-  <h1 class="title-tight">{title}</h1>
+  <h1 class="title-tight ev-title">{title}</h1>
   {tagline && <p class="subtitle entry-sub">{tagline}</p>}
 
-  <div class="wk-runs">
-    <div class="wk-run">
-      <p class="wk-dates">{when}{time && ` · ${time}`}</p>
-      {(place || d.venue) && <p class="wk-place">{[d.venue, place].filter(Boolean).join(' · ')}</p>}
-    </div>
-  </div>
-
   {d.image && (
-    <figure class="wk-primary">
+    <figure class="wk-primary ev-photo">
       <img src={d.image} alt="" />
     </figure>
   )}
+  <div class="wk-runs ev-facts">
+    <p class="wk-dates">{when}</p>
+    {time && <p class="wk-place">{time}</p>}
+    {d.venue && <p class="wk-place">{d.venue}</p>}
+    {place && <p class="wk-place">{place}</p>}
+  </div>
+
 
   <div class="acc-list" data-wk-acc>
     {(source?.trim() || d.pdfs?.length) && (
@@ -60,21 +60,18 @@ const hasBooking = Boolean(d.booking_link || d.booking_email);
         <div class="acc-body"><p class="wk-pre">{where}</p></div>
       </details>
     )}
-    {admission && (
+    {(admission || hasBooking) && (
       <details class="acc wk-acc" open>
         <summary><h2 class="acc-title">{ui.admission}</h2></summary>
-        <div class="acc-body"><p class="wk-pre">{admission}</p></div>
-      </details>
-    )}
-    {hasBooking && (
-      <details class="acc wk-acc" open>
-        <summary><h2 class="acc-title">{ui.tickets}</h2></summary>
         <div class="acc-body">
-          <p>
-            {d.booking_link && <a href={d.booking_link}>{d.booking_link.replace(/^https?:\/\//, '')}</a>}
-            {d.booking_link && d.booking_email && <br />}
-            {d.booking_email && <a href={`mailto:${d.booking_email}`}>{d.booking_email}</a>}
-          </p>
+          {admission && <p class="wk-pre">{admission}</p>}
+          {hasBooking && (
+            <p>
+              {d.booking_link && <a href={d.booking_link}>{d.booking_link.replace(/^https?:\/\//, '')}</a>}
+              {d.booking_link && d.booking_email && <br />}
+              {d.booking_email && <a href={`mailto:${d.booking_email}`}>{d.booking_email}</a>}
+            </p>
+          )}
         </div>
       </details>
     )}

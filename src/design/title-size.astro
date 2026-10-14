@@ -1,0 +1,57 @@
+---
+// Design review page: page title at the current size against a smaller, letter-spaced size. Local only, never built.
+import Base from '../layouts/Base.astro';
+const options = [
+  { id: 'now', name: 'Now · 40px capitals', text: 'The current page title.', css: '' },
+  { id: 'a', name: 'A · 32px, light letter spacing', text: 'H2 size (32px, 24px on phones) with 0.06em letter spacing; the title reads as a label for the list. The space above and below the title stays equal.', css: ':root { --h1-size: 32px; } h1, .page-title, .center-title { letter-spacing: .06em; }' },
+  { id: 'b', name: 'B · 28px, wider letter spacing', text: 'Smaller still (28px) with 0.1em spacing: the quietest version, closest to a section label.', css: ':root { --h1-size: 28px; } h1, .page-title, .center-title { letter-spacing: .1em; }' },
+];
+---
+<Base title="Title size review" lang="en" path="/design/title-size/" noindex wide>
+  <h1>Page title size</h1>
+  <p>Each frame is the real Workshops page at desktop width and again at phone width. Nothing here is applied to the site.</p>
+  {options.map((o) => (
+    <section class="ts-var">
+      <h2>{o.name}</h2>
+      <p>{o.text}</p>
+      <div class="ts-row">
+        <div class="ts-wrap ts-d"><iframe class="ts-frame" data-w="1100" src="/workshops/" title={o.name + ' desktop'} data-css={o.css}></iframe></div>
+        <div class="ts-wrap ts-p"><iframe class="ts-frame" data-w="375" src="/workshops/" title={o.name + ' phone'} data-css={o.css}></iframe></div>
+      </div>
+    </section>
+  ))}
+</Base>
+<style is:global>
+  .ts-var { margin: 2.5rem 0; }
+  .ts-row { display: flex; gap: 1rem; align-items: flex-start; margin-top: 1rem; }
+  .ts-wrap { border: 1px dashed #bbb; overflow: hidden; flex: none; }
+  .ts-d { flex: 1 1 auto; }
+  .ts-frame { border: 0; display: block; height: 520px; transform-origin: 0 0; }
+</style>
+<script>
+  const H = 520;
+  const fit = () => {
+    document.querySelectorAll<HTMLElement>('.ts-wrap').forEach((w) => {
+      const f = w.querySelector<HTMLIFrameElement>('.ts-frame')!;
+      const fw = Number(f.dataset.w);
+      f.style.width = fw + 'px';
+      const phone = w.classList.contains('ts-p');
+      const avail = phone ? 200 : w.parentElement!.clientWidth - 200 - 16;
+      const k = Math.min(1, avail / fw);
+      f.style.transform = `scale(${k})`;
+      w.style.width = fw * k + 'px';
+      w.style.height = H * k + 'px';
+    });
+  };
+  fit();
+  addEventListener('resize', fit);
+  document.querySelectorAll<HTMLIFrameElement>('.ts-frame').forEach((f) => {
+    f.addEventListener('load', () => {
+      const css = f.dataset.css, doc = f.contentDocument;
+      if (!css || !doc) return;
+      const s = doc.createElement('style');
+      s.textContent = css;
+      doc.head.appendChild(s);
+    });
+  });
+</script>

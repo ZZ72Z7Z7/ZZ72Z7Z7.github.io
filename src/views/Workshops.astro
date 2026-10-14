@@ -13,16 +13,16 @@ const note = await getPage('workshops-note', lang);
 const empty = await getPage('workshops-empty', lang);
 ---
 <Base title={ui.menu.workshops} lang={lang} path="/workshops/" section="workshops" wide>
-  <h1 id="upcoming" class="center-title">{ui.upcomingWorkshops}</h1>
+  <h1 id="upcoming" class="center-title index-title">{ui.upcomingWorkshops}</h1>
   {upcoming.length ? (
     <ul class="entries">{upcoming.map((e) => <ScheduleItem entry={e} lang={lang} card />)}</ul>
   ) : (
-    <div class="center-text empty-list"><Text source={empty.entry.body} lang={lang} fallback={empty.fallback} notice={false} /></div>
+    <div class="center-text empty-list no-rule"><Text source={empty.entry.body} lang={lang} fallback={empty.fallback} notice={false} /></div>
   )}
   {upcoming.length > 0 && <div class="center-text"><Text source={note.entry.body} lang={lang} fallback={note.fallback} notice={false} /></div>}
 
   <section class="past-band">
-  <h2 id="past" class="page-title center-title">{ui.pastWorkshops}</h2>
+  <h2 id="past" class="page-title center-title index-title">{ui.pastWorkshops}</h2>
   <div class="year-list">
     {archive.map(([year, items]) => (
       <details class="year-acc">
