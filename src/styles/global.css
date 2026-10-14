@@ -108,7 +108,13 @@ h1 { font-size: var(--h1-size); margin-top: 0; margin-bottom: calc(var(--page-to
 h2 { font-size: var(--h2-size); }
 h3 { font-size: var(--h3-size); }
 .center-title { text-align: center; }
-.index-title { --h1-size: 2rem; text-transform: uppercase; letter-spacing: .06em; color: var(--red-text); } /* only the titles of the index pages (Workshops, Events, Writings, Lectures, Shows): 32px capitals with light letter spacing (designer, 261013); detail pages keep the standard H1 */
+.index-title { white-space: nowrap; --h1-size: min(2rem, calc((100vw - 2 * var(--gutter)) / 16.6)); text-transform: uppercase; letter-spacing: .06em; } /* only the titles of the index pages (Workshops, Events, Writings, Lectures, Shows): 32px capitals with light letter spacing (designer, 261013); detail pages keep the standard H1 */
+.index-title:lang(it) { --h1-size: min(2rem, calc((100vw - 2 * var(--gutter)) / 18.2)); } /* one line always: on narrow screens the title shrinks to fit (the widest English title with its bullets is about 16.5em, the widest Italian one 18em) */
+.index-title::before, .index-title::after { content: "\2022" / ""; color: var(--red); margin-inline: .5em; } /* a red bullet each side of the index titles (designer, 261013), decorative only */
+@media (max-width: 40rem) { /* phones: no bullets, and the title may wrap onto two lines at the full 32px (designer, 261013) */
+  .index-title::before, .index-title::after { content: none; }
+  .index-title, .index-title:lang(it) { white-space: normal; --h1-size: 2rem; }
+}
 .center-text { text-align: center; }
 .page-title { font-size: var(--h1-size); margin-bottom: calc(var(--space-section) + .18 * var(--h1-size)); } /* an h2 that looks like the page title (h1) */
 .h1, .h2, .h3 { font-weight: 700; line-height: 1.25; }
