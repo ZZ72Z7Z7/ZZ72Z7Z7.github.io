@@ -1,0 +1,46 @@
+---
+// Design review page: colour for the empty side space on large desktop windows. Local only, never built.
+// Each frame loads the real Workshops page at 1700px wide and injects the option's CSS.
+import Base from '../layouts/Base.astro';
+const col = 'html { background: var(--bg-side) !important; } body { max-width: 64rem; margin: 0 auto !important; background: #fff !important; min-height: 100vh; }';
+const options = [
+  { id: 'now', name: 'Now · white all round', text: 'For comparison.', css: '' },
+  { id: 'a', name: 'Like the old site · dark red sides (#b20000), white page', text: 'The old WordPress site had a #b20000 page background with the content on a white sheet. Here the page is a 1024px white column (the header inside it) on that same red, which fills the empty space on large windows.', css: ':root { --bg-side: #b20000; } ' + col },
+  { id: 'b', name: 'Same layout in the new red (#db0500)', text: 'The identical layout with the red now used for buttons. It is brighter than the old site, and it meets the white column at higher contrast.', css: ':root { --bg-side: #db0500; } ' + col },
+];
+---
+<Base title="Desktop margins review" lang="en" path="/design/desktop-margins/" noindex wide>
+  <h1>Colour for the side space on large windows</h1>
+  <p>Each frame shows the Workshops page in a 1700px-wide window, scaled to fit. In every option the page itself stays a 1024px white column; only the space either side changes. Nothing here is applied to the site.</p>
+  {options.map((o) => (
+    <section class="dm-var">
+      <h2>{o.name}</h2>
+      <p>{o.text}</p>
+      <div class="dm-wrap"><iframe class="dm-frame" src="/workshops/" title={o.name} data-css={o.css}></iframe></div>
+    </section>
+  ))}
+</Base>
+<style is:global>
+  .dm-var { margin: 2.5rem 0; }
+  .dm-wrap { margin-top: 1rem; border: 1px dashed #bbb; overflow: hidden; }
+  .dm-frame { width: 1700px; height: 760px; border: 0; display: block; transform-origin: 0 0; }
+</style>
+<script>
+  const fit = () => document.querySelectorAll<HTMLElement>('.dm-wrap').forEach((w) => {
+    const f = w.querySelector<HTMLElement>('.dm-frame')!;
+    const k = Math.min(1, w.clientWidth / 1700);
+    f.style.transform = `scale(${k})`;
+    w.style.height = `${760 * k}px`;
+  });
+  fit();
+  addEventListener('resize', fit);
+  document.querySelectorAll<HTMLIFrameElement>('.dm-frame').forEach((f) => {
+    f.addEventListener('load', () => {
+      const css = f.dataset.css, doc = f.contentDocument;
+      if (!css || !doc) return;
+      const s = doc.createElement('style');
+      s.textContent = css;
+      doc.head.appendChild(s);
+    });
+  });
+</script>

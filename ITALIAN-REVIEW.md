@@ -561,3 +561,14 @@ Chip words: Prossimamente (Coming soon, the Pending status), Aperto, Lista d’a
 - Fixed my earlier slip “l’squisito” to “lo squisito”; “Numeri clown e *le bide (fiasco)*” italics corrected as in the English.
 - Sentences the designer dropped from the English are also gone from the Italian (“Giovanni selezionerà gli studenti…”, the “Per ulteriori informazioni…” contact lines).
 - Source typos left in the English (“depending of many factors”, “final.celebration”) are carried over in meaning, not copied.
+
+## Added 261013: Shows page, Contact, Home labels (all drafts by Claude, for human review)
+**src/content/pages/it/shows.md** (Spettacoli; READ MORE control "Leggi di più" / "Leggi meno")
+- Credit roles: "Ideato e interpretato da", "Co-ideato da", "Regia di (2020); … (2022)", "Scritto e interpretato da", "Burattinai:", "Prodotto da", "Scritto da / Compositrice / Drammaturga", "Co-diretto da".
+- Taglines: We Too is joined on one line (Italian words unchanged); Slotalia "Uno spettacolo di teatro di narrazione sulla terra e sulle persone che vivono lungo il confine tra Slovenia e Italia" (draft of the designer's English); Covivido uses the client's own Italian ("Un incrocio tra un Buffone, uno Zanni e …un Virus."); Depression "Uno spettacolo mentale di risate e lacrime..."; Mockingbird unchanged.
+- We Too description: draft of the designer's new English paragraphs (festival cancelled by COVID-19; new version at LAMAMA Theatre in 2022).
+- Covivido: the Italian page now shows only the client's own Italian paragraph (the earlier draft translation of the English paragraph was removed).
+- Slotalia links: labels are the old "Per saperne di più…" lead-ins without the colon; "BLOG"; the Italian paragraph about the second artistic walk was removed with the English one.
+- Mockingbird video link: "Trailer video".
+- Dates and places are hidden for now (kept in data attributes); Norvegia stays Norvegia.
+**Interface:** contact heading "Iscriviti alla mailing list:" (shortened from the longer line); the Contact page's email link needs no translation; the old Italian "Ingressi" idea was dropped (the event page keeps "Ingresso").
