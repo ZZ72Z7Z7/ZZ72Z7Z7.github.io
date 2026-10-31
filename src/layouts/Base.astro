@@ -70,9 +70,10 @@ const menu = [
     <a class="skip" href="#content">{ui.skip}</a>
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href={href('/', lang)}>
+        <a class="brand" href={href('/', lang)} aria-label={ui.siteName}>
           <img class="brand-logo" src="/images/spiral-logo.png" width="288" height="300" alt="" />
           <span class="brand-name">{ui.siteName}</span>
+          {section && section !== 'home' && ui.menu[section] && <span class="brand-section" aria-hidden="true">{ui.menu[section]}</span>}
         </a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label={ui.menuButton}>
           <span class="bars" aria-hidden="true"></span>
@@ -87,6 +88,7 @@ const menu = [
                       <span class="lbl" data-label={ui.menu[m.key]}>{ui.menu[m.key]}</span>
                     </button>
                     <ul class="submenu" id={`sub-${m.key}`}>
+                      <li class="sub-back"><button type="button" class="sub-back-btn"><span aria-hidden="true">‹</span> {ui.menuButton}</button></li>
                       {m.children.map((c) => (
                         <li><a href={href(c.path, lang)} aria-current={section === c.key ? 'page' : undefined}><span class="lbl" data-label={ui.menu[c.key]}>{ui.menu[c.key]}</span></a></li>
                       ))}
@@ -137,11 +139,40 @@ const menu = [
           menu.classList.toggle('open', open);
           document.documentElement.classList.toggle('menu-open', open);
         }
-        btn.addEventListener('click', function () { set(btn.getAttribute('aria-expanded') !== 'true'); });
+        // Phones and tablets: opening the menu also opens the group (Creations, About, Gallery) that holds the current page; closing the menu closes it again.
+        var phone = window.matchMedia('(max-width: 63.9375rem)');
+        function openCurrentGroup(open) {
+          var cur = menu.querySelector('.sub-toggle.current'); if (!cur) return;
+          var li = cur.closest('.has-sub'); if (!li) return;
+          li.classList.toggle('open', open); cur.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+        btn.addEventListener('click', function () {
+          var open = btn.getAttribute('aria-expanded') !== 'true';
+          set(open);
+          if (phone.matches) setTimeout(function () { if (open) openCurrentGroup(true); else closeGroups(); }, 0); // after the click reaches the dropdown script, which closes dropdowns on outside clicks
+        });
+        // Phones and tablets: a group (Creations, About, Gallery) opens as its own screen inside the menu, with a back button, instead of expanding in the list.
+        function closeGroups() {
+          [].forEach.call(menu.querySelectorAll('.has-sub.open'), function (li) { li.classList.remove('open'); var t = li.querySelector('.sub-toggle'); if (t) t.setAttribute('aria-expanded', 'false'); });
+        }
+        function sync() { menu.classList.toggle('sub-view', phone.matches && !!menu.querySelector('.has-sub.open')); }
+        new MutationObserver(sync).observe(menu, { attributes: true, attributeFilter: ['class'], subtree: true });
+        [].forEach.call(menu.querySelectorAll('.sub-back-btn'), function (b) {
+          b.addEventListener('click', function () { closeGroups(); b.closest('.has-sub').querySelector('.sub-toggle').focus(); });
+        });
         window.matchMedia('(min-width: 64rem)').addEventListener('change', function (e) { if (e.matches) set(false); }); // growing the window past the phone layout closes the open menu
         document.addEventListener('keydown', function (e) {
           if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { set(false); btn.focus(); }
         });
+      })();
+    </script>
+    <script is:inline>
+      // Phones and tablets: once the page is scrolled, the site name gives way to the name of the current section (the logo stays).
+      (function () {
+        if (!document.querySelector('.brand-section')) return;
+        var root = document.documentElement, on = false;
+        function check() { var now = window.scrollY > 120; if (now !== on) { on = now; root.classList.toggle('scrolled', on); } }
+        check(); window.addEventListener('scroll', check, { passive: true });
       })();
     </script>
     <script is:inline>

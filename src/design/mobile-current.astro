@@ -1,0 +1,47 @@
+---
+// Design review page: showing the current page next to the hamburger on phones. Local only, never built.
+// Each frame loads the real page at 375px and injects a label before the menu button.
+import Base from '../layouts/Base.astro';
+const base = `
+.site-header .wrap { flex-wrap: nowrap !important; }
+.site-header .cur-label { margin-left: auto; margin-right: -.25rem; white-space: nowrap; font-size: .75rem; text-transform: uppercase; letter-spacing: .02em; font-weight: 700; color: #db0500; }
+.js .menu-toggle { margin-left: 0 !important; }
+`;
+const options = [
+  { id: 'A', name: 'A · Red bold capitals, same style as the desktop menu', text: 'The selected menu item, shrunk (logo and site name unchanged): 12px capitals, bold, dark red, directly left of the three bars.', css: base },
+  { id: 'B', name: 'B · Same, with a thin red underline', text: 'As A, plus a 2px red underline, echoing the underline used for the current page earlier.', css: base + '.site-header .cur-label { text-decoration: underline 2px; text-underline-offset: .4em; }' },
+  { id: 'C', name: 'C · Smaller, black, with a red dot', text: 'Quieter: 11px black bold capitals with a small red dot before them. Leaves more room for the site name in Italian.', css: base + '.site-header .cur-label { font-size: .6875rem; color: #111; } .site-header .cur-label::before { content: "\\2022"; color: #f00800; margin-right: .35em; }' },
+];
+const pages = [{ lang: 'English', src: '/workshops/' }, { lang: 'Italiano', src: '/it/events/' }, { lang: 'Italiano (long name)', src: '/it/workshops/' }];
+---
+<Base title="Mobile current page review" lang="en" path="/design/mobile-current/" noindex wide>
+  <h1>Current page next to the hamburger</h1>
+  <p>Each row shows the real page at 375px with the option applied. Nothing is applied to the site. Menu closed state only; check the narrowest case (Italian) for crowding.</p>
+  <p><strong>Recommendation:</strong> A, the same look as the desktop selected item, so both sizes say the same thing.</p>
+  {options.map((o) => (
+    <section class="mc-var">
+      <h2>{o.name}</h2>
+      <p>{o.text}</p>
+      <div class="mc-row">
+        {pages.map((p) => <figure><figcaption>{p.lang}</figcaption><iframe class="mc-frame" src={p.src} title={o.name + ' ' + p.lang} data-css={o.css}></iframe></figure>)}
+      </div>
+    </section>
+  ))}
+</Base>
+<style is:global>
+  .mc-var { margin: 2.5rem 0; }
+  .mc-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .mc-row figure { margin: 0; }
+  .mc-frame { width: 375px; height: 160px; border: 1px dashed #bbb; display: block; }
+</style>
+<script>
+  document.querySelectorAll<HTMLIFrameElement>('.mc-frame').forEach((f) => {
+    f.addEventListener('load', () => {
+      const doc = f.contentDocument; if (!doc) return;
+      const s = doc.createElement('style'); s.textContent = f.dataset.css || ''; doc.head.appendChild(s);
+      const cur = doc.querySelector('.site-nav a[aria-current="page"] .lbl');
+      const btn = doc.querySelector('.menu-toggle');
+      if (cur && btn) { const l = doc.createElement('span'); l.className = 'cur-label'; l.textContent = cur.textContent || ''; btn.before(l); }
+    });
+  });
+</script>

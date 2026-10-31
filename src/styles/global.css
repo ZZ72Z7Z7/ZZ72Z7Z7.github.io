@@ -69,6 +69,8 @@ main.wide { max-width: var(--wide); }
 .brand-logo { height: 4.5rem; width: auto; display: block; }
 .brand-name { font-size: 1.6rem; font-weight: 700; letter-spacing: .01em; }
 .menu-toggle { display: none; }
+.brand-section { display: none; }
+.sub-back { display: none; }
 .header-right { display: flex; align-items: center; flex-wrap: nowrap; gap: .5rem var(--menu-gap); }
 /* RULE: the language menu (the names in its dropdown) always mirrors the menu items' text settings (size, case, letter spacing, weight). Change them here, once, for both.
    Chosen 261009: 18px, sentence-style capitals (About, Workshops...), regular weight 400; the current page is semibold 600 and dark red. */
@@ -76,13 +78,13 @@ main.wide { max-width: var(--wide); }
 .site-nav ul { display: flex; flex-wrap: nowrap; gap: .25rem var(--menu-gap); list-style: none; margin: 0; padding: 0; }
 .site-nav a { text-decoration: none; padding: .35rem 0; border-bottom: 3px solid transparent; }
 .site-nav a:hover { color: var(--red); } /* hover: the colour changes, nothing is underlined (the current page keeps its red underline) */
-.site-nav a[aria-current="page"] { font-weight: 700; } /* the current page: bold only, no colour (designer, 261013); hover stays red */
+.site-nav a[aria-current="page"] { font-weight: 700; color: var(--red-text); } /* the current page: bold and red (designer, 261019; the darker red keeps small text legible); hover is the logo red */
 /* Creations submenu: a list that drops down under the word (hover, keyboard focus, click or tap) */
 .site-nav .has-sub { position: relative; }
 .site-nav .sub-toggle { display: inline-block; font-family: inherit; line-height: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; }
 /* (no padding or border: the menu has no underlines, and an inline-block button with the same line height sits on the same baseline as the links at any size) */
 .site-nav .sub-toggle:hover { color: var(--red); }
-.site-nav .sub-toggle.current { font-weight: 700; }
+.site-nav .sub-toggle.current { font-weight: 700; color: var(--red-text); } /* the group holding the current page is red too (designer, 261019) */
 /* each label reserves the width of its own semibold (current page) version (an invisible bold copy), so making the current page bold never moves the other items */
 .site-nav .lbl { display: inline-flex; flex-direction: column; align-items: center; }
 .site-nav .lbl::after { content: attr(data-label); font-weight: 700; height: 0; overflow: hidden; visibility: hidden; white-space: nowrap; }
@@ -110,9 +112,8 @@ h3 { font-size: var(--h3-size); }
 .center-title { text-align: center; }
 .index-title { white-space: nowrap; --h1-size: min(2rem, calc((100vw - 2 * var(--gutter)) / 16.6)); text-transform: uppercase; letter-spacing: .06em; } /* only the titles of the index pages (Workshops, Events, Writings, Lectures, Shows): 32px capitals with light letter spacing (designer, 261013); detail pages keep the standard H1 */
 .index-title:lang(it) { --h1-size: min(2rem, calc((100vw - 2 * var(--gutter)) / 18.2)); } /* one line always: on narrow screens the title shrinks to fit (the widest English title with its bullets is about 16.5em, the widest Italian one 18em) */
-.index-title::before, .index-title::after { content: "\2022" / ""; color: var(--red); margin-inline: .5em; } /* a red bullet each side of the index titles (designer, 261013), decorative only */
+h1, .page-title { color: var(--red); } /* page titles are logo red (designer, 261019); large type only */
 @media (max-width: 40rem) { /* phones: no bullets, and the title may wrap onto two lines at the full 32px (designer, 261013) */
-  .index-title::before, .index-title::after { content: none; }
   .index-title, .index-title:lang(it) { white-space: normal; --h1-size: 2rem; }
 }
 .center-text { text-align: center; }
@@ -253,6 +254,9 @@ body { overflow-x: clip; }
 @media (max-width: 63.9375rem) {
   :root { --menu-size: 1.125rem; }
   .site-header .wrap { flex-wrap: wrap; }
+  /* once scrolled, the section name replaces the site name next to the logo (designer, 261019): same look as the selected menu item */
+  html.scrolled .brand-name { display: none; }
+  html.scrolled .brand-section { display: inline; font-size: 1.125rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--red-text); }
   .site-header { position: sticky; top: 0; z-index: 30; background: var(--bg, #fff); } /* the header stays in view on phones and tablets (designer, 261009) */
   .js .menu-toggle {
     display: flex; align-items: center; justify-content: center;
@@ -293,6 +297,19 @@ body { overflow-x: clip; }
   .site-nav .submenu, .site-nav .has-sub:hover .submenu, .site-nav .has-sub:has(:focus-visible) .submenu { display: none; position: static; align-items: center; min-width: 0; padding: 0 0 .25rem; border: 0; box-shadow: none; background: none; }
   .site-nav .has-sub.open .submenu { display: flex; }
   .site-nav .submenu a { font-size: 1.25rem; color: var(--muted); padding: .5rem 0; }
+  .site-nav .submenu a[aria-current="page"] { color: var(--red-text); }
+  /* a group opens as its own screen in the menu (designer, 261019): the other items and the language globe step aside, a back button leads to the main list, and the items are set at full menu size */
+  .header-right.sub-view .site-nav > ul > li:not(.has-sub.open), .header-right.sub-view .lang-menu { display: none; }
+  .header-right.sub-view .site-nav .has-sub.open > .sub-toggle { display: none; }
+  .header-right.sub-view .site-nav .submenu { padding: 0; }
+  .header-right.sub-view .site-nav .submenu a { font-size: var(--menu-size); color: var(--text); padding: .6rem 0; }
+  .header-right.sub-view .site-nav .submenu a[aria-current="page"] { color: var(--red-text); }
+  .header-right.sub-view .site-nav .submenu .lbl { align-items: center; }
+  .header-right.sub-view .site-nav .submenu a { white-space: normal; text-align: center; }
+  .header-right.sub-view .site-nav .submenu .lbl::after { display: none; }
+  .header-right.sub-view .sub-back { display: list-item; margin-bottom: 1rem; }
+  .sub-back-btn { font: inherit; font-size: 1.125rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); background: none; border: 0; padding: .6rem 1rem; cursor: pointer; }
+  .sub-back-btn:hover { color: var(--red); }
   .lang-list a { font-size: 1.25rem; padding: .5rem 0; }
   .lang-toggle svg { width: 30px; height: 30px; }
 }
@@ -751,3 +768,8 @@ h1.ev-title + .subtitle.entry-sub { font-size: var(--p1-size); text-align: cente
 }
 .entry-card.ev.show .entry-title { margin-top: 0; } /* no date or place line on the Shows index (designer, 261013; they are kept in each entry's data-date and data-place attributes) */
 @media (max-width: 63.9375rem) { .entry-card.ev.show .entry-title { margin-top: 1.5rem; } } /* phones and tablets: 24px between the photo and the title (designer, 261013) */
+
+/* desktop: the section title of the index pages (Upcoming Workshops, Upcoming Events, Blog, Writings, Lectures, Shows) is kept for screen readers only; the menu already shows the page (designer, 261019). Phones and tablets keep it visible. */
+@media (min-width: 64rem) {
+  h1.index-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+}
